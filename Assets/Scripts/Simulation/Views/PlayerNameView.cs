@@ -10,6 +10,7 @@ public class PlayerNameView : View {
 	
 	// Update is called once per frame
 	void Update () {
-		text.text = simulation.battle.playerCharacter.name;
+		text.text = playerCharacter.name;
+		
 	}
 }

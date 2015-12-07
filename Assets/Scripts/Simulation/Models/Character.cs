@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class Character : Model {
+	
+	public Character (string _key) : base("Character", _key) {}
 	
 	public int level;
 	public int experiencePoints;
@@ -13,6 +16,8 @@ public class Character : Model {
 	
 	public int currentMana;
 	public int maxMana;
+	
+	public List<Spell> spells = new List<Spell>();
 	
 	
 	
