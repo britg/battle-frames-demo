@@ -1,7 +1,12 @@
-﻿//#define USE_SharpZipLib
+//#define USE_SharpZipLib
 #if !UNITY_WEBPLAYER
 #define USE_FileIO
 #endif
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 /* * * * *
  * A simple JSON Parser / builder
@@ -42,11 +47,6 @@
  *   It's not the most efficient way but for a moderate amount of data it should work on all platforms.
  * 
  * * * * */
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
- 
  
 namespace SimpleJSON
 {

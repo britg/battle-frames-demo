@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
-public class Character : Model {
+public class Character : JSONResource {
 	
-	public Character (string _key) : base("Character", _key) {}
+	public Character (string _key) : base(_key) {}
 	
 	public int level;
 	public int experiencePoints;

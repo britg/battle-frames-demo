@@ -1,5 +1,6 @@
 {
 	"type": "Item",
 	"key": "healing_potion",
-	"name": "Healing Potion"
+	"name": "Healing Potion",
+	"testField": "cheese"
 }

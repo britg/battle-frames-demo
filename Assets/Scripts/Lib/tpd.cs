@@ -1,6 +1,8 @@
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+
 
 /* Tavernpunk Unity3d Helpers
  * Brit Gardner
@@ -76,7 +78,7 @@ public class tpd {
       sum += (float)pair.Value;
     }
 
-    float rand = Random.Range(0f, sum);
+    float rand = UnityEngine.Random.Range(0f, sum);
 
     float running = 0;
     string chosen = null;
@@ -97,7 +99,7 @@ public class tpd {
       sum += (float)pair.Value;
     }
 
-    float rand = Random.Range(0f, sum);
+    float rand = UnityEngine.Random.Range(0f, sum);
 
     float running = 0;
     string chosen = null;
@@ -113,16 +115,16 @@ public class tpd {
   }
 
   public static bool RollPercent (float chance) {
-    float rand = Random.Range(0f, 100f);
+    float rand = UnityEngine.Random.Range(0f, 100f);
     return rand < chance;
   }
 
   public static float RollRange (RangeAttribute range) {
-    return Random.Range(range.min, range.max);
+    return UnityEngine.Random.Range(range.min, range.max);
   }
 
   public static T RollList<T> (List<T> list) {
-    return list[Random.Range(0, list.Count -1)];
+    return list[UnityEngine.Random.Range(0, list.Count -1)];
   }
 
   /*

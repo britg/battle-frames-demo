@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Item : Model {
+public class Item : JSONResource {
 
-	public Item (string _key) : base("Item", _key) {}
+	public Item () : base() {}
+	public Item (string _key) : base(_key) {}
+	
+	public string testField;
 }

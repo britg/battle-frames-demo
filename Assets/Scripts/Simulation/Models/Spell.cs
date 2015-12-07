@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
 
-public class Spell : Model {
+public class Spell : JSONResource {
 	
-	public Spell (string _key) : base("Spell", _key) {}
+	public Spell (string _key) : base(_key) {}
 	
 }
