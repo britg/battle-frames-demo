@@ -31,13 +31,17 @@ public abstract class JSONResource {
   public JSONNode sourceNode {
     get {
       if (_sourceNode == null) {
-        var typeDict = JSONResource.jsonCache[type];
-        if (typeDict.ContainsKey(sourceKey)) {
-          _sourceNode = typeDict[sourceKey];  
-        } else {
-          _sourceNode = new JSONNode();
-        }
         
+        if (!JSONResource.jsonCache.ContainsKey(type)) {
+          _sourceNode = new JSONNode();
+        } else {
+          var typeDict = JSONResource.jsonCache[type];
+          if (typeDict.ContainsKey(sourceKey)) {
+            _sourceNode = typeDict[sourceKey];  
+          } else {
+            _sourceNode = new JSONNode();
+          }  
+        }
       }
       return _sourceNode;
     }

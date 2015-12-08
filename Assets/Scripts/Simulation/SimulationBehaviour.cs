@@ -13,23 +13,24 @@ public class SimulationBehaviour : MonoBehaviour {
 		}
 	}
 	
+	BattleController _battleController;
+	public BattleController battleController {
+		get {
+			if (_battleController == null) {
+				_battleController = GameObject.Find("Battle").GetComponent<BattleController>();
+			}
+			return _battleController;
+		}
+	}
+	
 	Battle _battle;
 	public Battle battle {
 		get {
 			if (_battle == null) {
-				_battle = simulation.battle;
+				_battle = battleController.battle;
 			}
 			return _battle;
 		}
 	}
 	
-	Character _playerCharacter;
-	public Character playerCharacter {
-		get {
-			if (_playerCharacter == null) {
-				_playerCharacter = battle.playerCharacter;
-			}
-			return _playerCharacter;
-		}
-	}
 }

@@ -3,10 +3,11 @@
 
 public class Simulation : MonoBehaviour {
 	
+	public GameObject battlePrefab;
+	
 	public JSONResourceLoader resourceLoader;
 
 	public Config config;
-	public Battle battle;
 	
 	void Awake () {
 		resourceLoader.OnDoneLoading += OnDoneResourceLoading;
@@ -15,15 +16,29 @@ public class Simulation : MonoBehaviour {
 	}
 	
 	void OnDoneResourceLoading () {
-		var spell = new Spell("flash_heal");
-		Debug.Log(spell.name);
-		var item = new Item("healing_potion");
-		Debug.Log(item);
-		Debug.Log(item.testField);
+		Demo();
+	}
+	
+	void Demo () {
+		
+		var rootMonster = new Character("root_monster");
+		var warrior = new Character("warrior");
+		
+		var battle = new Battle("demo");
+		
+		// battle.friendlyCharacters.Add(warrior);
+		// battle.enemyCharacters.Add(rootMonster);
+		
+		var battleObj = GameObject.Find("Battle");
+		if (battleObj == null) {
+			battleObj = Instantiate(battlePrefab);
+		}
 		
 		
-		var other = new Item("stuff");
-		Debug.Log(other);
+		var battleController = battleObj.GetComponent<BattleController>();
+		battleController.battle = battle;		
+		
+		battleController.Setup();
 	}
 	
 }
