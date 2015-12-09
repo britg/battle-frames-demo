@@ -27,6 +27,6 @@ public class BasicAttackController : BattleFrameBehaviour {
 		// perform animation on targets
 		
 		// var attackResults = new BasicAttackResolver(battleFrameController, currentTarget, battle).Resolve();
-		var attackResult = new AttackResult();
+		
 	}
 }
