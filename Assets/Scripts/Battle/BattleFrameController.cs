@@ -8,7 +8,7 @@ public class BattleFrameController : SimulationBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+		EnsureBasicAttack();
 	}
 	
 	// Update is called once per frame
@@ -18,5 +18,9 @@ public class BattleFrameController : SimulationBehaviour {
 	
 	public void SetCharacter (Character _character) {
 		character = _character;		
+	}
+	
+	void EnsureBasicAttack () {
+		
 	}
 }

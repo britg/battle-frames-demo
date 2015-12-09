@@ -34,11 +34,20 @@ public class Simulation : MonoBehaviour {
 			battleObj = Instantiate(battlePrefab);
 		}
 		
-		
 		var battleController = battleObj.GetComponent<BattleController>();
 		battleController.battle = battle;		
 		
 		battleController.Setup();
+		
+		MockTargets(battleController); 
+	}
+	
+	void MockTargets (BattleController battleController) {
+		var friendly = battleController.friendlyControllers[0];
+		var enemy = battleController.enemyControllers[0];
+		
+		friendly.currentTarget = enemy;
+		enemy.currentTarget = friendly;
 	}
 	
 }

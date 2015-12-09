@@ -5,7 +5,10 @@ using System.Collections.Generic;
 public class BattleController : SimulationBehaviour {
 	
 	public GameObject friendlyContainer;
+	public List<BattleFrameController> friendlyControllers = new List<BattleFrameController>();
 	public GameObject enemyContainer;
+	public List<BattleFrameController> enemyControllers = new List<BattleFrameController>();
+	
 	public GameObject battleFramePrefab;
 	
 	public new Battle battle;
@@ -40,6 +43,12 @@ public class BattleController : SimulationBehaviour {
 		
 		var frameController = frame.GetComponent<BattleFrameController>();
 		frameController.SetCharacter(character);
+		
+		if (character.currentBattleSide == Battle.Side.Friend) {
+			friendlyControllers.Add(frameController);
+		} else {
+			enemyControllers.Add(frameController);
+		}
 		
 		 // TODO: Set the frame position, etc.
 	}
