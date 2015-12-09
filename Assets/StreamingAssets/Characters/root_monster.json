@@ -15,6 +15,12 @@
 			"minValue": 0,
 			"maxValue": 100,
 			"shouldRound": true
+		},
+		"attackSpeed": {
+			"currentValue": 1
+		},
+		"dps": {
+			"currentValue": 3
 		}
 	}
 }

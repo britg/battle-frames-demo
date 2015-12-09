@@ -19,20 +19,12 @@ public class StatProfile {
 		return Stat.Mapping(statKey).CalculatedStat(statKey, this);
 	}
 	
-	public float CurrentRawValue (string statKey) {
-		return statForKey(statKey).currentValue;
-	}
-	
 	public int MaxValue (string statKey) {
-		return Mathf.RoundToInt(MaxRawValue(statKey));
+		return Stat.Mapping(statKey).CalculatedStatMax(statKey, this);
 	}
 	
 	public float MaxRawValue (string statKey) {
 		return statForKey(statKey).maxValue;
-	}
-	
-	public float MinRawValue (string statKey) {
-		return statForKey(statKey).minValue;
 	}
 	
 	public Stat statForKey (string statKey) {

@@ -4,6 +4,7 @@ using System.Collections;
 public class BattleFrameController : SimulationBehaviour {
 	
 	public Character character;
+	public BattleFrameController currentTarget;
 
 	// Use this for initialization
 	void Start () {

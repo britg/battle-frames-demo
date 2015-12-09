@@ -4,14 +4,20 @@
 	"name": "Thjodrynn",
 	"stats": {
 		"health": {
-			"currentValue": 100,
+			"currentValue": 300,
 			"minValue": 0,
-			"maxValue": 100
+			"maxValue": 300
 		},
 		"abilityPoints": {
 			"currentValue": 0,
 			"minValue": 0,
 			"maxValue": 100
+		},
+		"attackSpeed": {
+			"currentValue": 1
+		},
+		"dps": {
+			"currentValue": 10
 		}
 	}
 }
