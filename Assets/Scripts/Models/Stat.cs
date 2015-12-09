@@ -1,10 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Stat : JSONResource {
 	
 	public const string Health = "health";
 	public const string AbilityPoints = "abilityPoints";
+	
+	public static Dictionary<string, IStatCalculator> CalculatorMapping
+		= new Dictionary<string, IStatCalculator>() {
+			{ Health, BaseStatCalculator.Instance } 
+		};
+		
+	public static IStatCalculator Mapping (string statKey) {
+		if (CalculatorMapping.ContainsKey(statKey)) {
+			return CalculatorMapping[statKey];
+		}
+		
+		return BaseStatCalculator.Instance;
+	}
 	
 	public Stat (string _key) : base(_key) {}
 	
@@ -12,5 +26,5 @@ public class Stat : JSONResource {
 	public float minValue;
 	public float maxValue;
 	
-	public bool shouldRound;
+	public bool computed = false;
 }

@@ -9,6 +9,11 @@ public class Character : JSONResource {
 		stats = new StatProfile(this);
 	}
 	
+	public void Initialize () {
+		AssignFields();
+		stats = new StatProfile(this);
+	}
+	
 	public StatProfile stats;
 	
 	public List<Ability> abilities = new List<Ability>();

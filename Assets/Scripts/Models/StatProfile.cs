@@ -16,11 +16,10 @@ public class StatProfile {
 	public List<Stat> stats = new List<Stat>();
 	
 	public int CurrentValue (string statKey) {
-		return Mathf.RoundToInt(CurrentRawValue(statKey));
+		return Stat.Mapping(statKey).CalculatedStat(statKey, this);
 	}
 	
 	public float CurrentRawValue (string statKey) {
-		// TODO: Add in modifiers
 		return statForKey(statKey).currentValue;
 	}
 	
@@ -29,8 +28,11 @@ public class StatProfile {
 	}
 	
 	public float MaxRawValue (string statKey) {
-		// TODO: Add in modifiers
 		return statForKey(statKey).maxValue;
+	}
+	
+	public float MinRawValue (string statKey) {
+		return statForKey(statKey).minValue;
 	}
 	
 	public Stat statForKey (string statKey) {

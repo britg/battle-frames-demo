@@ -16,6 +16,13 @@ public abstract class JSONResource {
   public JSONResource () {
     guid = System.Guid.NewGuid().ToString();
     type = this.GetType().ToString();
+    
+    if (key == null) {
+      throw new System.Exception("key must be present");  
+    }
+    
+    
+    AssignFields();
   }
   
   public JSONResource (string _key) {
@@ -50,7 +57,7 @@ public abstract class JSONResource {
   public string key;
   public string name;
 
-  void AssignFields () {
+  protected void AssignFields () {
     
     var fields = this.GetType().GetFields(
       BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance

@@ -6,14 +6,12 @@
 		"health": {
 			"currentValue": 100,
 			"minValue": 0,
-			"maxValue": 100,
-			"shouldRound": true
+			"maxValue": 100
 		},
 		"abilityPoints": {
 			"currentValue": 0,
 			"minValue": 0,
-			"maxValue": 100,
-			"shouldRound": true
+			"maxValue": 100
 		}
 	}
 }
