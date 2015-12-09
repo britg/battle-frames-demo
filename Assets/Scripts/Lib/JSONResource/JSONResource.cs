@@ -12,7 +12,6 @@ public abstract class JSONResource {
   public static JSONSourceData jsonCache = new JSONSourceData();
   
   public string type;
-  public string sourceKey;
   
   public JSONResource () {
     guid = System.Guid.NewGuid().ToString();
@@ -22,7 +21,7 @@ public abstract class JSONResource {
   public JSONResource (string _key) {
     guid = System.Guid.NewGuid().ToString();
     type = this.GetType().ToString();
-    sourceKey = _key;
+    key = _key;
     
     AssignFields();
   }
@@ -36,8 +35,8 @@ public abstract class JSONResource {
           _sourceNode = new JSONNode();
         } else {
           var typeDict = JSONResource.jsonCache[type];
-          if (typeDict.ContainsKey(sourceKey)) {
-            _sourceNode = typeDict[sourceKey];  
+          if (typeDict.ContainsKey(key)) {
+            _sourceNode = typeDict[key];  
           } else {
             _sourceNode = new JSONNode();
           }  
@@ -63,7 +62,7 @@ public abstract class JSONResource {
       if (node != null && node.Value != "") {
         if (field.FieldType == typeof(string)) {
           field.SetValue(this, node.Value);
-        }  
+        }
       }
       
       // field.SetValue(this, node);

@@ -13,6 +13,34 @@ public class SimulationBehaviour : MonoBehaviour {
 		}
 	}
 	
+	GameTimeController _gameTimeController;
+	public GameTimeController gameTimeController {
+		get {
+			if (_gameTimeController == null) {
+				_gameTimeController = GameObject.Find("Simulation").GetComponent<GameTimeController>();
+			}
+			return _gameTimeController;
+		}
+	}
+	
+	public GameTime gameTime {
+		get {
+			return gameTimeController.gameTime;
+		}
+	}
+	
+	public float gameTimeMultiplier {
+		get {
+			return gameTime.config.currentTimeMultiplier;
+		}
+	}
+	
+	public float gameDeltaTime {
+		get {
+			return gameTimeController.gameDeltaTime;
+		}
+	}
+	
 	BattleController _battleController;
 	public BattleController battleController {
 		get {

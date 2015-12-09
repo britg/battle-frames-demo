@@ -5,11 +5,13 @@ using System.Collections.Generic;
 [System.Serializable]
 public class Character : JSONResource {
 	
-	public Character (string _key) : base(_key) {}
+	public Character (string _key) : base(_key) {
+		stats = new StatProfile(this);
+	}
 	
-	public StatProfile stats = new StatProfile();
+	public StatProfile stats;
 	
-	public List<Spell> spells = new List<Spell>();
+	public List<Ability> abilities = new List<Ability>();
 	
 	public List<Item> equipment = new List<Item>();
 	

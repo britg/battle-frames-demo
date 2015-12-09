@@ -26,8 +26,8 @@ public class Simulation : MonoBehaviour {
 		
 		var battle = new Battle("demo");
 		
-		// battle.friendlyCharacters.Add(warrior);
-		// battle.enemyCharacters.Add(rootMonster);
+		battle.friendlyCharacters.Add(warrior);
+		battle.enemyCharacters.Add(rootMonster);
 		
 		var battleObj = GameObject.Find("Battle");
 		if (battleObj == null) {

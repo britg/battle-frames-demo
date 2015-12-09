@@ -13,5 +13,6 @@ public class View : SimulationBehaviour {
 			return _text;
 		}
 	}
+	
 
 }

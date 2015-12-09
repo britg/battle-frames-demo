@@ -1,5 +1,19 @@
 {
 	"type": "Character",
 	"key": "warrior",
-	"name": "Thjodrynn"
+	"name": "Thjodrynn",
+	"stats": {
+		"health": {
+			"currentValue": 100,
+			"minValue": 0,
+			"maxValue": 100,
+			"shouldRound": true
+		},
+		"abilityPoints": {
+			"currentValue": 0,
+			"minValue": 0,
+			"maxValue": 100,
+			"shouldRound": true
+		}
+	}
 }

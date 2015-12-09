@@ -2,5 +2,19 @@
 {
 	"type": "Character",
 	"key": "root_monster",
-	"name": "Root Monster"
+	"name": "Root Monster",
+	"stats": {
+		"health": {
+			"currentValue": 100,
+			"minValue": 0,
+			"maxValue": 100,
+			"shouldRound": true
+		},
+		"abilityPoints": {
+			"currentValue": 0,
+			"minValue": 0,
+			"maxValue": 100,
+			"shouldRound": true
+		}
+	}
 }

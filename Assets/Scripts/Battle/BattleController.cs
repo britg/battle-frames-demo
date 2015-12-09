@@ -1,16 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BattleController : SimulationBehaviour {
 	
 	public GameObject friendlyContainer;
-	public GameObject enemyContainer;	
+	public GameObject enemyContainer;
 	public GameObject battleFramePrefab;
 	
 	public new Battle battle;
 	
 	public void Setup () {
-		CreateFrames();		
+		CreateFrames();
+		PositionFrames();		
 	}
 	
 	void CreateFrames () {
@@ -29,7 +31,7 @@ public class BattleController : SimulationBehaviour {
 		var frame = Instantiate(battleFramePrefab) as GameObject;
 		
 		if (character.currentBattleSide == Battle.Side.Friend) {
-			frame.transform.SetParent(friendlyContainer.transform);	
+			frame.transform.SetParent(friendlyContainer.transform);
 		} else {
 			frame.transform.SetParent(enemyContainer.transform);
 		}
@@ -40,6 +42,16 @@ public class BattleController : SimulationBehaviour {
 		frameController.SetCharacter(character);
 		
 		 // TODO: Set the frame position, etc.
+	}
+	
+	void PositionFrames () {
+		var layouters = new List<BattleSideLayouter>();
+		layouters.Add(friendlyContainer.GetComponent<BattleSideLayouter>());
+		layouters.Add(enemyContainer.GetComponent<BattleSideLayouter>());
+		
+		foreach (var layouter in layouters) {
+			layouter.LayoutFrames();
+		}
 	}
 	
 }
