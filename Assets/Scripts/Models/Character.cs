@@ -21,4 +21,8 @@ public class Character : JSONResource {
 	public List<Item> equipment = new List<Item>();
 	
 	public Battle.Side currentBattleSide = Battle.Side.Neutral;
+	
+	public override string ToString () {
+		return name;
+	}
 }

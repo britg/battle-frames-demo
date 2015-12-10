@@ -63,4 +63,16 @@ public class BattleController : SimulationBehaviour {
 		}
 	}
 	
+	public void ProcessAttackResults (List<AttackResult> attackResults) {
+		foreach (AttackResult result in attackResults) {
+			ProcessAttackResult(result);	
+		}
+	}
+	
+	public void ProcessAttackResult (AttackResult attackResult) {
+		var stat = attackResult.targetController.character.stats.statForKey(attackResult.statKey);
+		stat.currentValue += attackResult.delta;
+		Debug.Log(attackResult);
+	}
+	
 }

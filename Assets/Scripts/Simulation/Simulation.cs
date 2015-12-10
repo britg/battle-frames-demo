@@ -35,11 +35,11 @@ public class Simulation : MonoBehaviour {
 		}
 		
 		var battleController = battleObj.GetComponent<BattleController>();
-		battleController.battle = battle;		
+		battleController.battle = battle;
 		
 		battleController.Setup();
 		
-		MockTargets(battleController); 
+		// MockTargets(battleController); 
 	}
 	
 	void MockTargets (BattleController battleController) {

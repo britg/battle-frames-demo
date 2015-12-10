@@ -17,10 +17,10 @@
 			"shouldRound": true
 		},
 		"attackSpeed": {
-			"currentValue": 1
+			"currentValue": 3
 		},
 		"dps": {
-			"currentValue": 3
+			"currentValue": 5
 		}
 	}
 }

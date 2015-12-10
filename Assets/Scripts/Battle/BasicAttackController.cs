@@ -20,13 +20,18 @@ public class BasicAttackController : BattleFrameBehaviour {
 	}
 	
 	public void FSM_Handler_PerformAttack () {
-		Debug.Log(character.name + "Performing attack -> " + currentTarget.character.name);
+		// Debug.Log(character.name + "Performing attack -> " + currentTarget.character.name);
 		
 		// Create an `AttackResult` object
 		// perform animation here
 		// perform animation on targets
 		
-		// var attackResults = new BasicAttackResolver(battleFrameController, currentTarget, battle).Resolve();
+		var attackResults = new BasicAttackResolver(
+				battleFrameController, 
+				currentTarget, 
+				battleController
+			).Resolve();
 		
+		battleController.ProcessAttackResults(attackResults);
 	}
 }

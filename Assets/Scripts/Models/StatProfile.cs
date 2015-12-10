@@ -15,7 +15,7 @@ public class StatProfile {
 	
 	public List<Stat> stats = new List<Stat>();
 	
-	public int CurrentValue (string statKey) {
+	public float CurrentValue (string statKey) {
 		return Stat.Mapping(statKey).CalculatedStat(statKey, this);
 	}
 	
