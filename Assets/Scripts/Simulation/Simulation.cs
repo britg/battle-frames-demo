@@ -21,6 +21,7 @@ public class Simulation : MonoBehaviour {
 	
 	void Demo () {
 		
+		
 		var rootMonster = new Character("root_monster");
 		var warrior = new Character("warrior");
 		
