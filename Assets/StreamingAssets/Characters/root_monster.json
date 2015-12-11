@@ -3,11 +3,14 @@
 	"type": "Character",
 	"key": "root_monster",
 	"name": "Root Monster",
+	"ai": [
+		"HighestAggroTargetter"
+	],
 	"stats": {
 		"health": {
-			"currentValue": 100,
+			"currentValue": 1000,
 			"minValue": 0,
-			"maxValue": 100,
+			"maxValue": 1000,
 			"shouldRound": true
 		},
 		"abilityPoints": {

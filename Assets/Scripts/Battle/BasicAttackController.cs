@@ -5,6 +5,7 @@ public class BasicAttackController : BattleFrameBehaviour {
 	
 	public float attackSpeed;
 	public bool hasTarget;
+	public bool isControllable = false;
 
 	// Use this for initialization
 	void Start () {
@@ -17,9 +18,10 @@ public class BasicAttackController : BattleFrameBehaviour {
 		// TODO get attack speed in game time.
 		attackSpeed = character.stats.CurrentValue(Stat.AttackSpeed);
 		hasTarget = (currentTarget != null);
+		isControllable = (character.currentBattleSide == Battle.Side.Friend);
 	}
 	
-	public void FSM_Handler_PerformAttack () {
+	public void PerformBasicAttack () {
 		// Debug.Log(character.name + "Performing attack -> " + currentTarget.character.name);
 		
 		// Create an `AttackResult` object
@@ -33,5 +35,15 @@ public class BasicAttackController : BattleFrameBehaviour {
 			).Resolve();
 		
 		battleController.ProcessAttackResults(attackResults);
+	}
+	
+	public void SetBasicAttackTarget (GameObject targetObj) {
+		Debug.Log("Targetted " + targetObj);
+		var targetFrameController = targetObj.GetComponent<BattleFrameController>();
+		if (targetFrameController == null) {
+			return;
+		}
+		
+		battleFrameController.currentTarget = targetFrameController;  
 	}
 }

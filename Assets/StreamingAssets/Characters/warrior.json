@@ -14,10 +14,10 @@
 			"maxValue": 100
 		},
 		"attackSpeed": {
-			"currentValue": 1
+			"currentValue": 2.66
 		},
 		"dps": {
-			"currentValue": 10
+			"currentValue": 37
 		}
 	}
 }

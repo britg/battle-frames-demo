@@ -18,12 +18,13 @@ public class GameTime {
   int HOUR_SECONDS = 60 * 60;
   int MINUTE_SECONDS = 60;
   
+  float currentSecondProgress = 0f;
   float currentMinuteProgress = 0f;
   float currentHourProgress = 0f;
   
   public delegate void ChangeEventHandler ();
   
-  // public event ChangeEventHandler SecondChange;
+  public event ChangeEventHandler SecondChange;
   public event ChangeEventHandler MinuteChange;
   public event ChangeEventHandler HourChange;
   public event ChangeEventHandler DawnStart;
@@ -99,6 +100,7 @@ public class GameTime {
   
   public void AddTime (float amount) {
     CurrentSeconds += amount;
+    UpdateSecondProgress(amount);
     UpdateMinuteProgress(amount);
     UpdateHourProgress(amount);
   }
@@ -109,7 +111,17 @@ public class GameTime {
       if (MinuteChange != null) {
         MinuteChange();
       }
-      currentMinuteProgress = 0f;
+      currentMinuteProgress = currentMinuteProgress % MINUTE_SECONDS;
+    }
+  }
+  
+  void UpdateSecondProgress (float amount) {
+    currentSecondProgress += amount;
+    if (currentSecondProgress >= 1f) {
+      if (SecondChange != null) {
+        SecondChange();
+      }
+      currentSecondProgress = currentSecondProgress % 1f;
     }
   }
   
@@ -119,7 +131,7 @@ public class GameTime {
       if (HourChange != null) {
         HourChange();
       }
-      currentHourProgress = 0f;
+      currentHourProgress = currentHourProgress % HOUR_SECONDS;
     }
   }
   

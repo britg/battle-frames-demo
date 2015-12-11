@@ -15,7 +15,8 @@ public class BattleController : SimulationBehaviour {
 	
 	public void Setup () {
 		CreateFrames();
-		PositionFrames();		
+		PositionFrames();
+		SeedAggro();
 	}
 	
 	void CreateFrames () {
@@ -73,6 +74,12 @@ public class BattleController : SimulationBehaviour {
 		var stat = attackResult.targetController.character.stats.statForKey(attackResult.statKey);
 		stat.currentValue += attackResult.delta;
 		Debug.Log(attackResult);
+	}
+	
+	public void SeedAggro () {
+		foreach (BattleFrameController enemyController in enemyControllers) {
+			enemyController.SeedAggro(friendlyControllers);
+		}
 	}
 	
 }
