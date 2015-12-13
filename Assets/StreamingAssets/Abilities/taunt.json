@@ -1,0 +1,16 @@
+{
+	"type": "Ability",
+	"key": "taunt",
+	"name": "Taunt",
+	"description": "Taunt your enemies, causing them to focus on you",
+	"targetType": null,
+	"targetGrouping": null,
+	"castingTime": 0,
+	"cooldown": 5,
+	"radius": 0,
+	"abilityPointCost": 10,
+	"procs": [
+		"resetAggro",
+		"focusAggroOnCharacter"
+	]
+}

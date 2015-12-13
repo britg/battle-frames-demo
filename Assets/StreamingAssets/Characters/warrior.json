@@ -2,6 +2,7 @@
 	"type": "Character",
 	"key": "warrior",
 	"name": "Thjodrynn",
+	"abilityPointType": "fury",
 	"stats": {
 		"health": {
 			"currentValue": 300,
@@ -19,5 +20,8 @@
 		"dps": {
 			"currentValue": 37
 		}
-	}
+	},
+	"abilities": [
+		"taunt"
+	]
 }

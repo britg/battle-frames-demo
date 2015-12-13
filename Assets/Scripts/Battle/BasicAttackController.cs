@@ -18,13 +18,10 @@ public class BasicAttackController : BattleFrameBehaviour {
 		// TODO get attack speed in game time.
 		attackSpeed = character.stats.CurrentValue(Stat.AttackSpeed);
 		hasTarget = (currentTarget != null);
-		isControllable = (character.currentBattleSide == Battle.Side.Friend);
+		isControllable = (character.currentBattleSide == Battle.Side.Adventurers);
 	}
 	
 	public void PerformBasicAttack () {
-		// Debug.Log(character.name + "Performing attack -> " + currentTarget.character.name);
-		
-		// Create an `AttackResult` object
 		// perform animation here
 		// perform animation on targets
 		
@@ -34,7 +31,7 @@ public class BasicAttackController : BattleFrameBehaviour {
 				battleController
 			).Resolve();
 		
-		battleController.ProcessAttackResults(attackResults);
+		battleController.DelegateAttackResults(attackResults);
 	}
 	
 	public void SetBasicAttackTarget (GameObject targetObj) {
@@ -44,6 +41,6 @@ public class BasicAttackController : BattleFrameBehaviour {
 			return;
 		}
 		
-		battleFrameController.currentTarget = targetFrameController;  
+		battleFrameController.SetTarget(targetFrameController);  
 	}
 }

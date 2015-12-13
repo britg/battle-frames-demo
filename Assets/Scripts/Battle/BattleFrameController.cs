@@ -10,6 +10,18 @@ public class BattleFrameController : SimulationBehaviour {
 	
 	public Dictionary<BattleFrameController, float> aggroProfile;
 	
+	public bool aiControlled {
+		get {
+			return character.aiControlled;
+		}
+	}
+	
+	public Battle.Side currentBattleSide {
+		get {
+			return character.currentBattleSide;
+		}
+	}
+	
 
 	// Use this for initialization
 	void Start () {
@@ -43,4 +55,54 @@ public class BattleFrameController : SimulationBehaviour {
 			aggroProfile[controller] = 0f;
 		}
 	}
+	
+	void ChangeAggro (BattleFrameController toEnemy, float amount) {
+		if (!aggroProfile.ContainsKey(toEnemy)) {
+			aggroProfile[toEnemy] = amount;
+		} else {
+			aggroProfile[toEnemy] += amount;
+		}
+	}
+	
+	#region Targetting
+	
+	public void SetTarget (BattleFrameController target) {
+		currentTarget = target;
+	}
+		
+	#endregion
+	
+	public void ProcessAttackResult (AttackResult attackResult) {
+		
+		if (attackResult.targetController == this) {
+			ReceiveAttack(attackResult);
+		}
+		
+		if (attackResult.fromController == this) {
+			DeliverAttack(attackResult);
+		}
+		
+		if (aiControlled && IsEnemy(attackResult.fromController)) {
+			float amount = 1f; // BasicAttackAggroChangeResolver(attackResult, forController) aggroChange()
+			ChangeAggro(attackResult.fromController, amount);
+		}
+		
+	}
+	
+	public bool IsEnemy (BattleFrameController other) {
+		var opposingControllers = battleController.OpposingControllers(this);
+		return opposingControllers.Contains(other);
+	}
+	
+	void ReceiveAttack (AttackResult attackResult) {
+		var stat = character.stats.statForKey(attackResult.statKey);
+		stat.currentValue += attackResult.delta;
+		Debug.Log("Receiving attack result: " + attackResult);
+	}
+	
+	void DeliverAttack (AttackResult attackResult) {
+		Debug.Log("Delivering attack result: " + attackResult);
+	}
+	
+	
 }

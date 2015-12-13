@@ -26,10 +26,7 @@ public class BattleFrameBehaviour : SimulationBehaviour {
 	BattleFrameController _currentTarget;
 	public BattleFrameController currentTarget {
 		get {
-			if (_currentTarget == null) {
-				_currentTarget = battleFrameController.currentTarget;
-			}
-			return _currentTarget;
+			return battleFrameController.currentTarget;
 		}
 	}
 }

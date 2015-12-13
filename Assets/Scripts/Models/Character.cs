@@ -2,6 +2,20 @@
 using System.Collections;
 using System.Collections.Generic;
 
+public enum AbilityPointType {
+	Fury,
+	Mana,
+	Preparation
+}
+
+public enum CharacterClass {
+	Warrior,
+	Cleric,
+	Thief,
+	Mage,
+	Hunter
+}
+
 [System.Serializable]
 public class Character : JSONResource {
 	
@@ -10,7 +24,12 @@ public class Character : JSONResource {
 		aiProfile = new AIProfile(this);
 	}
 	
+	public CharacterClass characterClass;
+	public AbilityPointType abilityPointType;
+	
+	
 	public StatProfile stats;
+	public bool aiControlled = true;
 	public AIProfile aiProfile;
 	
 	public List<string> ai {
