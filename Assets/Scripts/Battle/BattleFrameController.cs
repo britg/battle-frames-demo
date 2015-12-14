@@ -22,6 +22,11 @@ public class BattleFrameController : SimulationBehaviour {
 		}
 	}
 	
+	public void OnSelected () {
+		var d = iTween.Hash(Notifications.Keys.Controller, this);
+		NotificationCenter.PostNotification(Notifications.OnBattleFrameSelected, d);
+	}
+	
 
 	// Use this for initialization
 	void Start () {
@@ -83,7 +88,8 @@ public class BattleFrameController : SimulationBehaviour {
 		}
 		
 		if (aiControlled && IsEnemy(attackResult.fromController)) {
-			float amount = 1f; // BasicAttackAggroChangeResolver(attackResult, forController) aggroChange()
+			// TODO: // BasicAttackAggroChangeResolver(attackResult, forController) aggroChange()
+			float amount = 1f; 
 			ChangeAggro(attackResult.fromController, amount);
 		}
 		
