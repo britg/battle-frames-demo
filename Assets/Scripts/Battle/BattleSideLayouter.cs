@@ -20,7 +20,7 @@ public class BattleSideLayouter : MonoBehaviour {
 				
 				// TMP
 				if (battleSide == Battle.Side.Adventurers) {
-					t.position = new Vector3(-1, -1, -1);
+					t.position = new Vector3(-1 + (friendCount*-3), -1, -1);
 					friendCount++;	
 				} else {
 					t.position = new Vector3(-1 + (enemyCount*-3), 1, -1);

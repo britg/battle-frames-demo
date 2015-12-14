@@ -1,0 +1,28 @@
+{
+	"type": "Character",
+	"key": "healer",
+	"name": "Argent",
+	"abilityPointType": "mana",
+	"stats": {
+		"health": {
+			"currentValue": 300,
+			"minValue": 0,
+			"maxValue": 300
+		},
+		"abilityPoints": {
+			"currentValue": 0,
+			"minValue": 100,
+			"maxValue": 100
+		},
+		"attackSpeed": {
+			"currentValue": 3.66
+		},
+		"dps": {
+			"currentValue": 13
+		}
+	},
+	"abilities": [
+		"flashHeal",
+		"recovery"
+	]
+}
