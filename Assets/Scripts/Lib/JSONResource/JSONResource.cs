@@ -32,30 +32,46 @@ public abstract class JSONResource {
     
     AssignFields();
   }
+  
+  public JSONResource (string _key, JSONNode __sourceNode) {
+    guid = System.Guid.NewGuid().ToString();
+    type = this.GetType().ToString();
+    key = _key;
+    sourceNode = __sourceNode;
+  }
     
   JSONNode _sourceNode;
   public JSONNode sourceNode {
     get {
       if (_sourceNode == null) {
-        
-        if (!JSONResource.jsonCache.ContainsKey(type)) {
-          _sourceNode = new JSONNode();
-        } else {
-          var typeDict = JSONResource.jsonCache[type];
-          if (typeDict.ContainsKey(key)) {
-            _sourceNode = typeDict[key];  
-          } else {
-            _sourceNode = new JSONNode();
-          }  
-        }
+        LoadTopLevelSourceNode();
       }
-      return _sourceNode;
+      return _sourceNode; 
+    }
+    set {
+      LoadTopLevelSourceNode();
+      AssignFields();
+      _sourceNode = value;
+      AssignFields();
     }
   }
   
   public string guid;
   public string key;
   public string name;
+  
+  void LoadTopLevelSourceNode () {
+    if (!JSONResource.jsonCache.ContainsKey(type)) {
+      _sourceNode = new JSONNode();
+    } else {
+        var typeDict = JSONResource.jsonCache[type];
+        if (typeDict.ContainsKey(key)) {
+          _sourceNode = typeDict[key];  
+        } else {
+          _sourceNode = new JSONNode();
+        }  
+      }
+  }
 
   protected void AssignFields () {
     
@@ -65,10 +81,24 @@ public abstract class JSONResource {
 
     foreach (var field in fields) {
       var node = sourceNode[field.Name];
+      
       // Debug.Log(type + ": " + field.Name + " : " + field.FieldType.ToString() + " : " + node.Value);
       if (node != null && node.Value != "") {
+        
         if (field.FieldType == typeof(string)) {
           field.SetValue(this, node.Value);
+        }
+        
+        if (field.FieldType == typeof(float)) {
+          field.SetValue(this, node.AsFloat);
+        }
+        
+        if (field.FieldType == typeof(int)) {
+          field.SetValue(this, node.AsInt);
+        }
+        
+        if (field.FieldType == typeof(bool)) {
+          field.SetValue(this, node.AsBool);
         }
       }
       

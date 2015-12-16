@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using SimpleJSON;
 
 public class Stat : JSONResource {
 	
@@ -23,10 +24,15 @@ public class Stat : JSONResource {
 	}
 	
 	public Stat (string _key) : base(_key) {}
+	public Stat (string _key, JSONNode __sourceNode) : base(_key, __sourceNode) {}
 	
 	public float currentValue;
 	public float minValue;
 	public float maxValue;
 	
 	public bool computed = false;
+	
+	public override string ToString () {
+		return string.Format("{0}: {1}", name, currentValue);
+	}
 }

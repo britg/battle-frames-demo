@@ -7,6 +7,11 @@ public class AI_HighestAggroTargetter : BattleFrameBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		float randomStart = Random.Range(0f, 3f);
+		Invoke("StartEvaluating", randomStart);
+	}
+	
+	void StartEvaluating () {
 		gameTime.SecondChange += SetTarget;
 	}
 	

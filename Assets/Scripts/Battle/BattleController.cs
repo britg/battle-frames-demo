@@ -119,4 +119,17 @@ public class BattleController : SimulationBehaviour {
 		return opposing;
 	}
 	
+	/*
+	 * 	Execute and ability
+	 */
+	public void ExecuteAbility (Ability ability, BattleFrameController caster, BattleFrameController target) {
+		var abilityResolver = new AbilityResolver(
+			_ability: ability,
+			_battleController: this,
+			_caster: caster,
+			_target: target
+		);
+		abilityResolver.Resolve();
+	}
+	
 }

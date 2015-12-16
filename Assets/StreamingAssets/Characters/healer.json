@@ -10,8 +10,8 @@
 			"maxValue": 300
 		},
 		"abilityPoints": {
-			"currentValue": 0,
-			"minValue": 100,
+			"currentValue": 100,
+			"minValue": 0,
 			"maxValue": 100
 		},
 		"attackSpeed": {

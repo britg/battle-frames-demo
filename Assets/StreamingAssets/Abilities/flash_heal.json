@@ -1,5 +1,24 @@
 {
 	"type": "Ability",
-	"key": "flash_heal",
-	"name": "Flash Heal"
+	"key": "flashHeal",
+	"name": "Flash Heal",
+	"description": "Quickly heal a target",
+	"targetType": "AnyCharacter",
+	"requiresTargetSelection": true,
+	"castingTime": 0.5,
+	"cooldown": 0,
+	"radius": 0,
+	"abilityPointCost": 20,
+	"procs": {
+		"restoreHealth": {
+			"occurances": 1,
+			"occuranceRate": 0,
+			"baseStatChanges": {
+				"health": {
+					"minValue": 10,
+					"maxValue": 20 
+				}
+			}		
+		}
+	}
 }

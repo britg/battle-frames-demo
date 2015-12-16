@@ -25,6 +25,8 @@ public class BasicAttackController : BattleFrameBehaviour {
 		// perform animation here
 		// perform animation on targets
 		
+		CombatLog.Add(string.Format("{0} attacking {1}", battleFrameController.character.name, currentTarget.character.name));
+		
 		var attackResults = new BasicAttackResolver(
 				battleFrameController, 
 				currentTarget, 
@@ -35,7 +37,6 @@ public class BasicAttackController : BattleFrameBehaviour {
 	}
 	
 	public void SetBasicAttackTarget (GameObject targetObj) {
-		Debug.Log("Targetted " + targetObj);
 		var targetFrameController = targetObj.GetComponent<BattleFrameController>();
 		if (targetFrameController == null) {
 			return;

@@ -29,4 +29,14 @@ public class BattleFrameBehaviour : SimulationBehaviour {
 			return battleFrameController.currentTarget;
 		}
 	}
+	
+	AbilityController _abilityController;
+	public AbilityController abilityController {
+		get {
+			if (_abilityController == null) {
+				_abilityController = GetComponent<AbilityController>();
+			}
+			return _abilityController;
+		}
+	}
 }

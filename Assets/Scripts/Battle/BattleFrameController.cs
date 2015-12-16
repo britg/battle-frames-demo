@@ -72,7 +72,14 @@ public class BattleFrameController : SimulationBehaviour {
 	#region Targetting
 	
 	public void SetTarget (BattleFrameController target) {
-		currentTarget = target;
+		var previousTarget = currentTarget;
+		
+		if (IsEnemy(target)) {
+			currentTarget = target;	
+		} else {
+			var abilityController = GetComponent<AbilityController>();
+			abilityController.StartDefaultFriendlyAbility(target);
+		}
 	}
 		
 	#endregion
@@ -103,11 +110,11 @@ public class BattleFrameController : SimulationBehaviour {
 	void ReceiveAttack (AttackResult attackResult) {
 		var stat = character.stats.statForKey(attackResult.statKey);
 		stat.currentValue += attackResult.delta;
-		Debug.Log("Receiving attack result: " + attackResult);
+		// Debug.Log("Receiving attack result: " + attackResult);
 	}
 	
 	void DeliverAttack (AttackResult attackResult) {
-		Debug.Log("Delivering attack result: " + attackResult);
+		// Debug.Log("Delivering attack result: " + attackResult);
 	}
 	
 	

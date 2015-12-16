@@ -39,6 +39,7 @@ public class Character : JSONResource {
 	}
 	
 	public List<Ability> abilities = new List<Ability>();
+	public Ability defaultFriendlyAbility;
 	
 	public List<Item> equipment = new List<Item>();
 	

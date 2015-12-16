@@ -15,21 +15,31 @@ public class Ability : JSONResource {
 		FriendlySide
 	}
 	
-	public enum TargetGrouping {
-		None,
-		Single,
-		AllSide,
-		Everyone
+	public Ability (string _key) : base(_key) {
+		LoadProcs();
 	}
-	
-	public Ability (string _key) : base(_key) {}
 	
 	public string description;
 	public TargetType targetType;
-	public TargetGrouping targetGrouping;
+	public bool requiresTargetSelection;
 	public float castingTime;
 	public float cooldown;
 	public float radius;
 	public float abilityPointCost;
 	public List<Proc> procs;
+	
+	void LoadProcs () {
+		procs = new List<Proc>();
+		
+		var procsNode = sourceNode["procs"].AsObject;
+		if (procsNode == null) {
+			return;
+		}
+		
+		foreach (KeyValuePair<string, JSONNode> kv in procsNode.AsObject) {
+			var proc = new Proc(kv.Key, kv.Value);
+			procs.Add(proc);
+		}
+		
+	}
 }
