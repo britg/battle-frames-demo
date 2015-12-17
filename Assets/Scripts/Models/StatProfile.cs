@@ -15,6 +15,10 @@ public class StatProfile {
 	
 	public List<Stat> stats = new List<Stat>();
 	
+	public Stat ModifiedStat (string statKey) {
+		return Stat.Mapping(statKey).ModifiedStat(statKey, this);
+	}
+	
 	public float CurrentValue (string statKey) {
 		return Stat.Mapping(statKey).CalculatedStat(statKey, this);
 	}
@@ -27,11 +31,28 @@ public class StatProfile {
 		return statForKey(statKey).maxValue;
 	}
 	
+	public int MinValue (string statKey) {
+		return Stat.Mapping(statKey).CalculatedStatMin(statKey, this);
+	}
+	
+	public float MinRawValue (string statKey) {
+		return statForKey(statKey).minValue;
+	}
+	
 	public Stat statForKey (string statKey) {
 		var matching = stats.Where(s => (s.key == statKey));
 		var stat = matching.FirstOrDefault();
 		return stat;
 	}
+	
+	public void ChangeStat (string statKey, float delta) {
+		var stat = statForKey(statKey);
+		var modified = ModifiedStat(statKey);
+		float allowableDelta = Mathf.Clamp(modified.currentValue + delta, modified.minValue, modified.maxValue) - modified.currentValue;
+		
+		stat.currentValue += allowableDelta;
+	}
+	
 	
 	void Preload (JSONResource jsonResource) {
 		stats = new List<Stat>();

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
+using System.Linq;
 
 public class Proc : JSONResource {
 
@@ -13,19 +14,24 @@ public class Proc : JSONResource {
 	public int occurances;
 	public float occuranceRate;
 	
-	public List<Stat> baseStatChanges;
+	public List<StatChange> baseStatChanges;
 	
 	void LoadBaseStatChanges () {
-		baseStatChanges = new List<Stat>();
+		baseStatChanges = new List<StatChange>();
 		var baseStatChangesNode = sourceNode["baseStatChanges"];
 		if (baseStatChangesNode == null) {
 			return;
 		}
 		
 		foreach (KeyValuePair<string, JSONNode> kv in baseStatChangesNode.AsObject) {
-			var stat = new Stat(kv.Key, kv.Value);
+			var stat = new StatChange(kv.Key, kv.Value);
 			baseStatChanges.Add(stat);
 		}
+	}
+	
+	public StatChange GenerateStatChange (string statKey) {
+		var baseStatChange = baseStatChanges.Where(s => (s.key == statKey)).FirstOrDefault();
+		return new StatChange(statKey, baseStatChange.sourceNode);
 	}
 	
 }

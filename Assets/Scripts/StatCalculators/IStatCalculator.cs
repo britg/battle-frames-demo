@@ -7,4 +7,6 @@ public interface IStatCalculator {
 	int CalculatedStat (string statKey, StatProfile profile);
 	int CalculatedStatMax (string statKey, StatProfile profile);
 	int CalculatedStatMin (string statKey, StatProfile profile);
+	
+	Stat ModifiedStat (string statKey, StatProfile profile);
 }

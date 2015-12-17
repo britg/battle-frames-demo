@@ -53,8 +53,7 @@ public class AbilityController : BattleFrameBehaviour {
 	}
 	
 	void PurchaseAbility (Ability ability) {
-		var ap = character.stats.statForKey(Stat.AbilityPoints);
-		ap.currentValue -= ability.abilityPointCost;
+		character.stats.ChangeStat(Stat.AbilityPoints, -ability.abilityPointCost);
 	}
 	
 	void Update () {

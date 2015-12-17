@@ -108,8 +108,7 @@ public class BattleFrameController : SimulationBehaviour {
 	}
 	
 	void ReceiveAttack (AttackResult attackResult) {
-		var stat = character.stats.statForKey(attackResult.statKey);
-		stat.currentValue += attackResult.delta;
+		character.stats.ChangeStat(attackResult.statKey, attackResult.delta);
 		// Debug.Log("Receiving attack result: " + attackResult);
 	}
 	

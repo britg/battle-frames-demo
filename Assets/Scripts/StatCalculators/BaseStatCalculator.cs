@@ -37,7 +37,7 @@ public class BaseStatCalculator : IStatCalculator {
 		return Mathf.RoundToInt(ModifiedStat(statKey, profile).minValue);
 	}
 	
-	protected Stat ModifiedStat (string statKey, StatProfile profile) {
+	public Stat ModifiedStat (string statKey, StatProfile profile) {
 		// TODO: add in modifiers
 		return profile.statForKey(statKey);
 	}
