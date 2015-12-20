@@ -7,6 +7,10 @@ public class AbilityController : BattleFrameBehaviour {
 	public BattleFrameController targetController;
 	public float currentCastingTime = 0f;
 	
+	public void PresentAbilities () {
+		Debug.Log("Presenting abilities");
+	}
+	
 	public void PromptAbility (Ability ability) {
 		if (ability.abilityPointCost > character.stats.CurrentValue(Stat.AbilityPoints)) {
 			LogNotEnoughAbilityPoints(ability);

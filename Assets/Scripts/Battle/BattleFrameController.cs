@@ -22,9 +22,13 @@ public class BattleFrameController : SimulationBehaviour {
 		}
 	}
 	
-	public void OnSelected () {
+	public void OnFocusDown () {
 		var d = iTween.Hash(Notifications.Keys.Controller, this);
-		NotificationCenter.PostNotification(Notifications.OnBattleFrameSelected, d);
+		NotificationCenter.PostNotification(Notifications.OnBattleFrameFocusDown, d);
+	}
+	
+	public void OnFocusSelect () {
+		
 	}
 	
 

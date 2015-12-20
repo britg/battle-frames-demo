@@ -23,6 +23,7 @@
 	},
 	"abilities": [
 		"flashHeal",
-		"recovery"
+		"recovery",
+		"greaterHeal"
 	]
 }

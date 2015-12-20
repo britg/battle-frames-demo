@@ -21,7 +21,7 @@ public class InfoPanelController : SimulationBehaviour {
 	public TableController aggroTable;
 	
 	void Awake () {
-		NotificationCenter.AddObserver(this, Notifications.OnBattleFrameSelected);
+		NotificationCenter.AddObserver(this, Notifications.OnBattleFrameFocusDown);
 	}
 
 	// Use this for initialization
@@ -34,7 +34,7 @@ public class InfoPanelController : SimulationBehaviour {
 	
 	}
 	
-	void OnBattleFrameSelected (Notification n) {
+	void OnBattleFrameFocusDown (Notification n) {
 		controller = n.data[Notifications.Keys.Controller] as BattleFrameController;
 	}
 	
