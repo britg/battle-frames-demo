@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class BattleFrameController : SimulationBehaviour {
+    
+    public List<string> toDisableOnAbilitySelect;
 	
 	public Character character;
 	public BattleFrameController currentTarget;
@@ -28,19 +30,43 @@ public class BattleFrameController : SimulationBehaviour {
 	}
 	
 	public void OnFocusSelect () {
-		
+		var d = iTween.Hash(Notifications.Keys.Controller, this);
+		NotificationCenter.PostNotification(Notifications.OnBattleFrameFocusSelect, d);
 	}
 	
 
 	// Use this for initialization
 	void Start () {
-
+        NotificationCenter.AddObserver(this, Notifications.OnBattleFramePresentedAbilities);
+        NotificationCenter.AddObserver(this, Notifications.OnBattleFrameHidAbilities);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+    
+    void OnBattleFramePresentedAbilities () {
+        DisableInputStateMachines();    
+    }
+    
+    void OnBattleFrameHidAbilities () {
+        EnableInputStateMachines();    
+    }
+    
+    void DisableInputStateMachines () {
+        foreach (string fsmName in toDisableOnAbilitySelect) {
+            var fsm = statMachine(fsmName);
+            fsm.enabled = false;
+        }
+    }
+    
+    void EnableInputStateMachines () {
+        foreach (string fsmName in toDisableOnAbilitySelect) {
+            var fsm = statMachine(fsmName);
+            fsm.enabled = true;
+        }
+    }
 	
 	public void SetCharacter (Character _character) {
 		character = _character;

@@ -145,7 +145,7 @@ public class tpd {
 
 }
 
-class Notification {
+public class Notification {
 
   public string name;
   public Hashtable data;

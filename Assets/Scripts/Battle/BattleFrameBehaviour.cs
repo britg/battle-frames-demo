@@ -39,4 +39,15 @@ public class BattleFrameBehaviour : SimulationBehaviour {
 			return _abilityController;
 		}
 	}
+    
+    public bool NotificationIsFromSelf (Notification n) {
+        var fromController = n.data[Notifications.Keys.Controller] as BattleFrameController;
+        return fromController == battleFrameController;
+    }
+    
+    public bool aiControlled {
+        get {
+            return battleFrameController.aiControlled;
+        }
+    }
 }

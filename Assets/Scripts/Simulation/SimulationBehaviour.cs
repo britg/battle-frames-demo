@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 public class SimulationBehaviour : MonoBehaviour {
 
@@ -60,5 +62,20 @@ public class SimulationBehaviour : MonoBehaviour {
 			return _battle;
 		}
 	}
+    
+    public List<PlayMakerFSM> statMachines {
+        get {
+            return GetComponents<PlayMakerFSM>().ToList();
+        }
+    }
+    
+    public PlayMakerFSM statMachine (string name) {
+        foreach (var fsmComponent in statMachines) {
+            if (fsmComponent.FsmName == name) {
+                return fsmComponent;
+            }
+        }
+        return null;
+    }
 	
 }

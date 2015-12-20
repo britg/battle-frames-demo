@@ -3,13 +3,36 @@ using System.Collections;
 
 public class AbilityController : BattleFrameBehaviour {
 	
+    public GameObject abilitiesContainer;
+    public GameObject abilityFramePrefab;
+    
 	public Ability currentCastingAbility;
 	public BattleFrameController targetController;
 	public float currentCastingTime = 0f;
+    
+    void Start () {
+        NotificationCenter.AddObserver(this, Notifications.OnBattleFrameFocusSelect);
+        abilitiesContainer.SetActive(false);
+    }
+    
+    void OnBattleFrameFocusSelect (Notification n) {
+        if (NotificationIsFromSelf(n) && !aiControlled) {
+            PresentAbilities();
+        }
+    }
 	
 	public void PresentAbilities () {
-		Debug.Log("Presenting abilities");
+		// Debug.Log("Presenting abilities from " + gameObject.name);
+        NotificationCenter.PostNotification(Notifications.OnBattleFramePresentedAbilities);
+        abilitiesContainer.SetActive(true);
+        // TODO Foreach character ability, present an ability frame.
+        
 	}
+    
+    public void HideAbilities () {
+        NotificationCenter.PostNotification(Notifications.OnBattleFrameHidAbilities);
+        abilitiesContainer.SetActive(false);
+    }
 	
 	public void PromptAbility (Ability ability) {
 		if (ability.abilityPointCost > character.stats.CurrentValue(Stat.AbilityPoints)) {
