@@ -9,18 +9,14 @@ public class AbilitiesController : BattleFrameBehaviour {
     public GameObject abilityFramePrefab;
     Dictionary<string, AbilityFrameController> abilityFrames = new Dictionary<string, AbilityFrameController>();
     
-    public string abilityInputFSMName = "Ability Input FSM";
-    PlayMakerFSM abilityInputFSM;
-    
 	public Ability currentCastingAbility;
 	public BattleFrameController targetController;
 	public float currentCastingTime = 0f;
     
     void Start () {
         NotificationCenter.AddObserver(this, Notifications.OnBattleFrameFocusSelect);
-        abilityInputFSM = statMachine(abilityInputFSMName);
         UpdateAbilityFrames();
-        HideAbilities();
+        abilitiesContainer.SetActive(false);
     }
     
     void UpdateAbilityFrames () {
@@ -86,8 +82,10 @@ public class AbilitiesController : BattleFrameBehaviour {
     }
     
     void OnNonAbilityInputDown (GameObject targetObj) {
-        Debug.Log("Hiding abilities from " + gameObject.name);
-        HideAbilities();
+        if (abilitiesContainer.activeSelf) {
+            Debug.Log("Hiding abilities from " + gameObject.name);
+            HideAbilities();    
+        }
     }
     
     void OnBattleFrameFocusSelect (Notification n) {
@@ -100,14 +98,12 @@ public class AbilitiesController : BattleFrameBehaviour {
 		Debug.Log("Presenting abilities from " + gameObject.name);
         NotificationCenter.PostNotification(Notifications.OnBattleFramePresentedAbilities);
         abilitiesContainer.SetActive(true);
-        abilityInputFSM.enabled = true;
         UpdateAbilityFrames();
 	}
     
     public void HideAbilities () {
         NotificationCenter.PostNotification(Notifications.OnBattleFrameHidAbilities);
         abilitiesContainer.SetActive(false);
-        abilityInputFSM.enabled = false;
     }
 	
 	public void PromptAbility (Ability ability) {

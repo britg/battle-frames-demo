@@ -17,7 +17,7 @@ public class AbilityFrameController : SimulationBehaviour {
 	
 	}
     
-    void OnAbilityInputDown () {
-        Debug.Log("On ability input down (" + gameObject.name + ")");
+    void OnFocusDown () {
+        Debug.Log("On ability focus down (" + gameObject.name + ")");
     }
 }

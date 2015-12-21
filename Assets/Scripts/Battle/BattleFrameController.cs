@@ -12,6 +12,7 @@ public class BattleFrameController : SimulationBehaviour {
     public Vector3 focusAnimationDelta = new Vector3(0, 0, -0.15f);
     public float focusAnimationTime = 0.1f;
     bool focusAnimated = false;
+    bool hasFocus = false;
     
     
 	[HideInInspector]
@@ -44,6 +45,7 @@ public class BattleFrameController : SimulationBehaviour {
 	public void OnFocusDown () {
 		var d = iTween.Hash(Notifications.Keys.Controller, this);
 		NotificationCenter.PostNotification(Notifications.OnBattleFrameFocusDown, d);
+        hasFocus = true;
         AnimateFocus();
 	}
 	
@@ -53,7 +55,11 @@ public class BattleFrameController : SimulationBehaviour {
 	}
     
     void OnBattleFrameLostFocus () {
-        ReverseFocusAnimation();
+        if (hasFocus) {
+            Debug.Log("Battle frame lost focus " + gameObject.name);
+            hasFocus = false;
+            ReverseFocusAnimation();    
+        }
     }
     
     void AnimateFocus () {
@@ -134,9 +140,11 @@ public class BattleFrameController : SimulationBehaviour {
 			var abilityController = GetComponent<AbilitiesController>();
 			abilityController.StartDefaultFriendlyAbility(target);
 		}
-        
-        NotificationCenter.PostNotification(Notifications.OnBattleFrameLostFocus);
 	}
+    
+    void OnFinishedTargetting () {
+        NotificationCenter.PostNotification(Notifications.OnBattleFrameLostFocus);
+    }
 		
 	#endregion
 	
