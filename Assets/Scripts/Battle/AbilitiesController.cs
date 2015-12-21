@@ -133,22 +133,21 @@ public class AbilitiesController : BattleFrameBehaviour {
 		if (character.defaultFriendlyAbility == null) {
 			return;
 		}
-		
-		if (character.defaultFriendlyAbility.abilityPointCost > character.stats.CurrentValue(Stat.AbilityPoints)) {
-			LogNotEnoughAbilityPoints(character.defaultFriendlyAbility);
-			return;
-		}
-		
-		currentCastingAbility = character.defaultFriendlyAbility;
-		targetController = _targetController;
+        StartAbility(character.defaultFriendlyAbility, _targetController);
 	}
 	
 	public void StartAbility (Ability ability) {
-		
+		StartAbility(ability, null);
 	}
 	
 	public void StartAbility (Ability ability, BattleFrameController _targetController) {
-		
+		if (ability.abilityPointCost > character.stats.CurrentValue(Stat.AbilityPoints)) {
+			LogNotEnoughAbilityPoints(ability);
+			return;
+		}
+        
+        currentCastingAbility = ability;
+		targetController = _targetController;
 	}
 	
 	void PurchaseAbility (Ability ability) {
