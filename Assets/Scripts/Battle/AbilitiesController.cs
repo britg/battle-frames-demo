@@ -1,0 +1,184 @@
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+
+public class AbilitiesController : BattleFrameBehaviour {
+	
+    public GameObject abilitiesContainer;
+    public GameObject abilityFramePrefab;
+    Dictionary<string, AbilityFrameController> abilityFrames = new Dictionary<string, AbilityFrameController>();
+    
+    public string abilityInputFSMName = "Ability Input FSM";
+    PlayMakerFSM abilityInputFSM;
+    
+	public Ability currentCastingAbility;
+	public BattleFrameController targetController;
+	public float currentCastingTime = 0f;
+    
+    void Start () {
+        NotificationCenter.AddObserver(this, Notifications.OnBattleFrameFocusSelect);
+        abilityInputFSM = statMachine(abilityInputFSMName);
+        UpdateAbilityFrames();
+        HideAbilities();
+    }
+    
+    void UpdateAbilityFrames () {
+        
+        var abilityKeys = new List<string>();
+        
+        // create any missing ability frames
+        foreach (Ability ability in character.abilities) {
+            abilityKeys.Add(ability.key);
+            
+            if (abilityFrames.ContainsKey(ability.key)) {
+                continue;
+            }
+            
+            CreateAbilityFrame(ability);
+        }
+        
+        // remove any extra ability frames
+        var existingKeys = abilityFrames.Keys.ToList();
+        foreach (string existingKey in existingKeys) {
+            if (!abilityKeys.Contains(existingKey)) {
+                var extra = abilityFrames[existingKey];
+                abilityFrames.Remove(existingKey);
+                Destroy(extra.gameObject);
+            }
+        }
+        
+        // Position ability frames
+        PositionAbilityFrames();
+        
+    }
+    
+    void CreateAbilityFrame (Ability ability) {
+        var abilityFrame = Instantiate(abilityFramePrefab) as GameObject;
+        abilityFrame.transform.SetParent(abilitiesContainer.transform, false);
+        abilityFrame.name = ability.name;
+        var abilityFrameController = abilityFrame.GetComponent<AbilityFrameController>();
+        abilityFrameController.parentAbilitiesController = this;
+        abilityFrameController.ability = ability;
+        abilityFrames[ability.key] = abilityFrameController;
+    }
+    
+    void PositionAbilityFrames () {
+        foreach (KeyValuePair<string, AbilityFrameController> kv in abilityFrames) {
+            var abilityFrameController = kv.Value;
+            var localPos = abilityFrameController.transform.localPosition;
+            localPos.z = -2;
+            abilityFrameController.transform.localPosition = localPos;
+        }
+    }
+    
+    void OnAbilityInputDown (GameObject targetObj) {
+        var abilityFrameController = targetObj.GetComponent<AbilityFrameController>();
+        
+        if (abilityFrameController == null) {
+            HideAbilities();
+        }
+        
+        if (abilityFrameController.parentAbilitiesController == this) {
+            Debug.Log("On ability input down (" + gameObject.name + " -> " + abilityFrameController.ability + ")");
+        }
+        
+    }
+    
+    void OnNonAbilityInputDown (GameObject targetObj) {
+        Debug.Log("Hiding abilities from " + gameObject.name);
+        HideAbilities();
+    }
+    
+    void OnBattleFrameFocusSelect (Notification n) {
+        if (NotificationIsFromSelf(n) && !aiControlled) {
+            PresentAbilities();
+        }
+    }
+	
+	public void PresentAbilities () {
+		Debug.Log("Presenting abilities from " + gameObject.name);
+        NotificationCenter.PostNotification(Notifications.OnBattleFramePresentedAbilities);
+        abilitiesContainer.SetActive(true);
+        abilityInputFSM.enabled = true;
+        UpdateAbilityFrames();
+	}
+    
+    public void HideAbilities () {
+        NotificationCenter.PostNotification(Notifications.OnBattleFrameHidAbilities);
+        abilitiesContainer.SetActive(false);
+        abilityInputFSM.enabled = false;
+    }
+	
+	public void PromptAbility (Ability ability) {
+		if (ability.abilityPointCost > character.stats.CurrentValue(Stat.AbilityPoints)) {
+			LogNotEnoughAbilityPoints(ability);
+			return;
+		}
+		
+		currentCastingAbility = ability;
+		if (currentCastingAbility.requiresTargetSelection) {
+			// TODO Enter target selection mode
+		} else {
+			StartAbility(ability);
+		}
+	}
+	
+	void LogNotEnoughAbilityPoints (Ability ability) {
+		CombatLog.Add(
+			string.Format("{0}: Not enough ability points to cast {1}!", 
+				character.name, 
+				ability.name
+			)
+		);
+	}
+	
+	public void StartDefaultFriendlyAbility (BattleFrameController _targetController) {
+		if (character.defaultFriendlyAbility == null) {
+			return;
+		}
+		
+		if (character.defaultFriendlyAbility.abilityPointCost > character.stats.CurrentValue(Stat.AbilityPoints)) {
+			LogNotEnoughAbilityPoints(character.defaultFriendlyAbility);
+			return;
+		}
+		
+		currentCastingAbility = character.defaultFriendlyAbility;
+		targetController = _targetController;
+	}
+	
+	public void StartAbility (Ability ability) {
+		
+	}
+	
+	public void StartAbility (Ability ability, BattleFrameController _targetController) {
+		
+	}
+	
+	void PurchaseAbility (Ability ability) {
+		character.stats.ChangeStat(Stat.AbilityPoints, -ability.abilityPointCost);
+	}
+	
+	void Update () {
+		UpdateAbility();
+	}
+	
+	void UpdateAbility () {
+		if (currentCastingAbility == null) {
+			return;
+		}
+		
+		currentCastingTime += gameDeltaTime;
+		if (currentCastingTime >= currentCastingAbility.castingTime) {
+			FinishCasting();
+		}
+	}
+	
+	void FinishCasting () {
+		PurchaseAbility(currentCastingAbility);
+		battleController.ExecuteAbility(currentCastingAbility, battleFrameController, targetController);
+		currentCastingAbility = null;
+		currentCastingTime = 0f;		
+	}
+	
+}

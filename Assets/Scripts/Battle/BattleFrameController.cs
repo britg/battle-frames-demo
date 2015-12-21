@@ -6,8 +6,17 @@ using System.Linq;
 public class BattleFrameController : SimulationBehaviour {
     
     public List<string> toDisableOnAbilitySelect;
-	
+    
+    [HideInInspector]
+    public Vector3 preAnimationPosition;
+    public Vector3 focusAnimationDelta = new Vector3(0, 0, -0.15f);
+    public float focusAnimationTime = 0.1f;
+    bool focusAnimated = false;
+    
+    
+	[HideInInspector]
 	public Character character;
+    [HideInInspector]
 	public BattleFrameController currentTarget;
 	
 	public Dictionary<BattleFrameController, float> aggroProfile;
@@ -23,35 +32,50 @@ public class BattleFrameController : SimulationBehaviour {
 			return character.currentBattleSide;
 		}
 	}
+    
+    
+	// Use this for initialization
+	void Start () {
+        NotificationCenter.AddObserver(this, Notifications.OnBattleFramePresentedAbilities);
+        NotificationCenter.AddObserver(this, Notifications.OnBattleFrameHidAbilities);
+        NotificationCenter.AddObserver(this, Notifications.OnBattleFrameLostFocus);
+	}
 	
 	public void OnFocusDown () {
 		var d = iTween.Hash(Notifications.Keys.Controller, this);
 		NotificationCenter.PostNotification(Notifications.OnBattleFrameFocusDown, d);
+        AnimateFocus();
 	}
 	
 	public void OnFocusSelect () {
 		var d = iTween.Hash(Notifications.Keys.Controller, this);
 		NotificationCenter.PostNotification(Notifications.OnBattleFrameFocusSelect, d);
 	}
-	
-
-	// Use this for initialization
-	void Start () {
-        NotificationCenter.AddObserver(this, Notifications.OnBattleFramePresentedAbilities);
-        NotificationCenter.AddObserver(this, Notifications.OnBattleFrameHidAbilities);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    
+    void OnBattleFrameLostFocus () {
+        ReverseFocusAnimation();
+    }
+    
+    void AnimateFocus () {
+        focusAnimated = true;
+        preAnimationPosition = transform.position;
+        iTween.MoveBy(gameObject, focusAnimationDelta, focusAnimationTime);
+    }
+    
+    void ReverseFocusAnimation () {
+        if (focusAnimated) {
+            focusAnimated = false;
+            iTween.MoveTo(gameObject, preAnimationPosition, focusAnimationTime);    
+        }
+    }
     
     void OnBattleFramePresentedAbilities () {
         DisableInputStateMachines();    
     }
     
     void OnBattleFrameHidAbilities () {
-        EnableInputStateMachines();    
+        EnableInputStateMachines();
+        NotificationCenter.PostNotification(Notifications.OnBattleFrameLostFocus);
     }
     
     void DisableInputStateMachines () {
@@ -107,9 +131,11 @@ public class BattleFrameController : SimulationBehaviour {
 		if (IsEnemy(target)) {
 			currentTarget = target;	
 		} else {
-			var abilityController = GetComponent<AbilityController>();
+			var abilityController = GetComponent<AbilitiesController>();
 			abilityController.StartDefaultFriendlyAbility(target);
 		}
+        
+        NotificationCenter.PostNotification(Notifications.OnBattleFrameLostFocus);
 	}
 		
 	#endregion

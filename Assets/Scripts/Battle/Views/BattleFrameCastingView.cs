@@ -7,7 +7,7 @@ public class BattleFrameCastingView : View {
 	public TextMesh label;
 	public TextMesh val;
 	
-	public AbilityController abilityController;
+	public AbilitiesController abilityController;
 
 	// Use this for initialization
 	void Start () {

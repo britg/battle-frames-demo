@@ -30,11 +30,11 @@ public class BattleFrameBehaviour : SimulationBehaviour {
 		}
 	}
 	
-	AbilityController _abilityController;
-	public AbilityController abilityController {
+	AbilitiesController _abilityController;
+	public AbilitiesController abilityController {
 		get {
 			if (_abilityController == null) {
-				_abilityController = GetComponent<AbilityController>();
+				_abilityController = GetComponent<AbilitiesController>();
 			}
 			return _abilityController;
 		}

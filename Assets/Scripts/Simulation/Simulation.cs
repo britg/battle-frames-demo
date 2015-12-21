@@ -36,6 +36,7 @@ public class Simulation : MonoBehaviour {
 		var healer = new Character("healer");
 		healer.aiControlled = false;
 		healer.defaultFriendlyAbility = new Ability("flashHeal");
+        healer.abilities.Add(healer.defaultFriendlyAbility);
 		
 		var battle = new Battle("demo");
 
