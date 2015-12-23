@@ -23,10 +23,10 @@ public class Simulation : MonoBehaviour {
 	void Demo () {
 		
 		
-		var rootMonster = new Character("root_monster");
+		var rootMonster = new Character("rootMonster");
 		rootMonster.aiControlled = true;
 		
-		var monster2 = new Character("root_monster");
+		var monster2 = new Character("rootMonster");
 		monster2.name = "Second Mob";
 		monster2.aiControlled = true;
 		
@@ -35,8 +35,8 @@ public class Simulation : MonoBehaviour {
 		
 		var healer = new Character("healer");
 		healer.aiControlled = false;
-		healer.defaultFriendlyAbility = new Ability("flashHeal");
-        healer.abilities.Add(healer.defaultFriendlyAbility);
+		// healer.defaultFriendlyAbility = new Ability("flashHeal");
+        // healer.abilities.Add(healer.defaultFriendlyAbility);
 		
 		var battle = new Battle("demo");
 

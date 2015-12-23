@@ -9,8 +9,13 @@
 	"cooldown": 5,
 	"radius": 0,
 	"abilityPointCost": 10,
-	"procs": [
-		"resetAggro",
-		"focusAggroOnCharacter"
-	]
+	"procs": {
+		"resetAggro": {
+			"occurances": 1,
+			"occuranceRate": 0,
+			"baseStatChanges": {
+				
+			}	
+		}
+    }
 }

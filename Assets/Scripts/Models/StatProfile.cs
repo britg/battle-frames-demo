@@ -64,6 +64,7 @@ public class StatProfile {
 		
 		var statsNode = sourceNode["stats"];
 		if (statsNode == null) {
+            Debug.Log("stats node is null");
 			return;
 		}
 		
@@ -82,7 +83,7 @@ public class StatProfile {
 			}
 			
 			foreach (var statField in statFields) {
-				//Debug.Log("Setting stat field " + statField.Name + " to " + statNode[statField.Name].AsFloat);
+				// Debug.Log("Setting stat field " + statField.Name + " to " + statNode[statField.Name].AsFloat);
 				
 				if (statField.FieldType == typeof(float)) {
 					statField.SetValue(stat, statNode[statField.Name].AsFloat);	

@@ -1,7 +1,7 @@
 
 {
 	"type": "Character",
-	"key": "root_monster",
+	"key": "rootMonster",
 	"name": "Root Monster",
 	"ai": [
 		"HighestAggroTargetter"

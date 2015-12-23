@@ -31,7 +31,7 @@ public class Ability : JSONResource {
 	void LoadProcs () {
 		procs = new List<Proc>();
 		
-		var procsNode = sourceNode["procs"].AsObject;
+		var procsNode = sourceNode["procs"];
 		if (procsNode == null) {
 			return;
 		}

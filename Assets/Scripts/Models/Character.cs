@@ -22,6 +22,8 @@ public class Character : JSONResource {
 	public Character (string _key) : base(_key) {
 		stats = new StatProfile(this);
 		aiProfile = new AIProfile(this);
+        abilities = new AbilityProfile(this);
+        equipment = new EquipmentProfile(this);
 	}
 	
 	public CharacterClass characterClass;
@@ -38,10 +40,19 @@ public class Character : JSONResource {
 		}
 	}
 	
-	public List<Ability> abilities = new List<Ability>();
-	public Ability defaultFriendlyAbility;
-	
-	public List<Item> equipment = new List<Item>();
+	public AbilityProfile abilities = new AbilityProfile();
+	public Ability defaultFriendlyAbility {
+        get {
+            return abilities.DefaultFriendlyAbility();
+        }
+    }
+    
+    public EquipmentProfile equipment = new EquipmentProfile();
+    public Dictionary<float, Special> specialChances {
+        get {
+            return equipment.SpecialChances();
+        }
+    }
 	
 	public Battle.Side currentBattleSide = Battle.Side.Neutral;
 	
