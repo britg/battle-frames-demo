@@ -56,7 +56,10 @@ public class Simulation : MonoBehaviour {
 		battleController.topSide = Battle.Side.Mobs;
 		battleController.bottomSide = Battle.Side.Adventurers;
 		
-		battleController.Setup(); 
+		battleController.Setup();
+        
+        var healAll = new Special("healAll");
+        battleController.specialsController.AddSpecial(healAll);
 	}
 	
 }

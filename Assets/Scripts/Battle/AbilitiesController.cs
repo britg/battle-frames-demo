@@ -63,6 +63,7 @@ public class AbilitiesController : BattleFrameBehaviour {
         foreach (KeyValuePair<string, AbilityFrameController> kv in abilityFrames) {
             var abilityFrameController = kv.Value;
             var localPos = abilityFrameController.transform.localPosition;
+            localPos = Vector3.zero;
             localPos.z = -2;
             abilityFrameController.transform.localPosition = localPos;
         }

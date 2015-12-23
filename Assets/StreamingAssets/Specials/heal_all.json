@@ -1,0 +1,24 @@
+{
+	"type": "Special",
+	"key": "healAll",
+	"name": "Heal All",
+	"description": "Heal All Characters",
+	"targetType": "AnyCharacter",
+	"requiresTargetSelection": false,
+	"castingTime": 2.5,
+	"cooldown": 0,
+	"radius": 0,
+	"abilityPointCost": 20,
+	"procs": {
+		"restoreHealth": {
+			"occurances": 1,
+			"occuranceRate": 0,
+			"baseStatChanges": {
+				"health": {
+					"minValue": 10,
+					"maxValue": 20 
+				}
+			}		
+		}
+	}
+}

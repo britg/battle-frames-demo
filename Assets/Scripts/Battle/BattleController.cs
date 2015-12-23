@@ -8,6 +8,8 @@ public class BattleController : SimulationBehaviour {
 	public Battle.Side bottomSide;
 	public GameObject topContainer;
 	public GameObject bottomContainer;
+    public GameObject specialsContainer;
+    public SpecialsController specialsController;
 	
 	public Dictionary<Battle.Side, List<BattleFrameController>> controllers
 		= new Dictionary<Battle.Side, List<BattleFrameController>>();
