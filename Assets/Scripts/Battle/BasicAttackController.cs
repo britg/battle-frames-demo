@@ -7,6 +7,8 @@ public class BasicAttackController : BattleFrameBehaviour {
 	public bool hasTarget;
 	public bool isControllable = false;
     
+    public Vector3 normalizedDirectionToTarget;
+    
     public string attackAnimationFSMName = "Basic Attack Animation FSM";
     PlayMakerFSM attackAnimationFSM;
 
@@ -41,7 +43,10 @@ public class BasicAttackController : BattleFrameBehaviour {
             battleController.RollForSpecial(battleFrameController);    
         }
         
+        normalizedDirectionToTarget = Vector3.Normalize(currentTarget.transform.position - transform.position);
+        
 		battleController.DelegateAttackResults(attackResults);
+        attackAnimationFSM.enabled = true;
         attackAnimationFSM.Fsm.Stop();
         attackAnimationFSM.Fsm.Start();
 	}
