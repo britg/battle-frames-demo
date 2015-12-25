@@ -6,10 +6,14 @@ public class BasicAttackController : BattleFrameBehaviour {
 	public float attackSpeed;
 	public bool hasTarget;
 	public bool isControllable = false;
+    
+    public string attackAnimationFSMName = "Basic Attack Animation FSM";
+    PlayMakerFSM attackAnimationFSM;
 
 	// Use this for initialization
 	void Start () {
-	
+       attackAnimationFSM = statMachine(attackAnimationFSMName); 
+	   attackAnimationFSM.enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -38,6 +42,8 @@ public class BasicAttackController : BattleFrameBehaviour {
         }
         
 		battleController.DelegateAttackResults(attackResults);
+        attackAnimationFSM.Fsm.Stop();
+        attackAnimationFSM.Fsm.Start();
 	}
 	
 	public void SetBasicAttackTarget (GameObject targetObj) {
