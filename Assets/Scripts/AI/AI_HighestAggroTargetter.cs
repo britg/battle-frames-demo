@@ -8,7 +8,7 @@ public class AI_HighestAggroTargetter : BattleFrameBehaviour {
 	// Use this for initialization
 	void Start () {
 		float randomStart = Random.Range(0f, 3f);
-		Invoke("StartEvaluating", randomStart);
+        StartEvaluating();
 	}
 	
 	void StartEvaluating () {
@@ -29,9 +29,11 @@ public class AI_HighestAggroTargetter : BattleFrameBehaviour {
         
         var highestAggro = list.LastOrDefault();
         if (highestAggro.Key != null) {
-            Debug.Log("Highest target with aggro is " + highestAggro.Key);
+            //Debug.Log("Highest target with aggro is " + highestAggro.Key);
             battleFrameController.currentTarget = highestAggro.Key;    
         }
-        Debug.Log("No targets with aggro, doing nothing");
+        // } else {
+        //     Debug.Log("No targets with aggro, doing nothing");    
+        // }
 	}
 }

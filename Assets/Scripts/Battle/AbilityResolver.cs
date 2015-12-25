@@ -43,6 +43,6 @@ public class AbilityResolver {
 	void ApplyStatChange (StatChange statChange, BattleFrameController target) {
 		Debug.Log("Applying stat change " + statChange);
 		
-		target.character.stats.ChangeStat(statChange.key, statChange.finalValue);
+		target.ChangeStat(statChange.key, statChange.finalValue);
 	}
 }

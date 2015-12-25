@@ -7,6 +7,8 @@ public class BattleFrameController : SimulationBehaviour {
     
     public List<string> toDisableOnAbilitySelect;
     
+    public GameObject damageTextPrefab;
+    
     [HideInInspector]
     public Vector3 preAnimationPosition;
     public Vector3 focusAnimationDelta = new Vector3(0, 0, -0.15f);
@@ -172,13 +174,28 @@ public class BattleFrameController : SimulationBehaviour {
 	}
 	
 	void ReceiveAttack (AttackResult attackResult) {
-		character.stats.ChangeStat(attackResult.statKey, attackResult.delta);
 		// Debug.Log("Receiving attack result: " + attackResult);
+        ChangeStat(attackResult.statKey, attackResult.delta);
 	}
 	
 	void DeliverAttack (AttackResult attackResult) {
 		// Debug.Log("Delivering attack result: " + attackResult);
 	}
+    
+    public void ChangeStat (string statKey, float amount) {
+        character.stats.ChangeStat(statKey, amount);
+        
+        if (statKey == Stat.Health) {
+            DisplayHealthChange(amount);
+        }
+    }
+    
+    void DisplayHealthChange (float amount) {
+        var damageTextObj = Instantiate(damageTextPrefab) as GameObject;
+        damageTextObj.transform.position = transform.position;
+        var damageTextView = damageTextObj.GetComponent<DamageTextView>();
+        damageTextView.SetAmount(amount);
+    }
 	
 	
 }
