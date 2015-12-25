@@ -48,7 +48,7 @@ public class Character : JSONResource {
     }
     
     public EquipmentProfile equipment = new EquipmentProfile();
-    public Dictionary<float, Special> specialChances {
+    public SpecialProfile specialChances {
         get {
             return equipment.SpecialChances();
         }

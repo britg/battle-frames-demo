@@ -19,12 +19,13 @@
 		},
 		"dps": {
 			"currentValue": 13
-		}
+		},
+        "specialChance": {
+            "currentValue": 1
+        }
 	},
 	"abilities": [
-		"flashHeal",
-		"recovery",
-		"greaterHeal"
+		"flashHeal"
 	],
     "defaultFriendlyAbility": "flashHeal"
 }

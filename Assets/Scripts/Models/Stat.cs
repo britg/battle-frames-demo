@@ -9,6 +9,7 @@ public class Stat : JSONResource {
 	public const string AbilityPoints = "abilityPoints";
 	public const string AttackSpeed = "attackSpeed";
 	public const string DPS = "dps";
+    public const string SpecialChance = "specialChance";
 	
 	public static Dictionary<string, IStatCalculator> CalculatorMapping
 		= new Dictionary<string, IStatCalculator>() {

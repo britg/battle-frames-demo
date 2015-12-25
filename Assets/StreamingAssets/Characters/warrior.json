@@ -19,7 +19,10 @@
 		},
 		"dps": {
 			"currentValue": 37
-		}
+		},
+        "specialChance": {
+            "currentValue": 0
+        }
 	},
 	"abilities": [
 		"taunt"

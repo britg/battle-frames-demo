@@ -35,8 +35,8 @@ public class Simulation : MonoBehaviour {
 		
 		var healer = new Character("healer");
 		healer.aiControlled = false;
-		// healer.defaultFriendlyAbility = new Ability("flashHeal");
-        // healer.abilities.Add(healer.defaultFriendlyAbility);
+		var staff = new Item("acolytesStaff");
+        healer.equipment.ReplaceSlot(Item.Slot.MainHand, staff);
 		
 		var battle = new Battle("demo");
 
@@ -58,8 +58,8 @@ public class Simulation : MonoBehaviour {
 		
 		battleController.Setup();
         
-        var healAll = new Special("healAll");
-        battleController.specialsController.AddSpecial(healAll);
+        // var healAll = new Special("healAll");
+        // battleController.specialsController.AddSpecial(healAll);
 	}
 	
 }

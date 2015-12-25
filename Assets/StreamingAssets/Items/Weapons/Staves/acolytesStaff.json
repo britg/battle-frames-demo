@@ -1,0 +1,16 @@
+{
+    "type": "Item",
+    "key": "acolytesStaff",
+    "name": "Acolyte's Staff",
+    "consumable": false,
+    "slots": ["Inventory", "MainHand"],
+    "characterClasses": ["Mage", "Healer"],
+    "statModifiers": {
+        "dps": 1,
+        "attackSpeed": 3.2   
+    },
+    "procs": {},
+    "specialProfile": {
+        "healAll": 0.1
+    }
+}

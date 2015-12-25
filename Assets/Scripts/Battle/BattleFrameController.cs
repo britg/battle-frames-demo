@@ -116,9 +116,9 @@ public class BattleFrameController : SimulationBehaviour {
 	
 	public void SeedAggro (List<BattleFrameController> controllers) {
 		aggroProfile = new Dictionary<BattleFrameController, float>();
-		foreach (var controller in controllers) {
-			aggroProfile[controller] = 0f;
-		}
+		// foreach (var controller in controllers) {
+		// 	aggroProfile[controller] = 0f;
+		// }
 	}
 	
 	void ChangeAggro (BattleFrameController toEnemy, float amount) {

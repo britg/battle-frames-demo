@@ -2,5 +2,21 @@
 	"type": "Item",
 	"key": "healingPotion",
 	"name": "Healing Potion",
-	"testField": "cheese"
+    "consumable": true,
+    "slots": ["Inventory"],
+    "statModifiers": {
+        
+    },
+    "procs": {
+		"restoreHealth": {
+			"occurances": 1,
+			"occuranceRate": 0,
+			"baseStatChanges": {
+				"health": {
+					"minValue": 10,
+					"maxValue": 20 
+				}
+			}		
+		}
+	}
 }

@@ -33,6 +33,10 @@ public class BasicAttackController : BattleFrameBehaviour {
 				battleController
 			).Resolve();
 		
+        if (!battleFrameController.aiControlled) {
+            battleController.RollForSpecial(battleFrameController);    
+        }
+        
 		battleController.DelegateAttackResults(attackResults);
 	}
 	

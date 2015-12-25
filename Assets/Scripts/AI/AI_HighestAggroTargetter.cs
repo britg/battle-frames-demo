@@ -22,9 +22,16 @@ public class AI_HighestAggroTargetter : BattleFrameBehaviour {
 	
 	void SetTarget () {
 		List<KeyValuePair<BattleFrameController, float>> list = battleFrameController.aggroProfile.ToList();
-		list.Sort((firstPair, nextPair) => {
+		
+        list.Sort((firstPair, nextPair) => {
 			return firstPair.Value.CompareTo(nextPair.Value);
 		});
-		battleFrameController.currentTarget = list.LastOrDefault().Key;
+        
+        var highestAggro = list.LastOrDefault();
+        if (highestAggro.Key != null) {
+            Debug.Log("Highest target with aggro is " + highestAggro.Key);
+            battleFrameController.currentTarget = highestAggro.Key;    
+        }
+        Debug.Log("No targets with aggro, doing nothing");
 	}
 }

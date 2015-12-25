@@ -93,20 +93,20 @@ public class tpd {
     return chosen;
   }
 
-  public static string RollMap (Dictionary<string, float> dict) {
+  public static T RollMap<T> (Dictionary<T, float> dict) {
     float sum = 0f;
-    foreach (KeyValuePair<string, float> pair in dict) {
+    foreach (KeyValuePair<T, float> pair in dict) {
       sum += (float)pair.Value;
     }
 
     float rand = UnityEngine.Random.Range(0f, sum);
 
     float running = 0;
-    string chosen = null;
-    foreach (KeyValuePair<string, float> pair in dict) {
+    T chosen = default(T);
+    foreach (KeyValuePair<T, float> pair in dict) {
       running += (float)pair.Value;
       if (rand <= running) {
-        chosen = (string)pair.Key;
+        chosen = (T)pair.Key;
         break;
       }
     }

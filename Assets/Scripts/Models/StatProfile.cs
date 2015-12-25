@@ -6,10 +6,13 @@ using SimpleJSON;
 
 public class StatProfile {
 	
+    JSONResource _resource;
+    
 	public StatProfile () {
 	}
 	
 	public StatProfile (JSONResource jsonResource) {
+        _resource = jsonResource;
 		Preload(jsonResource);
 	}
 	
@@ -42,6 +45,10 @@ public class StatProfile {
 	public Stat statForKey (string statKey) {
 		var matching = stats.Where(s => (s.key == statKey));
 		var stat = matching.FirstOrDefault();
+        // if (stat == null) {
+        //     // Debug.Log("Warning: Stat missing: " + stat + " for " + _resource);
+        //     stat = new Stat(statKey);
+        // }
 		return stat;
 	}
 	

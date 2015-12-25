@@ -85,6 +85,31 @@ public class BattleController : SimulationBehaviour {
 			layouter.LayoutFrames();
 		}
 	}
+    
+    /*
+    * Roll for special:
+    * Specials are rolled for every time a character attacks.
+    * Can't have more than one of the same special available
+    */
+    public void RollForSpecial (BattleFrameController battleFrameController) {
+        var character = battleFrameController.character;
+        var chance = character.stats.CurrentValue(Stat.SpecialChance);
+        var procd = tpd.RollPercent(chance);
+        Debug.Log(string.Format("{0} rolled for special: {1}", character, procd));
+        if (procd) {
+            ProcSpecial(character.specialChances);
+        }
+    }
+    
+    void ProcSpecial(SpecialProfile specialProfile) {
+        var exclude = specialsController.specials;
+        var special = specialProfile.Roll(exclude);
+        if (special == null) {
+            return;
+        }
+
+        specialsController.AddSpecial(special);
+    }
 	
 	/* 
 	* Every battle frame controller gets notified
