@@ -42,6 +42,8 @@ public class BattleFrameController : SimulationBehaviour {
         NotificationCenter.AddObserver(this, Notifications.OnBattleFramePresentedAbilities);
         NotificationCenter.AddObserver(this, Notifications.OnBattleFrameHidAbilities);
         NotificationCenter.AddObserver(this, Notifications.OnBattleFrameLostFocus);
+        NotificationCenter.AddObserver(this, Notifications.OnAbilityBeginCasting);
+        NotificationCenter.AddObserver(this, Notifications.OnAbilityResolved);
 	}
 	
 	public void OnFocusDown () {
@@ -83,6 +85,14 @@ public class BattleFrameController : SimulationBehaviour {
     
     void OnBattleFrameHidAbilities () {
         EnableInputStateMachines();
+        NotificationCenter.PostNotification(Notifications.OnBattleFrameLostFocus);
+    }
+    
+    void OnAbilityBeginCasting () {
+        NotificationCenter.PostNotification(Notifications.OnBattleFrameLostFocus);
+    }
+    
+    void OnAbilityResolved () {
         NotificationCenter.PostNotification(Notifications.OnBattleFrameLostFocus);
     }
     

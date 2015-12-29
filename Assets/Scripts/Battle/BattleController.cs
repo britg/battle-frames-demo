@@ -157,6 +157,7 @@ public class BattleController : SimulationBehaviour {
 			_target: target
 		);
 		abilityResolver.Resolve();
+        NotificationCenter.PostNotification(Notifications.OnAbilityResolved);
 	}
 	
 }

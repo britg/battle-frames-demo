@@ -52,6 +52,7 @@ public class AbilityFrameController : SimulationBehaviour {
             Debug.Log("Ability requires target!");
         } else {
             Debug.Log("Activating ability immediately!");
+            parentAbilitiesController.StartAbility(ability);
         }
         
     }

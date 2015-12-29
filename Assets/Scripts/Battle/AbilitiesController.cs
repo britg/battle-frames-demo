@@ -15,6 +15,8 @@ public class AbilitiesController : BattleFrameBehaviour {
     
     void Start () {
         NotificationCenter.AddObserver(this, Notifications.OnBattleFrameFocusSelect);
+        NotificationCenter.AddObserver(this, Notifications.OnAbilityResolved);
+        NotificationCenter.AddObserver(this, Notifications.OnAbilityBeginCasting);
         UpdateAbilityFrames();
         abilitiesContainer.SetActive(false);
     }
@@ -84,8 +86,20 @@ public class AbilitiesController : BattleFrameBehaviour {
     
     void OnNonAbilityInputDown (GameObject targetObj) {
         if (abilitiesContainer.activeSelf) {
-            Debug.Log("Hiding abilities from " + gameObject.name);
+            // Debug.Log("Hiding abilities from " + gameObject.name);
             HideAbilities();    
+        }
+    }
+    
+    void OnAbilityResolved () {
+        if (abilitiesContainer.activeSelf) {
+            HideAbilities();
+        }
+    }
+    
+    void OnAbilityBeginCasting () {
+        if (abilitiesContainer.activeSelf) {
+            HideAbilities();
         }
     }
     
@@ -122,7 +136,7 @@ public class AbilitiesController : BattleFrameBehaviour {
 	}
 	
 	void LogNotEnoughAbilityPoints (Ability ability) {
-		CombatLog.Add(
+		Debug.Log(
 			string.Format("{0}: Not enough ability points to cast {1}!", 
 				character.name, 
 				ability.name
@@ -147,6 +161,7 @@ public class AbilitiesController : BattleFrameBehaviour {
 			return;
 		}
         
+        NotificationCenter.PostNotification(Notifications.OnAbilityBeginCasting);
         currentCastingAbility = ability;
 		targetController = _targetController;
 	}
