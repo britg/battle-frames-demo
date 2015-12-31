@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 
 public class Simulation : MonoBehaviour {
+     
+    public static string scenarioKey;
 	
 	public GameObject battlePrefab;
 	
@@ -17,8 +19,18 @@ public class Simulation : MonoBehaviour {
 	}
 	
 	void OnDoneResourceLoading () {
-		Demo();
+        LoadScenario();
 	}
+    
+    /*
+     * In the final implementation we are loading a scenario from
+     * the API based on the tile chosen by the player.
+     * For now, we will stub out scenarios
+     */
+    void LoadScenario () {
+        Debug.Log("Scenario key is " + scenarioKey);
+        Demo();
+    }
 	
 	void Demo () {
 		
