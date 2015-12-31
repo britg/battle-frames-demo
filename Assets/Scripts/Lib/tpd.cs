@@ -27,6 +27,10 @@ public class tpd {
   /*
    * Strings
    */
+   
+  public static T ParseEnum<T>(string value) {
+    return (T) Enum.Parse(typeof(T), value, true);
+  }
 
   public static bool BeginsWith (string s, string match) {
     if (s.Length < match.Length) {

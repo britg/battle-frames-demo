@@ -54,9 +54,10 @@ public class InfoPanelController : SimulationBehaviour {
 		}
 		
 		var aggroProfile = controller.aggroProfile;
-		Dictionary<string, string> data = new Dictionary<string, string>();
+		var data = new Dictionary<RowDataKeyObject, string>();
 		foreach (KeyValuePair<BattleFrameController, float> kv in aggroProfile) {
-			data.Add(kv.Key.character.name, kv.Value.ToString());
+            var keyObj = new RowDataKeyObject(kv.Key.character.name);
+			data.Add(keyObj, kv.Value.ToString());
 		}
 		
 		aggroTable.rowData = data;

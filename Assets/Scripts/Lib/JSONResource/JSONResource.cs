@@ -62,12 +62,14 @@ public abstract class JSONResource {
   
   void LoadTopLevelSourceNode () {
     if (!JSONResource.jsonCache.ContainsKey(type)) {
+      Debug.Log("JSONResource: Type not found " + type);
       _sourceNode = new JSONNode();
     } else {
         var typeDict = JSONResource.jsonCache[type];
         if (typeDict.ContainsKey(key)) {
           _sourceNode = typeDict[key];  
         } else {
+            Debug.Log("JSONResource: Key not found " + key);
           _sourceNode = new JSONNode();
         }  
       }
@@ -108,5 +110,12 @@ public abstract class JSONResource {
   
   public override string ToString () {
     return string.Format("{0} : {1} : {2} : {3}", type, guid, key, name);
+  }
+  
+  public string Contents () {
+      if (sourceNode == null || sourceNode.Value == null) {
+        return "null";
+      }
+      return string.Format("{0}\n{1}", ToString(), sourceNode.Value);
   }
 }

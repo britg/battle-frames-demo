@@ -1,0 +1,30 @@
+{
+	"type": "Character",
+	"key": "1_wh_warrior",
+	"name": "Thjodrynn",
+	"abilityPointType": "fury",
+	"stats": {
+		"health": {
+			"currentValue": 300,
+			"minValue": 0,
+			"maxValue": 300
+		},
+		"abilityPoints": {
+			"currentValue": 0,
+			"minValue": 0,
+			"maxValue": 100
+		},
+		"attackSpeed": {
+			"currentValue": 2.66
+		},
+		"dps": {
+			"currentValue": 37
+		},
+        "specialChance": {
+            "currentValue": 0
+        }
+	},
+	"abilities": [
+		"taunt"
+	]
+}

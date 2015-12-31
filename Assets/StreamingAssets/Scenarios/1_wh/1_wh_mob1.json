@@ -1,0 +1,30 @@
+
+{
+	"type": "Character",
+	"key": "1_wh_mob1",
+	"name": "Root Monster",
+    "aiControlled": true,
+	"ai": [
+		"HighestAggroTargetter"
+	],
+	"stats": {
+		"health": {
+			"currentValue": 1000,
+			"minValue": 0,
+			"maxValue": 1000,
+			"shouldRound": true
+		},
+		"abilityPoints": {
+			"currentValue": 0,
+			"minValue": 0,
+			"maxValue": 100,
+			"shouldRound": true
+		},
+		"attackSpeed": {
+			"currentValue": 3
+		},
+		"dps": {
+			"currentValue": 5
+		}
+	}
+}

@@ -7,8 +7,8 @@ public class TableController : MonoBehaviour {
 	
 	public string label = "[Label]";
 	
-	Dictionary<string, string> _rowData;
-	public Dictionary<string, string> rowData {
+	Dictionary<RowDataKeyObject, string> _rowData;
+	public Dictionary<RowDataKeyObject, string> rowData {
 		get {
 			return _rowData;
 		}
@@ -41,12 +41,12 @@ public class TableController : MonoBehaviour {
 	
 	void UpdateRows () {
 		ClearRows();
-		foreach (KeyValuePair<string, string> kv in rowData) {
+		foreach (KeyValuePair<RowDataKeyObject, string> kv in rowData) {
 			var rowObj = Instantiate(tableRowPrefab);
 			rowObj.name = "TableRow";
 			rowObj.transform.SetParent(transform, false);
 			var controller = rowObj.GetComponent<TableRowController>();
-			controller.key = kv.Key;
+			controller.key = kv.Key.name;
 			controller.val = kv.Value;
 		}		
 	}

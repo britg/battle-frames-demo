@@ -1,0 +1,15 @@
+{
+    "type": "Scenario",
+    "key": "1_wh",
+    "name": "Warrior Healer 1",
+    "sides": {
+        "Adventurers": [
+            "1_wh_warrior",
+            "1_wh_healer"
+        ],
+        "Mobs": [
+            "1_wh_mob1",
+            "1_wh_mob2"
+        ]
+    }
+}
