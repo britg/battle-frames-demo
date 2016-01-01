@@ -3,6 +3,7 @@
 	"key": "1_wh_healer",
 	"name": "Argent",
 	"abilityPointType": "mana",
+    "aiControlled": false,
 	"stats": {
 		"health": {
 			"currentValue": 300,

@@ -23,26 +23,15 @@ public class AbilityResolver {
 			// ability, caster, target));
 			
 		foreach (Proc proc in ability.procs) {
-			ApplyProc(proc, target);
+            var procResolver = Proc.Resolver(proc.key);
+            var procContext = new ProcContext();
+            procContext.proc = proc;
+            procContext.ability = ability;
+            procContext.battle = battleController;
+            procContext.caster = caster;
+            procContext.target = target;
+            procResolver.Resolve(procContext);
 		}
 	}
 	
-	/*
-	 *	TODO: We need to apply stat change modifiers
-	 * 		  to the proc'd value using:
-	 *			- character's level
-	 *			- character's equipment
-	 */
-	void ApplyProc (Proc proc, BattleFrameController target) {
-		foreach (StatChange statChangeTemplate in proc.baseStatChanges) {
-			var statChange = proc.GenerateStatChange(statChangeTemplate.key);
-			ApplyStatChange(statChange, target);
-		}
-	}
-	
-	void ApplyStatChange (StatChange statChange, BattleFrameController target) {
-		Debug.Log("Applying stat change " + statChange);
-		
-		target.ChangeStat(statChange.key, statChange.finalValue);
-	}
 }

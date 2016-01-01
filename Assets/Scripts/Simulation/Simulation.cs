@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class Simulation : MonoBehaviour {
      
     public static string scenarioKey;
+    
+    public string defaultScenarioKey = "1_wh";
 	
 	public GameObject battlePrefab;
 	
@@ -29,6 +31,9 @@ public class Simulation : MonoBehaviour {
      */
     void LoadScenario () {
         // Debug.Log("Scenario key is " + scenarioKey);
+        if (scenarioKey == null) {
+            scenarioKey = defaultScenarioKey;
+        }
         var scenario = new Scenario(scenarioKey);
         // Debug.Log("Scenario contents are " + scenario.Contents());
         var battleObj = GameObject.Find("Battle");

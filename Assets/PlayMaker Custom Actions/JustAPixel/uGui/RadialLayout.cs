@@ -41,11 +41,11 @@ public class RadialLayout : LayoutGroup {
     { 
         CalculateRadial();
     }
-    protected override void OnValidate()
-    {
-        base.OnValidate();
-        CalculateRadial();
-    }
+    // protected override void OnValidate()
+    // {
+    //     base.OnValidate();
+    //     CalculateRadial();
+    // }
     void CalculateRadial()
     {
         m_Tracker.Clear();

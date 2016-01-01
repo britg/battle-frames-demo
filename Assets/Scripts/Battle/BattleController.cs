@@ -82,7 +82,7 @@ public class BattleController : SimulationBehaviour {
 		layouters.Add(topContainer.GetComponent<BattleSideLayouter>());
 		
 		foreach (var layouter in layouters) {
-			layouter.LayoutFrames();
+			layouter.LayoutFrames(this);
 		}
 	}
     
@@ -147,7 +147,7 @@ public class BattleController : SimulationBehaviour {
 	}
 	
 	/*
-	 * 	Execute and ability
+	 * 	Execute an ability
 	 */
 	public void ExecuteAbility (Ability ability, BattleFrameController caster, BattleFrameController target) {
 		var abilityResolver = new AbilityResolver(
@@ -159,5 +159,11 @@ public class BattleController : SimulationBehaviour {
 		abilityResolver.Resolve();
         NotificationCenter.PostNotification(Notifications.OnAbilityResolved);
 	}
+    
+    public void ExecuteSpecial (Special special, BattleFrameController targetController) {
+        // new SpecialResolver resolver.Resolve()
+        //
+        // Notify special resolved
+    }
 	
 }

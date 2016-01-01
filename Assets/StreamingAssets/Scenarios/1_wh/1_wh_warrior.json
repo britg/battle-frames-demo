@@ -1,8 +1,9 @@
 {
 	"type": "Character",
 	"key": "1_wh_warrior",
-	"name": "Thjodrynn",
+	"name": "Warrior 1",
 	"abilityPointType": "fury",
+    "aiControlled": false,
 	"stats": {
 		"health": {
 			"currentValue": 300,

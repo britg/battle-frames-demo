@@ -13,7 +13,7 @@ public class Ability : JSONResource {
 		AnySide,
 		EnemySide,
 		FriendlySide
-	}
+	} 
 	
 	public Ability (string _key) : base(_key) {
 		LoadProcs();

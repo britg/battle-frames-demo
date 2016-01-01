@@ -11,6 +11,7 @@
 	"abilityPointCost": 20,
 	"procs": {
 		"restoreHealth": {
+            "target": "Inherit",
 			"occurances": 1,
 			"occuranceRate": 0,
 			"baseStatChanges": {

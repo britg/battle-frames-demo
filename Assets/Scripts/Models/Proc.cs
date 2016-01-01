@@ -5,6 +5,29 @@ using SimpleJSON;
 using System.Linq;
 
 public class Proc : JSONResource {
+    
+    public enum Target {
+        Inherit, // inherit from ability or special target
+        Caster,
+        EnemySide,
+        FriendlySide
+    }
+    
+    public const string RestoreHealth = "restoreHealth";
+    public const string ResetAggro = "resetAggro";
+    
+    public static Dictionary<string, IProcResolver> ResolverMapping
+        = new Dictionary<string, IProcResolver>() {
+            { RestoreHealth, BaseProcResolver.Instance },
+            { ResetAggro, new ResetAggroProcResolver() }
+        };
+    
+    public static IProcResolver Resolver (string procKey) {
+        if (ResolverMapping.ContainsKey(procKey)) {
+            return ResolverMapping[procKey];
+        }
+        return BaseProcResolver.Instance;
+    }
 
 	public Proc (string _key) : base(_key) {}
 	public Proc (string _key, JSONNode __sourceNode) : base(_key, __sourceNode) {
