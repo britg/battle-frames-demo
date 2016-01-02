@@ -64,6 +64,15 @@ public class Character : JSONResource {
             return false;
         }
     }
+    
+    public bool generatesAbilityPointsFromBasicAttack {
+        get {
+            if (abilityPointType == AbilityPointType.Fury) {
+                return true;
+            }
+            return false;
+        }
+    }
 	
 	public override string ToString () {
 		return name;

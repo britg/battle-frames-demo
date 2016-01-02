@@ -23,6 +23,9 @@
 		},
         "specialChance": {
             "currentValue": 0
+        },
+        "abilityProduction": {
+            "currentValue": 3
         }
 	},
 	"abilities": [

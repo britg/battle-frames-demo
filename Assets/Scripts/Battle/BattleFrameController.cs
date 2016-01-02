@@ -190,6 +190,10 @@ public class BattleFrameController : SimulationBehaviour {
 	
 	void DeliverAttack (AttackResult attackResult) {
 		// Debug.Log("Delivering attack result: " + attackResult);
+        if (character.generatesAbilityPointsFromBasicAttack) {
+            // TMP implmenetation
+            character.stats.ChangeStat(Stat.AbilityPoints, character.stats.CurrentValue(Stat.AbilityProduction));
+        }
 	}
     
     public void ChangeStat (string statKey, float amount, bool display = true) {

@@ -12,6 +12,7 @@ public class Stat : JSONResource {
     public const string SpecialChance = "specialChance";
     public const string CritChance = "critChance";
     public const string AbilityRegen = "abilityRegen";
+    public const string AbilityProduction = "abilityProduction";
 	
 	public static Dictionary<string, IStatCalculator> CalculatorMapping
 		= new Dictionary<string, IStatCalculator>() {

@@ -45,10 +45,11 @@ public class StatProfile {
 	public Stat statForKey (string statKey) {
 		var matching = stats.Where(s => (s.key == statKey));
 		var stat = matching.FirstOrDefault();
-        // if (stat == null) {
-        //     // Debug.Log("Warning: Stat missing: " + stat + " for " + _resource);
-        //     stat = new Stat(statKey);
-        // }
+        if (stat == null) {
+            Debug.Log("Warning: Stat missing: " + statKey + " for " + _resource);
+            stat = new Stat(statKey);
+            stats.Add(stat);
+        }
 		return stat;
 	}
 	
