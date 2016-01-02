@@ -135,11 +135,8 @@ public class BattleFrameController : SimulationBehaviour {
 		var component = gameObject.AddComponent(System.Type.GetType(componentName));
 	}
 	
-	public void SeedAggro (List<BattleFrameController> controllers) {
+	public void SeedAggro () {
 		aggroProfile = new Dictionary<BattleFrameController, float>();
-		// foreach (var controller in controllers) {
-		// 	aggroProfile[controller] = 0f;
-		// }
 	}
 	
 	public void ChangeAggro (BattleFrameController toEnemy, float amount) {

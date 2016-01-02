@@ -131,7 +131,7 @@ public class BattleController : SimulationBehaviour {
 	public void SeedAggro () {
 		foreach (var controller in allControllers) {
 			if (controller.aiControlled) { 
-				controller.SeedAggro(OpposingControllers(controller));
+				controller.SeedAggro();
 			}
 		}
 	}
