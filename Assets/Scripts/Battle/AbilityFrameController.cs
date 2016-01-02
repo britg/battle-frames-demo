@@ -12,6 +12,10 @@ public class AbilityFrameController : SimulationBehaviour {
     public float focusAnimationTime = 0.1f;
     bool focusAnimated = false;
     
+    bool coolingDown = false;
+    float currentCoolDown = 0f;
+    
+    
 
 	// Use this for initialization
 	void Start () {
@@ -20,7 +24,9 @@ public class AbilityFrameController : SimulationBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+        if (coolingDown) {
+            UpdateCooldown();
+        }
 	}
     
     void OnFocusDown () {
@@ -50,11 +56,16 @@ public class AbilityFrameController : SimulationBehaviour {
     void AttemptAbilityActivation () {
         if (ability.requiresTargetSelection) {
             Debug.Log("Ability requires target!");
-        } else {
-            Debug.Log("Activating ability immediately!");
-            parentAbilitiesController.StartAbility(ability);
+            return;
         }
         
+        if (coolingDown) {
+            Debug.Log("Ability on cooldown!");
+            return;
+        }     
+        
+        Debug.Log("Activating ability immediately!");
+        coolingDown = parentAbilitiesController.StartAbility(ability);
     }
     
     void SetAbilityTarget (GameObject targetObj) {
@@ -65,6 +76,20 @@ public class AbilityFrameController : SimulationBehaviour {
             Debug.Log("Target is not valid! ");
             return;
         }
-        parentAbilitiesController.StartAbility(ability, targetController);
+        
+        if (coolingDown) {
+            Debug.Log("Ability on cooldown!");
+            return;
+        }
+        
+        coolingDown = parentAbilitiesController.StartAbility(ability, targetController);
+    }
+    
+    void UpdateCooldown () {
+        currentCoolDown += gameDeltaTime;
+        if (currentCoolDown >= ability.cooldown) {
+            coolingDown = false;
+            currentCoolDown = 0f;
+        }
     }
 }

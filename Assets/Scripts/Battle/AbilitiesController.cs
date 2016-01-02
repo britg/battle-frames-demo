@@ -144,26 +144,27 @@ public class AbilitiesController : BattleFrameBehaviour {
 		);
 	}
 	
-	public void StartDefaultFriendlyAbility (BattleFrameController _targetController) {
+	public bool StartDefaultFriendlyAbility (BattleFrameController _targetController) {
 		if (character.defaultFriendlyAbility == null) {
-			return;
+			return false;
 		}
-        StartAbility(character.defaultFriendlyAbility, _targetController);
+        return StartAbility(character.defaultFriendlyAbility, _targetController);
 	}
 	
-	public void StartAbility (Ability ability) {
-		StartAbility(ability, null);
+	public bool StartAbility (Ability ability) {
+		return StartAbility(ability, null);
 	}
 	
-	public void StartAbility (Ability ability, BattleFrameController _targetController) {
+	public bool StartAbility (Ability ability, BattleFrameController _targetController) {
 		if (ability.abilityPointCost > character.stats.CurrentValue(Stat.AbilityPoints)) {
 			LogNotEnoughAbilityPoints(ability);
-			return;
+			return false;
 		}
         
         NotificationCenter.PostNotification(Notifications.OnAbilityBeginCasting);
         currentCastingAbility = ability;
 		targetController = _targetController;
+        return true;
 	}
 	
 	void PurchaseAbility (Ability ability) {
