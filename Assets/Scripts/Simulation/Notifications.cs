@@ -18,6 +18,7 @@ public class Notifications {
     public const string OnAbilityBeginCasting = "OnAbilityBeginCasting";
     
     public const string OnPlayerWin = "OnPlayerWin";
+    public const string OnPlayerLost = "OnPlayerLost";
 	
 	public static class Keys {
 		public const string Controller = "controller";

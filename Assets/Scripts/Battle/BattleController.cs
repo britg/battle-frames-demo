@@ -174,12 +174,18 @@ public class BattleController : SimulationBehaviour {
         if (controllers[battleSide].Count < 1) {
             if (battleSide == Battle.Side.Mobs) {
                 AnnouncePlayerWin();
+            } else {
+                AnnouncePlayerLost();
             }
         }
     }
     
     void AnnouncePlayerWin () {
         NotificationCenter.PostNotification(Notifications.OnPlayerWin);   
+    }
+    
+    void AnnouncePlayerLost () {
+        NotificationCenter.PostNotification(Notifications.OnPlayerLost);
     }
 	
 }

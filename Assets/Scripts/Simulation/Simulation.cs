@@ -23,6 +23,7 @@ public class Simulation : MonoBehaviour {
     
     void Start () {
         NotificationCenter.AddObserver(this, Notifications.OnPlayerWin);
+        NotificationCenter.AddObserver(this, Notifications.OnPlayerLost);
     }
 	
 	void OnDoneResourceLoading () {
@@ -50,6 +51,10 @@ public class Simulation : MonoBehaviour {
     }
     
     void OnPlayerWin () {
+        Invoke("End", 3f);
+    }
+    
+    void OnPlayerLost () {
         Invoke("End", 3f);
     }
     
