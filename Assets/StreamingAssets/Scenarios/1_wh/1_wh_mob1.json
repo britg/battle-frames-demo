@@ -9,7 +9,7 @@
 	],
 	"stats": {
 		"health": {
-			"currentValue": 1000,
+			"currentValue": 10,
 			"minValue": 0,
 			"maxValue": 1000,
 			"shouldRound": true

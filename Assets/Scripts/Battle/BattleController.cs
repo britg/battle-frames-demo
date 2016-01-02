@@ -165,5 +165,21 @@ public class BattleController : SimulationBehaviour {
         //
         // Notify special resolved
     }
+    
+    public void HandleBattleFrameDeath (BattleFrameController battleFrameController) {
+        var battleSide = battleFrameController.currentBattleSide;
+        controllers[battleSide].Remove(battleFrameController);
+        Destroy(battleFrameController.gameObject);
+        
+        if (controllers[battleSide].Count < 1) {
+            if (battleSide == Battle.Side.Mobs) {
+                AnnouncePlayerWin();
+            }
+        }
+    }
+    
+    void AnnouncePlayerWin () {
+        NotificationCenter.PostNotification(Notifications.OnPlayerWin);   
+    }
 	
 }

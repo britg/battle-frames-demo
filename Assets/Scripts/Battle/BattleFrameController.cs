@@ -15,6 +15,7 @@ public class BattleFrameController : SimulationBehaviour {
     public float focusAnimationTime = 0.1f;
     bool focusAnimated = false;
     bool hasFocus = false;
+    bool announcedDeath = false;
     
     
 	[HideInInspector]
@@ -204,6 +205,8 @@ public class BattleFrameController : SimulationBehaviour {
                 DisplayHealthChange(amount);
             }    
         }
+        
+        CheckDeath();
     }
     
     void DisplayHealthChange (float amount) {
@@ -211,6 +214,18 @@ public class BattleFrameController : SimulationBehaviour {
         damageTextObj.transform.position = transform.position;
         var damageTextView = damageTextObj.GetComponent<DamageTextView>();
         damageTextView.SetAmount(amount);
+    }
+    
+    void CheckDeath () {
+        var currentHealth = character.stats.CurrentValue(Stat.Health);
+        if (currentHealth < 1 && !announcedDeath) {
+            AnnounceDeath();
+        }
+    }
+    
+    void AnnounceDeath () {
+        announcedDeath = true;
+        battleController.HandleBattleFrameDeath(this);
     }
 	
 	

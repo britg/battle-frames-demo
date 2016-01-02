@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 
 
@@ -19,6 +20,10 @@ public class Simulation : MonoBehaviour {
 		resourceLoader.Load(Application.streamingAssetsPath);
 		Debug.Log("Application persistent data path: " + Application.persistentDataPath);
 	}
+    
+    void Start () {
+        NotificationCenter.AddObserver(this, Notifications.OnPlayerWin);
+    }
 	
 	void OnDoneResourceLoading () {
         LoadScenario();
@@ -42,5 +47,13 @@ public class Simulation : MonoBehaviour {
 		}
         var battleController = battleObj.GetComponent<BattleController>();
         scenario.Start(battleController);
+    }
+    
+    void OnPlayerWin () {
+        Invoke("End", 3f);
+    }
+    
+    void End () {
+        SceneManager.LoadScene("Map");
     }
 }

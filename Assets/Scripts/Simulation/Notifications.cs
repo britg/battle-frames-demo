@@ -16,6 +16,8 @@ public class Notifications {
     public const string OnAbilityResolved = "OnAbilityResolved";
     
     public const string OnAbilityBeginCasting = "OnAbilityBeginCasting";
+    
+    public const string OnPlayerWin = "OnPlayerWin";
 	
 	public static class Keys {
 		public const string Controller = "controller";
