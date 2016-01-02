@@ -12,11 +12,17 @@
 	"procs": {
 		"resetAggro": {
             "target": "EnemySide",
-			"occurances": 1,
-			"occuranceRate": 0,
-			"baseStatChanges": {
-				
-			}	
-		} 
+			"occurances": 1
+		},
+        "changeAbilityPoints": {
+            "target": "Caster",
+            "occurances": 1,
+            "baseStatChanges": {
+                "abilityPoints": {
+                    "minValue": 10,
+                    "maxValue": 20
+                }
+            }
+        }
     }
 }

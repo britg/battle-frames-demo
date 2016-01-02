@@ -25,9 +25,12 @@ public class Proc : JSONResource {
         };
     
     public static IProcResolver Resolver (string procKey) {
+        Debug.Log("Finding resolver for proc " + procKey);
         if (ResolverMapping.ContainsKey(procKey)) {
             return ResolverMapping[procKey];
         }
+        
+        Debug.Log("Could not find resolver, using base");
         return BaseProcResolver.Instance;
     }
 

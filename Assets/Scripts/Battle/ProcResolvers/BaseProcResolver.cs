@@ -16,6 +16,10 @@ public class BaseProcResolver : IProcResolver {
     public void Resolve (ProcContext procContext) {
         var proc = procContext.proc;
         var target = procContext.target;
+        if (target == null && proc.target == Proc.Target.Caster) {
+            target = procContext.caster;
+        }
+        
         foreach (StatChange statChangeTemplate in proc.baseStatChanges) {
 			var statChange = proc.GenerateStatChange(statChangeTemplate.key);
 			ApplyStatChange(statChange, target);
