@@ -20,6 +20,12 @@
 					"maxValue": 20 
 				}
 			}		
-		}
+		},
+        "changeAggro": {
+            "target": "EnemySide",
+            "occurances": 1,
+            "occuranceRate": 0,
+            "amount": 10
+        }
 	}
 }

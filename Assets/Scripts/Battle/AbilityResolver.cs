@@ -27,7 +27,7 @@ public class AbilityResolver {
             var procContext = new ProcContext();
             procContext.proc = proc;
             procContext.ability = ability;
-            procContext.battle = battleController;
+            procContext.battleController = battleController;
             procContext.caster = caster;
             procContext.target = target;
             procResolver.Resolve(procContext);

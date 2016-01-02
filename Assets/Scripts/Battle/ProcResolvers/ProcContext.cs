@@ -2,7 +2,7 @@
 using System.Collections;
 
 public struct ProcContext {
-    public BattleController battle;
+    public BattleController battleController;
     public Ability ability;
     public BattleFrameController caster;
     public BattleFrameController target;

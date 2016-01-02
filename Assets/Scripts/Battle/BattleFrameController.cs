@@ -37,6 +37,14 @@ public class BattleFrameController : SimulationBehaviour {
 		}
 	}
     
+    public Battle.Side enemyBattleSide {
+        get {
+            return (currentBattleSide == Battle.Side.Adventurers 
+                       ? Battle.Side.Mobs 
+                       : Battle.Side.Adventurers);
+        }
+    }
+    
     
 	// Use this for initialization
 	void Start () {
@@ -134,7 +142,7 @@ public class BattleFrameController : SimulationBehaviour {
 		// }
 	}
 	
-	void ChangeAggro (BattleFrameController toEnemy, float amount) {
+	public void ChangeAggro (BattleFrameController toEnemy, float amount) {
 		if (!aggroProfile.ContainsKey(toEnemy)) {
 			aggroProfile[toEnemy] = amount;
 		} else {

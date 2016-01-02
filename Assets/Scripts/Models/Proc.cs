@@ -15,11 +15,13 @@ public class Proc : JSONResource {
     
     public const string RestoreHealth = "restoreHealth";
     public const string ResetAggro = "resetAggro";
+    public const string ChangeAggro = "changeAggro";
     
     public static Dictionary<string, IProcResolver> ResolverMapping
         = new Dictionary<string, IProcResolver>() {
             { RestoreHealth, BaseProcResolver.Instance },
-            { ResetAggro, new ResetAggroProcResolver() }
+            { ResetAggro, new ResetAggroProcResolver() },
+            { ChangeAggro, new ChangeAggroProcResolver() }
         };
     
     public static IProcResolver Resolver (string procKey) {
@@ -34,8 +36,10 @@ public class Proc : JSONResource {
 		LoadBaseStatChanges();
 	}
 	
+    public Target target;
 	public int occurances;
 	public float occuranceRate;
+    public float amount;
 	
 	public List<StatChange> baseStatChanges;
 	
