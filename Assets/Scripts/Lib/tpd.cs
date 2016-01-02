@@ -29,6 +29,7 @@ public class tpd {
    */
    
   public static T ParseEnum<T>(string value) {
+    // Debug.Log("Parsing enum " + typeof(T) + " for val " + value);
     return (T) Enum.Parse(typeof(T), value, true);
   }
 

@@ -2,7 +2,7 @@
 	"type": "Character",
 	"key": "1_wh_warrior",
 	"name": "Warrior 1",
-	"abilityPointType": "fury",
+	"abilityPointType": "Fury",
     "aiControlled": false,
 	"stats": {
 		"health": {

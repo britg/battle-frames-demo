@@ -192,11 +192,13 @@ public class BattleFrameController : SimulationBehaviour {
 		// Debug.Log("Delivering attack result: " + attackResult);
 	}
     
-    public void ChangeStat (string statKey, float amount) {
+    public void ChangeStat (string statKey, float amount, bool display = true) {
         character.stats.ChangeStat(statKey, amount);
         
-        if (statKey == Stat.Health) {
-            DisplayHealthChange(amount);
+        if (display) {
+            if (statKey == Stat.Health) {
+                DisplayHealthChange(amount);
+            }    
         }
     }
     

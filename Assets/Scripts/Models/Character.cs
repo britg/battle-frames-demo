@@ -55,6 +55,15 @@ public class Character : JSONResource {
     }
 	
 	public Battle.Side currentBattleSide = Battle.Side.Neutral;
+    
+    public bool regensAbilityPoints {
+        get {
+            if (abilityPointType == AbilityPointType.Mana) {
+                return true;
+            }
+            return false;
+        }
+    }
 	
 	public override string ToString () {
 		return name;

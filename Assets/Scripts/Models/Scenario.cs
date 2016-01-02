@@ -42,6 +42,7 @@ public class Scenario : JSONResource {
     
     void LoadCharacter (string charKey, Battle.Side side) {
         var character = new Character(charKey);
+        // Debug.Log("character's ability point type is " + character.abilityPointType);
         battle.AddCharacterToSide(character, side);
     }
 }

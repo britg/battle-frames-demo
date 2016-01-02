@@ -2,7 +2,7 @@
 	"type": "Character",
 	"key": "1_wh_healer",
 	"name": "Argent",
-	"abilityPointType": "mana",
+	"abilityPointType": "Mana",
     "aiControlled": false,
 	"stats": {
 		"health": {
@@ -23,6 +23,10 @@
 		},
         "specialChance": {
             "currentValue": 1
+        },
+        "abilityRegen": {
+            "currentValue": 10,
+            "minValue": 0
         }
 	},
 	"abilities": [

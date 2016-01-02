@@ -84,8 +84,8 @@ public abstract class JSONResource {
     foreach (var field in fields) {
       var node = sourceNode[field.Name];
       
-      // Debug.Log(type + ": " + field.Name + " : " + field.FieldType.ToString() + " : " + node.Value);
-      if (node != null && node.Value != "") {
+    //   Debug.Log(type + ": " + field.Name + " : " + field.FieldType.ToString() + " : " + node.Value);
+      if (node != null && node.Value != "" && node.Value != "null") {
         
         if (field.FieldType == typeof(string)) {
           field.SetValue(this, node.Value);
@@ -93,6 +93,12 @@ public abstract class JSONResource {
         
         if (field.FieldType == typeof(float)) {
           field.SetValue(this, node.AsFloat);
+        }
+        
+        if (field.FieldType.IsEnum) {
+            var genMeth = typeof(tpd).GetMethod("ParseEnum").MakeGenericMethod(field.FieldType);
+            var p = new object[]{ node.Value };
+            field.SetValue(this, genMeth.Invoke(this, p));
         }
         
         if (field.FieldType == typeof(int)) {

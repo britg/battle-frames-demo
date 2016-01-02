@@ -25,12 +25,12 @@ public class CombatLog : SimulationBehaviour {
 	}
 	
 	public static void Add (string msg) {
-		var newMsg = Instantiate(Instance.msgPrefab) as GameObject;
-		newMsg.transform.SetParent(Instance.scrollContentTransform, false);
-		var msgText = newMsg.GetComponent<Text>();
-		msgText.text = string.Format("{0:0.00} {1}", Instance.gameTime.CurrentSeconds, msg);
-		TruncateMessages();
-		Instance.Invoke("ScrollToBottom", 0.1f);
+		// var newMsg = Instantiate(Instance.msgPrefab) as GameObject;
+		// newMsg.transform.SetParent(Instance.scrollContentTransform, false);
+		// var msgText = newMsg.GetComponent<Text>();
+		// msgText.text = string.Format("{0:0.00} {1}", Instance.gameTime.CurrentSeconds, msg);
+		// TruncateMessages();
+		// Instance.Invoke("ScrollToBottom", 0.1f);
 	}
 	
 	static void TruncateMessages () {
