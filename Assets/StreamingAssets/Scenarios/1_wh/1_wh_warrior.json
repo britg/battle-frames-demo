@@ -6,7 +6,7 @@
     "aiControlled": false,
 	"stats": {
 		"health": {
-			"currentValue": 1,
+			"currentValue": 100,
 			"minValue": 0,
 			"maxValue": 300
 		},
