@@ -127,6 +127,10 @@ public class tpd {
   public static float RollRange (RangeAttribute range) {
     return UnityEngine.Random.Range(range.min, range.max);
   }
+  
+  public static float Roll (float min, float max) {
+      return UnityEngine.Random.Range(min, max);
+  }
 
   public static T RollList<T> (List<T> list) {
     return list[UnityEngine.Random.Range(0, list.Count -1)];

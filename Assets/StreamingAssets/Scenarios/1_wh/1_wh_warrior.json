@@ -18,6 +18,11 @@
 		"attackSpeed": {
 			"currentValue": 2.66
 		},
+        "damage": {
+            "currentValue": 10,
+            "minValue": 10,
+            "maxValue": 20
+        },
 		"dps": {
 			"currentValue": 37
 		},

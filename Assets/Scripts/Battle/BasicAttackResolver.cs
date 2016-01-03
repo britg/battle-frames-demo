@@ -24,9 +24,8 @@ public class BasicAttackResolver {
 		var result = new AttackResult();
 		result.type = AttackResult.Type.Hit;
 		result.statKey = Stat.Health;
-		var attackerSpeed = attackerController.character.stats.CurrentValue(Stat.AttackSpeed);
-		var attackerDPS = attackerController.character.stats.CurrentValue(Stat.DPS);
-		result.delta = -attackerDPS/attackerSpeed;
+		var attackerDamage = attackerController.character.stats.statForKey(Stat.Damage);
+		result.delta = -tpd.Roll(attackerDamage.minValue, attackerDamage.maxValue);
 		result.fromController = attackerController;
 		result.targetController = targetController;
 		

@@ -8,6 +8,7 @@ public class Stat : JSONResource {
 	public const string Health = "health";
 	public const string AbilityPoints = "abilityPoints";
 	public const string AttackSpeed = "attackSpeed";
+    public const string Damage = "damage";
 	public const string DPS = "dps";
     public const string SpecialChance = "specialChance";
     public const string CritChance = "critChance";
