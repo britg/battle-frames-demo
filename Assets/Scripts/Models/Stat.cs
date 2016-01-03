@@ -12,6 +12,7 @@ public class Stat : JSONResource {
 	public const string DPS = "dps";
     public const string SpecialChance = "specialChance";
     public const string CritChance = "critChance";
+    public const string CritMultiplier = "critMultiplier";
     public const string AbilityRegen = "abilityRegen";
     public const string AbilityProduction = "abilityProduction";
 	

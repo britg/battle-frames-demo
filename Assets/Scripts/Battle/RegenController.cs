@@ -15,7 +15,7 @@ public class RegenController : BattleFrameBehaviour {
     
     void Regen () {
         var abilityPointRegenAmount = character.stats.CurrentValue(Stat.AbilityRegen);
-        battleFrameController.ChangeStat(Stat.AbilityPoints, abilityPointRegenAmount, false);
+        battleFrameController.ChangeStat(Stat.AbilityPoints, abilityPointRegenAmount);
     }
     
     void OnDestroy () {

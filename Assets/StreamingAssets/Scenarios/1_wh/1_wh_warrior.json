@@ -23,9 +23,16 @@
             "minValue": 10,
             "maxValue": 20
         },
-		"dps": {
-			"currentValue": 37
-		},
+        "critChance": {
+            "currentValue": 5,
+            "minValue": 0,
+            "maxValue": 100
+        },
+        "critMultiplier": {
+            "currentValue": 2,
+            "minValue": 2,
+            "maxValue": 5
+        },
         "specialChance": {
             "currentValue": 0
         },

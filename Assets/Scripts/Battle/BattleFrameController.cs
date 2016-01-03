@@ -192,6 +192,7 @@ public class BattleFrameController : SimulationBehaviour {
 	void ReceiveAttack (AttackResult attackResult) {
 		// Debug.Log("Receiving attack result: " + attackResult);
         ChangeStat(attackResult.statKey, attackResult.delta);
+        DisplayAttackResult(attackResult);
 	}
 	
 	void DeliverAttack (AttackResult attackResult) {
@@ -202,23 +203,16 @@ public class BattleFrameController : SimulationBehaviour {
         }
 	}
     
-    public void ChangeStat (string statKey, float amount, bool display = true) {
+    public void ChangeStat (string statKey, float amount) {
         character.stats.ChangeStat(statKey, amount);
-        
-        if (display) {
-            if (statKey == Stat.Health) {
-                DisplayHealthChange(amount);
-            }    
-        }
-        
         CheckDeath();
     }
     
-    void DisplayHealthChange (float amount) {
+    void DisplayAttackResult (AttackResult result) {
         var damageTextObj = Instantiate(damageTextPrefab) as GameObject;
         damageTextObj.transform.position = transform.position;
         var damageTextView = damageTextObj.GetComponent<DamageTextView>();
-        damageTextView.SetAmount(amount);
+        damageTextView.SetResult(result);
     }
     
     void CheckDeath () {
