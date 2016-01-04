@@ -11,6 +11,8 @@ public class GameTime {
   }
   
   public Config config;
+  
+  float previousTimeMultiplier;
 
   public float CurrentSeconds { get; set; }
   
@@ -103,6 +105,15 @@ public class GameTime {
     UpdateSecondProgress(amount);
     UpdateMinuteProgress(amount);
     UpdateHourProgress(amount);
+  }
+  
+  public void Pause () {
+      previousTimeMultiplier = config.currentTimeMultiplier;
+      config.currentTimeMultiplier = 0f;
+  }
+  
+  public void Resume () {
+      config.currentTimeMultiplier = previousTimeMultiplier;
   }
   
   void UpdateMinuteProgress (float amount) {

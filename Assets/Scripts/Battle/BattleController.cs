@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -172,6 +173,8 @@ public class BattleController : SimulationBehaviour {
         Destroy(battleFrameController.gameObject);
         
         if (controllers[battleSide].Count < 1) {
+            gameTime.Pause();
+            
             if (battleSide == Battle.Side.Mobs) {
                 AnnouncePlayerWin();
             } else {
@@ -180,12 +183,18 @@ public class BattleController : SimulationBehaviour {
         }
     }
     
+    
     void AnnouncePlayerWin () {
         NotificationCenter.PostNotification(Notifications.OnPlayerWin);   
     }
     
     void AnnouncePlayerLost () {
         NotificationCenter.PostNotification(Notifications.OnPlayerLost);
+    }
+    
+    public void AttemptFlee () {
+        gameTime.Pause();
+        SceneManager.LoadScene("Map");
     }
 	
 }

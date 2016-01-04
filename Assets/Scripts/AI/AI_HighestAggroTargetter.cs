@@ -36,8 +36,4 @@ public class AI_HighestAggroTargetter : BattleFrameBehaviour {
         //     Debug.Log("No targets with aggro, doing nothing");    
         // }
 	}
-    
-    void OnDestroy () {
-        gameTime.SecondChange -= SetTarget;
-    }
 }
