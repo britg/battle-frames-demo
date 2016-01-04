@@ -33,7 +33,7 @@ public class BattleSideLayouter : MonoBehaviour {
             frameCenter.y = -totalDimensions.y/4f;
         }
         
-        Debug.Log("Frame center for " + battleSide + " is " + frameCenter);
+        // Debug.Log("Frame center for " + battleSide + " is " + frameCenter);
         
         var frameControllers = battleController.controllers[battleSide];
         var frameCenterPoints = new List<Vector3>();
@@ -42,7 +42,7 @@ public class BattleSideLayouter : MonoBehaviour {
         var refCount = Mathf.Clamp(frameControllers.Count, 3, 5) + 1;
         var spacing = width / refCount;
         
-        Debug.Log("Spacing is " + spacing);
+        // Debug.Log("Spacing is " + spacing);
         
         var sign = -1;
         int j = 0;
@@ -52,7 +52,7 @@ public class BattleSideLayouter : MonoBehaviour {
             var pos = frameCenter;
             pos.x += offset;
             pos.z = controller.transform.position.z;
-            Debug.Log("Placing frame at " + pos);
+            // Debug.Log("Placing frame at " + pos);
             controller.transform.position = pos;
             sign *= -1;
             if (sign == 1) {

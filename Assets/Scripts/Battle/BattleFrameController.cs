@@ -16,7 +16,7 @@ public class BattleFrameController : SimulationBehaviour {
     bool focusAnimated = false;
     bool hasFocus = false;
     bool announcedDeath = false;
-    
+    bool abilitiesPresented = false;
     
 	[HideInInspector]
 	public Character character;
@@ -76,6 +76,7 @@ public class BattleFrameController : SimulationBehaviour {
     }
     
     void AnimateFocus () {
+        Debug.Log("Animating focus");
         focusAnimated = true;
         preAnimationPosition = transform.position;
         iTween.MoveBy(gameObject, focusAnimationDelta, focusAnimationTime);
@@ -88,20 +89,33 @@ public class BattleFrameController : SimulationBehaviour {
         }
     }
     
-    void OnBattleFramePresentedAbilities () {
-        DisableInputStateMachines();    
+    void OnBattleFramePresentedAbilities (Notification n) {
+        Debug.Log("On abilities shown " + character);
+        DisableInputStateMachines();
+        var target = n.data[Notifications.Keys.Controller] as BattleFrameController;
+        if (target == this) {
+            abilitiesPresented = true;    
+        }
+        
     }
     
     void OnBattleFrameHidAbilities () {
+        if (!abilitiesPresented) {
+            return;
+        } 
+        Debug.Log("On abilities hid " + character);
         EnableInputStateMachines();
         NotificationCenter.PostNotification(Notifications.OnBattleFrameLostFocus);
+        abilitiesPresented = false;
     }
     
     void OnAbilityBeginCasting () {
+        Debug.Log("On ability begin casting");
         NotificationCenter.PostNotification(Notifications.OnBattleFrameLostFocus);
     }
     
     void OnAbilityResolved () {
+        Debug.Log("On ability resolved");
         NotificationCenter.PostNotification(Notifications.OnBattleFrameLostFocus);
     }
     
@@ -161,6 +175,7 @@ public class BattleFrameController : SimulationBehaviour {
 	}
     
     void OnFinishedTargetting () {
+        Debug.Log("On finished targetting");
         NotificationCenter.PostNotification(Notifications.OnBattleFrameLostFocus);
     }
 		

@@ -30,7 +30,11 @@
         }
 	},
 	"abilities": [
-		"flashHeal"
+		"flashHeal",
+        "test1",
+        "test2",
+        "test3"
+        
 	],
     "defaultFriendlyAbility": "flashHeal"
 }

@@ -6,6 +6,7 @@ using System.Linq;
 public class AbilitiesController : BattleFrameBehaviour {
 	
     public GameObject abilitiesContainer;
+    public AbilityFrameLayouter abilityFrameLayouter;
     public GameObject abilityFramePrefab;
     Dictionary<string, AbilityFrameController> abilityFrames = new Dictionary<string, AbilityFrameController>();
     
@@ -18,7 +19,6 @@ public class AbilitiesController : BattleFrameBehaviour {
         NotificationCenter.AddObserver(this, Notifications.OnAbilityResolved);
         NotificationCenter.AddObserver(this, Notifications.OnAbilityBeginCasting);
         UpdateAbilityFrames();
-        abilitiesContainer.SetActive(false);
     }
     
     void UpdateAbilityFrames () {
@@ -47,7 +47,8 @@ public class AbilitiesController : BattleFrameBehaviour {
         }
         
         // Position ability frames
-        PositionAbilityFrames();
+        abilityFrameLayouter.abilityFrames = abilityFrames;
+        abilityFrameLayouter.PositionAbilityFrames();
         
     }
     
@@ -59,16 +60,6 @@ public class AbilitiesController : BattleFrameBehaviour {
         abilityFrameController.parentAbilitiesController = this;
         abilityFrameController.ability = ability;
         abilityFrames[ability.key] = abilityFrameController;
-    }
-    
-    void PositionAbilityFrames () {
-        foreach (KeyValuePair<string, AbilityFrameController> kv in abilityFrames) {
-            var abilityFrameController = kv.Value;
-            var localPos = abilityFrameController.transform.localPosition;
-            localPos = Vector3.zero;
-            localPos.z = -2;
-            abilityFrameController.transform.localPosition = localPos;
-        }
     }
     
     void OnAbilityInputDown (GameObject targetObj) {
@@ -111,14 +102,15 @@ public class AbilitiesController : BattleFrameBehaviour {
 	
 	public void PresentAbilities () {
 		Debug.Log("Presenting abilities from " + gameObject.name);
-        NotificationCenter.PostNotification(Notifications.OnBattleFramePresentedAbilities);
-        abilitiesContainer.SetActive(true);
-        UpdateAbilityFrames();
+        var data = iTween.Hash(Notifications.Keys.Controller, this.battleFrameController);
+        NotificationCenter.PostNotification(Notifications.OnBattleFramePresentedAbilities, data);
+        // UpdateAbilityFrames();
+        abilityFrameLayouter.Activate();
 	}
     
     public void HideAbilities () {
         NotificationCenter.PostNotification(Notifications.OnBattleFrameHidAbilities);
-        abilitiesContainer.SetActive(false);
+        abilityFrameLayouter.Deactivate();
     }
 	
 	public void PromptAbility (Ability ability) {

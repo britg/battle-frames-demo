@@ -12,6 +12,12 @@ public class AbilityFrameController : SimulationBehaviour {
     public float focusAnimationTime = 0.1f;
     bool focusAnimated = false;
     
+    public Vector3 initialScale = new Vector3(0.3f, 0.3f, 0.3f);
+    public Vector3 initialPosition;
+    
+    public Vector3 activeScale = new Vector3(1f, 1f, 1f);
+    public Vector3 activePosition;
+    
     bool coolingDown = false;
     float currentCoolDown = 0f;
     
