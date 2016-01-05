@@ -76,10 +76,12 @@ public class BattleFrameController : SimulationBehaviour {
     }
     
     void AnimateFocus () {
-        Debug.Log("Animating focus");
-        focusAnimated = true;
-        preAnimationPosition = transform.position;
-        iTween.MoveBy(gameObject, focusAnimationDelta, focusAnimationTime);
+        if (!aiControlled) {
+            Debug.Log("Animating focus");
+            focusAnimated = true;
+            preAnimationPosition = transform.position;
+            iTween.MoveBy(gameObject, focusAnimationDelta, focusAnimationTime);    
+        }
     }
     
     void ReverseFocusAnimation () {

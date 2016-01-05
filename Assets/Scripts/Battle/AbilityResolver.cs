@@ -18,19 +18,19 @@ public class AbilityResolver {
 		target = _target;	
 	}
 	
-	public void Resolve () {
+	public void AddProcsToStack (ProcStack procStack) {
 		// Debug.Log(string.Format("Ability Resolver: {0} - {1} -> {2}",
 			// ability, caster, target));
 			
 		foreach (Proc proc in ability.procs) {
-            var procResolver = Proc.Resolver(proc.key);
             var procContext = new ProcContext();
             procContext.proc = proc;
             procContext.ability = ability;
             procContext.battleController = battleController;
             procContext.caster = caster;
             procContext.target = target;
-            procResolver.Resolve(procContext);
+            
+            procStack.Add(procContext);
 		}
 	}
 	

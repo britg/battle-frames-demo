@@ -36,6 +36,16 @@ public class BattleController : SimulationBehaviour {
 			return _aiControlled;
 		}
 	}
+    
+    ProcStackController _procStackController;
+    public ProcStackController procStackController {
+        get {
+            if (_procStackController == null) {
+                _procStackController = GetComponent<ProcStackController>();
+            }
+            return _procStackController;
+        }
+    }
 	
 	public GameObject battleFramePrefab;
 	
@@ -157,7 +167,7 @@ public class BattleController : SimulationBehaviour {
 			_caster: caster,
 			_target: target
 		);
-		abilityResolver.Resolve();
+		abilityResolver.AddProcsToStack(procStackController.procStack);
         NotificationCenter.PostNotification(Notifications.OnAbilityResolved);
 	}
     

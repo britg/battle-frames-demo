@@ -1,8 +1,8 @@
 {
 	"type": "Ability",
-	"key": "restore",
-	"name": "Restore",
-	"description": "Heal a target over time",
+	"key": "flashHeal",
+	"name": "Flash Heal",
+	"description": "Quickly heal a target",
 	"targetType": "AnyCharacter",
 	"requiresTargetSelection": true,
 	"castingTime": 0.5,
@@ -12,20 +12,20 @@
 	"procs": {
 		"restoreHealth": {
             "target": "Inherit",
-			"occurances": 5,
-			"occuranceRate": 1,
+			"occurances": 1,
+			"occuranceRate": 0,
 			"baseStatChanges": {
 				"health": {
-					"minValue": 2,
-					"maxValue": 10 
+					"minValue": 10,
+					"maxValue": 20 
 				}
 			}		
 		},
         "changeAggro": {
             "target": "EnemySide",
-            "occurances": 5,
-            "occuranceRate": 1,
-            "amount": 2
+            "occurances": 1,
+            "occuranceRate": 0,
+            "amount": 10
         }
 	}
 }
