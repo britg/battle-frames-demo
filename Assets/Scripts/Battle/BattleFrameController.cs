@@ -90,21 +90,21 @@ public class BattleFrameController : SimulationBehaviour {
     }
     
     void OnBattleFramePresentedAbilities (Notification n) {
-        Debug.Log("On abilities shown " + character);
         DisableInputStateMachines();
         var target = n.data[Notifications.Keys.Controller] as BattleFrameController;
         if (target == this) {
+            Debug.Log("On abilities shown " + character);
             abilitiesPresented = true;    
         }
-        
     }
     
     void OnBattleFrameHidAbilities () {
+        EnableInputStateMachines();
+        
         if (!abilitiesPresented) {
             return;
-        } 
-        Debug.Log("On abilities hid " + character);
-        EnableInputStateMachines();
+        }
+        
         NotificationCenter.PostNotification(Notifications.OnBattleFrameLostFocus);
         abilitiesPresented = false;
     }
@@ -121,14 +121,14 @@ public class BattleFrameController : SimulationBehaviour {
     
     void DisableInputStateMachines () {
         foreach (string fsmName in toDisableOnAbilitySelect) {
-            var fsm = statMachine(fsmName);
+            var fsm = stateMachine(fsmName);
             fsm.enabled = false;
         }
     }
     
     void EnableInputStateMachines () {
         foreach (string fsmName in toDisableOnAbilitySelect) {
-            var fsm = statMachine(fsmName);
+            var fsm = stateMachine(fsmName);
             fsm.enabled = true;
         }
     }

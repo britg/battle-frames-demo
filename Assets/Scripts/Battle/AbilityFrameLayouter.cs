@@ -81,12 +81,7 @@ public class AbilityFrameLayouter : SimulationBehaviour {
         }
     }
     
-    void ActivateController (AbilityFrameController controller) {
-        var activeAnimationFSM = controller.statMachine("Active Animation");
-        activeAnimationFSM.enabled = true;
-        activeAnimationFSM.Fsm.Stop();
-        activeAnimationFSM.Fsm.Start();
-    }
+   
     
     public void Deactivate () {
         if (!isActive) {
@@ -100,10 +95,21 @@ public class AbilityFrameLayouter : SimulationBehaviour {
         }
     }
     
+    void ActivateController (AbilityFrameController controller) {
+        var activeAnimationFSM = controller.stateMachine("Active Animation");
+        var resetAnimationFSM = controller.stateMachine("Reset Animation");
+        resetAnimationFSM.enabled = false;
+        activeAnimationFSM.enabled = true;
+        // activeAnimationFSM.Fsm.Stop();
+        // activeAnimationFSM.Fsm.Start();
+    }
+    
     public void DeactivateController (AbilityFrameController controller) {
-        var resetAnimationFSM = controller.statMachine("Reset Animation");
+        var activeAnimationFSM = controller.stateMachine("Active Animation");
+        var resetAnimationFSM = controller.stateMachine("Reset Animation");
+        activeAnimationFSM.enabled = false;
         resetAnimationFSM.enabled = true;
-        resetAnimationFSM.Fsm.Stop();
-        resetAnimationFSM.Fsm.Start();
+        // resetAnimationFSM.Fsm.Stop();
+        // resetAnimationFSM.Fsm.Start();
     }
 }

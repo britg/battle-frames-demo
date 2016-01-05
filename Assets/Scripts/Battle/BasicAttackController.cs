@@ -14,7 +14,7 @@ public class BasicAttackController : BattleFrameBehaviour {
 
 	// Use this for initialization
 	void Start () {
-       attackAnimationFSM = statMachine(attackAnimationFSMName); 
+       attackAnimationFSM = stateMachine(attackAnimationFSMName); 
 	   attackAnimationFSM.enabled = false;
 	}
 	

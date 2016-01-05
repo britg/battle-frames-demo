@@ -63,14 +63,14 @@ public class SimulationBehaviour : MonoBehaviour {
 		}
 	}
     
-    public List<PlayMakerFSM> statMachines {
+    public List<PlayMakerFSM> stateMachines {
         get {
             return GetComponents<PlayMakerFSM>().ToList();
         }
     }
     
-    public PlayMakerFSM statMachine (string name) {
-        foreach (var fsmComponent in statMachines) {
+    public PlayMakerFSM stateMachine (string name) {
+        foreach (var fsmComponent in stateMachines) {
             if (fsmComponent.FsmName == name) {
                 return fsmComponent;
             }
