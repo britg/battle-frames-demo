@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class SpecialsController : SimulationBehaviour {
+public class SpecialsController : BattleBehaviour {
     
     public GameObject specialFramePrefab;
     

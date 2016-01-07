@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BattleFrameBehaviour : SimulationBehaviour {
+public class BattleFrameBehaviour : BattleBehaviour {
 
 	BattleFrameController _battleFrameControler;
 	public BattleFrameController battleFrameController {

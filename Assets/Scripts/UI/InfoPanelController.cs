@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class InfoPanelController : SimulationBehaviour {
+public class InfoPanelController : BattleBehaviour {
 	
 	BattleFrameController _controller;
 	public BattleFrameController controller {

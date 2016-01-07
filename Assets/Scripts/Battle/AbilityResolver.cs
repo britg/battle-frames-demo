@@ -2,34 +2,21 @@
 using System.Collections;
 
 public class AbilityResolver {
-	
-	BattleController battleController;
+    
+    AbilityContext abilityContext;
 	Ability ability;
-	BattleFrameController caster;
-	BattleFrameController target;
-
-	public AbilityResolver (BattleController _battleController,
-							Ability _ability,
-							BattleFrameController _caster,
-							BattleFrameController _target) {
-		battleController = _battleController;
-		ability = _ability;
-		caster = _caster;
-		target = _target;	
-	}
+    
+    public AbilityResolver (AbilityContext _abilityContext) {
+        abilityContext = _abilityContext;
+        ability = abilityContext.ability;
+    }
 	
 	public void AddProcsToStack (ProcStack procStack) {
 		// Debug.Log(string.Format("Ability Resolver: {0} - {1} -> {2}",
 			// ability, caster, target));
 			
 		foreach (Proc proc in ability.procs) {
-            var procContext = new ProcContext();
-            procContext.proc = proc;
-            procContext.ability = ability;
-            procContext.battleController = battleController;
-            procContext.caster = caster;
-            procContext.target = target;
-            
+            var procContext = new ProcContext(proc, abilityContext);
             procStack.Add(procContext);
 		}
 	}

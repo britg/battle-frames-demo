@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class AbilityFrameLayouter : SimulationBehaviour {
+public class AbilityFrameLayouter : BattleBehaviour {
     
     public Vector3 initialScale = new Vector3(0.3f, 0.3f, 0.3f);
     public Vector3 initialOffset = new Vector3(0f, -1f, 0f);

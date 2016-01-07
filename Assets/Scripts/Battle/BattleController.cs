@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
-public class BattleController : SimulationBehaviour {
+public class BattleController : BattleBehaviour {
 	
 	public Battle.Side topSide;
 	public Battle.Side bottomSide;
@@ -11,6 +11,7 @@ public class BattleController : SimulationBehaviour {
 	public GameObject bottomContainer;
     public GameObject specialsContainer;
     public SpecialsController specialsController;
+    public BattleAnimationController battleAnimationController;
 	
 	public Dictionary<Battle.Side, List<BattleFrameController>> controllers
 		= new Dictionary<Battle.Side, List<BattleFrameController>>();
@@ -161,13 +162,17 @@ public class BattleController : SimulationBehaviour {
 	 * 	Execute an ability
 	 */
 	public void ExecuteAbility (Ability ability, BattleFrameController caster, BattleFrameController target) {
-		var abilityResolver = new AbilityResolver(
-			_ability: ability,
-			_battleController: this,
-			_caster: caster,
-			_target: target
-		);
+        var abilityContext = new AbilityContext();
+        abilityContext.ability = ability;
+        abilityContext.battleController = this;
+        abilityContext.caster = caster;
+        abilityContext.target = target;
+        
+		var abilityResolver = new AbilityResolver(abilityContext);
 		abilityResolver.AddProcsToStack(procStackController.procStack);
+        
+        battleAnimationController.QueueAbilityAnimation(abilityContext);
+        
         NotificationCenter.PostNotification(Notifications.OnAbilityResolved);
 	}
     

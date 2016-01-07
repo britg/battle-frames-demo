@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class SimulationBehaviour : MonoBehaviour {
+public class BattleBehaviour : MonoBehaviour {
 
 	Simulation _simulation;
 	public Simulation simulation {

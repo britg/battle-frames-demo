@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class View : SimulationBehaviour {
+public class View : BattleBehaviour {
 	
 	Text _text;
 	protected Text text {

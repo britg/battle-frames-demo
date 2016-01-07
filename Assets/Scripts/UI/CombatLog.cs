@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class CombatLog : SimulationBehaviour {
+public class CombatLog : BattleBehaviour {
 	
 	public int historyLength = 100;
 	

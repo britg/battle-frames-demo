@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class ProcStackController : SimulationBehaviour {
+public class ProcStackController : BattleBehaviour {
     
     public ProcStack procStack = new ProcStack();
     public ProcStack removeThisPass = new ProcStack();

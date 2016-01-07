@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class BattleFrameController : SimulationBehaviour {
+public class BattleFrameController : BattleBehaviour {
     
     public List<string> toDisableOnAbilitySelect;
     

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpecialFrameController : SimulationBehaviour {
+public class SpecialFrameController : BattleBehaviour {
     
     public SpecialsController parentSpecialsController;
     public Special special;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AbilityFrameController : SimulationBehaviour {
+public class AbilityFrameController : BattleBehaviour {
     
     public AbilitiesController parentAbilitiesController;
     public Ability ability;

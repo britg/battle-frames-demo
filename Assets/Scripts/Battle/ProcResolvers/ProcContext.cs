@@ -12,6 +12,18 @@ public class ProcContext {
     public int currentCount = 0;
     public float currentTimeDelta = 0f;
     
+    public ProcContext () {
+        
+    }
+    
+    public ProcContext (Proc _proc, AbilityContext abilityContext) {
+        proc = _proc;
+        ability = abilityContext.ability;
+        battleController = abilityContext.battleController;
+        caster = abilityContext.caster;
+        target = abilityContext.target;
+    }
+    
     public bool ShouldExecute () {
         if (proc.occurances > currentCount) {
             if (currentTimeDelta >= proc.occuranceRate) {
