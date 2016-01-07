@@ -5,6 +5,7 @@ using System.Collections;
 public class MapManager : MonoBehaviour {
     
     public string BattleSceneName = "Battle";
+    public GameObject mapPiecePrefab;
 
 	// Use this for initialization
 	void Start () {
