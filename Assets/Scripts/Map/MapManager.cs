@@ -5,7 +5,7 @@ using System.Collections;
 public class MapManager : MonoBehaviour {
     
     public string BattleSceneName = "Battle";
-    public GameObject mapPiecePrefab;
+    public GameObject mapTilePrefab;
     
     public MapInfoPanelController mapInfoPanelController;
 
@@ -32,13 +32,13 @@ public class MapManager : MonoBehaviour {
     }
     
     void PlacePiece (Vector3 coords) {
-        var piece = (GameObject)Instantiate(mapPiecePrefab, coords, Quaternion.identity);
-        piece.GetComponent<MapPieceController>().coords = coords;
+        var piece = (GameObject)Instantiate(mapTilePrefab, coords, Quaternion.identity);
+        piece.GetComponent<MapTileController>().coords = coords;
     }
      
-    public void MapPieceSelected (MapPieceController mapPieceController) {
+    public void MapTileSelected (MapTileController mapTileController) {
         Debug.Log("Map manager getting map piece selected");
-        mapInfoPanelController.SetMapPiece(mapPieceController);
+        mapInfoPanelController.SetMapPiece(mapTileController);
     }
     
     public void Unselect () {

@@ -15,7 +15,7 @@ public class MapInfoPanelController : MonoBehaviour {
 	
 	}
     
-    public void SetMapPiece (MapPieceController mapPieceController) {
+    public void SetMapPiece (MapTileController mapPieceController) {
         Show();
     }
     

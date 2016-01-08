@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MapPieceController : MapBehaviour {
+public class MapTileController : MapBehaviour {
     
     public Vector3 coords;
 
@@ -17,6 +17,6 @@ public class MapPieceController : MapBehaviour {
     
     public void Select () {
         Debug.Log("Calling select on " + coords);
-        mapManager.MapPieceSelected(this);
+        mapManager.MapTileSelected(this);
     }
 }
