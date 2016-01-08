@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MapBehaviour : MonoBehaviour {
+public abstract class MapBehaviour : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+	MapManager _mapManager;
+    public MapManager mapManager {
+        get {
+            if (_mapManager == null) {
+                _mapManager = GameObject.Find("MapManager").GetComponent<MapManager>();
+            }
+            return _mapManager;
+        }
+    }
 }

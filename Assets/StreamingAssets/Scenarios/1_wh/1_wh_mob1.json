@@ -9,7 +9,7 @@
 	],
 	"stats": {
 		"health": {
-			"currentValue": 500,
+			"currentValue": 1,
 			"minValue": 0,
 			"maxValue": 1000,
 			"shouldRound": true
@@ -21,10 +21,22 @@
 			"shouldRound": true
 		},
 		"attackSpeed": {
-			"currentValue": 3
+			"currentValue": 2.66
 		},
-		"dps": {
-			"currentValue": 5
-		}
+        "damage": {
+            "currentValue": 10,
+            "minValue": 10,
+            "maxValue": 20
+        },
+        "critChance": {
+            "currentValue": 5,
+            "minValue": 0,
+            "maxValue": 100
+        },
+        "critMultiplier": {
+            "currentValue": 2,
+            "minValue": 2,
+            "maxValue": 5
+        }
 	}
 }

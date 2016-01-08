@@ -1,7 +1,7 @@
 {
 	"type": "Character",
 	"key": "1_wh_healer",
-	"name": "Argent",
+	"name": "White Mage",
 	"abilityPointType": "Mana",
     "aiControlled": false,
 	"stats": {

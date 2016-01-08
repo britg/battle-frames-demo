@@ -15,6 +15,10 @@ public class MapInfoPanelController : MonoBehaviour {
 	
 	}
     
+    public void SetMapPiece (MapPieceController mapPieceController) {
+        Show();
+    }
+    
     public void Hide () {
        infoPanel.SetActive(false); 
     }
