@@ -28,11 +28,6 @@ public class BasicAttackController : BattleFrameBehaviour {
 	}
 	
 	public void PerformBasicAttack () {
-		// perform animation here
-		// perform animation on targets
-		
-		CombatLog.Add(string.Format("{0} attacking {1}", battleFrameController.character.name, currentTarget.character.name));
-		
 		var attackResults = new BasicAttackResolver(
 				battleFrameController, 
 				currentTarget, 
@@ -43,9 +38,9 @@ public class BasicAttackController : BattleFrameBehaviour {
             battleController.RollForSpecial(battleFrameController);    
         }
         
-        normalizedDirectionToTarget = Vector3.Normalize(currentTarget.transform.position - transform.position);
+        battleController.DelegateAttackResults(attackResults);
         
-		battleController.DelegateAttackResults(attackResults);
+        normalizedDirectionToTarget = Vector3.Normalize(currentTarget.transform.position - transform.position);
         attackAnimationFSM.enabled = true;
         attackAnimationFSM.Fsm.Stop();
         attackAnimationFSM.Fsm.Start();

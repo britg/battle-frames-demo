@@ -18,5 +18,6 @@ public class MapTileController : MapBehaviour {
     public void Select () {
         Debug.Log("Calling select on " + coords);
         mapManager.MapTileSelected(this);
+        
     }
 }

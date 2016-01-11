@@ -6,7 +6,8 @@ using System.Linq;
 public class SpecialsController : BattleBehaviour {
     
     public GameObject specialFramePrefab;
-    
+
+    // TODO convert this to a dictionary, one for each side.    
     public List<Special> specials = new List<Special>();
     Dictionary<string, SpecialFrameController> specialFrames = new Dictionary<string, SpecialFrameController>();
 
