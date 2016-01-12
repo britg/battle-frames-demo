@@ -17,10 +17,10 @@ public abstract class APIBehaviour : MonoBehaviour {
     Dictionary<string, string> authHeaders;
     
     void Awake () {
-        SetAuthHeaders();
+        UpdateAuthHeaders();
     }
     
-    void SetAuthHeaders () {
+    void UpdateAuthHeaders () {
         accessToken = PlayerPrefs.GetString("access-token");
         client = PlayerPrefs.GetString("client");
         uid = PlayerPrefs.GetString("uid");
@@ -33,9 +33,16 @@ public abstract class APIBehaviour : MonoBehaviour {
         };
     }
     
-    protected void TestAuth (APIResponseHandler handler) {
-        var path = string.Format("/auth/validate_token?uid={0}&client={1}&access-token={2}", accessToken, client, uid);
-        StartCoroutine(Get(path, handler));
+    public void SetAccessToken (string _accessToken, string _client, string _uid) {
+        PlayerPrefs.SetString("access-token", _accessToken);
+        PlayerPrefs.SetString("client", _client);
+        PlayerPrefs.SetString("uid", _uid);
+        UpdateAuthHeaders();
+    }
+    
+    public void TestAuth (APIResponseHandler handler) {
+        var path = string.Format("/auth/validate_token?uid={0}&client={1}&access-token={2}", uid, client, accessToken);
+        Get(path, handler);
     }
     
     protected void TestAuthWithReturnToMain () {
@@ -57,13 +64,34 @@ public abstract class APIBehaviour : MonoBehaviour {
         // }     
     }
     
-    protected IEnumerator Get (string path, APIResponseHandler handler) {
+    protected void Get (string path, APIResponseHandler handler) {
+        StartCoroutine(GetRequest(path, handler));
+    }
+    
+    protected IEnumerator GetRequest (string path, APIResponseHandler handler) {
         var url = string.Format("{0}{1}", RootUrl, path);
         Debug.Log("GET " + url);
         var www = new WWW(url);
         
         yield return www;
-        Debug.Log("After yield");
+        handler(www);
+    }
+    
+    protected void Post (string path, Dictionary<string, string> body, APIResponseHandler handler) {
+        StartCoroutine(PostRequest(path, body, handler));
+    }
+    
+    protected IEnumerator PostRequest (string path, Dictionary<string, string> body, APIResponseHandler handler) {
+        var url = string.Format("{0}{1}", RootUrl, path);
+        Debug.Log("POST " + url);
+        var form = new WWWForm();
+        foreach (KeyValuePair<string, string> kv in body) {
+            form.AddField(kv.Key, kv.Value);
+        }
+        var www = new WWW(url, form);
+        
+        
+        yield return www;
         handler(www);
     }
     
