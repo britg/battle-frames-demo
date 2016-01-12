@@ -8,7 +8,8 @@ public class BattleSideLayouter : MonoBehaviour {
     public Vector3 sidebarDimensions = new Vector3(3.5f, 11.48f, 0f);
     
     public Vector3 frameDimensions = new Vector3(3.0f, 1.5f, 0.8f);
-    
+
+    public float defaultScale;    
     public float smallerScale;
 	
 	public Battle.Side battleSide;
@@ -59,9 +60,11 @@ public class BattleSideLayouter : MonoBehaviour {
                 j++;
             }
             
+            var scale = controller.transform.localScale;
             if (refCount > 4) {
-                var scale = controller.transform.localScale;
                 controller.transform.localScale = scale * smallerScale;
+            } else {
+                controller.transform.localScale = scale * defaultScale;
             }
         }
         

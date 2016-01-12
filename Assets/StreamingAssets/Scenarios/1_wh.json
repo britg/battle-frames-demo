@@ -5,7 +5,8 @@
     "sides": {
         "Adventurers": [
             "1_wh_warrior",
-            "1_wh_healer"
+            "1_wh_healer",
+            "1_wh_thief"
         ],
         "Mobs": [
             "1_wh_mob1"

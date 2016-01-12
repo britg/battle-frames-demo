@@ -29,6 +29,14 @@ public class MapManager : MonoBehaviour {
         PlacePiece(new Vector3(1, 0, 1));
         PlacePiece(new Vector3(1, 0, 2));
         PlacePiece(new Vector3(2, 0, 2));
+        PlacePiece(new Vector3(2, 0, 3));
+        PlacePiece(new Vector3(2, 0, 4));
+        PlacePiece(new Vector3(2, 0, 5));
+        PlacePiece(new Vector3(1, 0, 5));
+        PlacePiece(new Vector3(0, 0, 5));
+        PlacePiece(new Vector3(-1, 0, 5));
+        PlacePiece(new Vector3(-2, 0, 5));
+        PlacePiece(new Vector3(-1, 0, 6));
     }
     
     void PlacePiece (Vector3 coords) {

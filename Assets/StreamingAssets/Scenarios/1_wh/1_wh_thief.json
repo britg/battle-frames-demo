@@ -1,24 +1,19 @@
-
 {
 	"type": "Character",
-	"key": "1_wh_mob1",
-	"name": "Root Monster",
-    "aiControlled": true,
-	"ai": [
-		"HighestAggroTargetter"
-	],
+	"key": "1_wh_thief",
+	"name": "Thief",
+	"abilityPointType": "Fury",
+    "aiControlled": false,
 	"stats": {
 		"health": {
-			"currentValue": 200,
+			"currentValue": 100,
 			"minValue": 0,
-			"maxValue": 1000,
-			"shouldRound": true
+			"maxValue": 300
 		},
 		"abilityPoints": {
 			"currentValue": 0,
 			"minValue": 0,
-			"maxValue": 100,
-			"shouldRound": true
+			"maxValue": 100
 		},
 		"attackSpeed": {
 			"currentValue": 2.66
@@ -37,6 +32,16 @@
             "currentValue": 2,
             "minValue": 2,
             "maxValue": 5
+        },
+        "specialChance": {
+            "currentValue": 0
+        },
+        "abilityProduction": {
+            "currentValue": 3
         }
-	}
+	},
+	"abilities": [
+		"backstab",
+        "eviscerate"
+	]
 }
