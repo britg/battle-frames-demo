@@ -35,7 +35,7 @@ public class WebsocketsStateMachine : MonoBehaviour {
     public void Update() {
         while (pendingTransitions.Count > 0) {
             currentState = pendingTransitions.Dequeue();
-            Debug.Log("Transitioned to state " + currentState);
+            Debug.Log("websocket Transitioned to state " + currentState);
 
             Handler handler;
             if (handlers.TryGetValue(currentState, out handler)) {

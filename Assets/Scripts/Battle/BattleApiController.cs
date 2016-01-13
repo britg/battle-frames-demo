@@ -5,12 +5,13 @@ using WebSocketSharp;
 public class BattleApiController : APIBehaviour {
     
     public WebsocketsStateMachine stateMachine;
+    public string websocketURL = "ws://127.0.0.1:28080";
     
     WebSocket ws;
 
 	// Use this for initialization
 	void Start() {
-        ws = new WebSocket("ws://echo.websocket.org");
+        ws = new WebSocket(websocketURL);
 
         ws.OnOpen += OnOpenHandler;
         ws.OnMessage += OnMessageHandler;
@@ -18,6 +19,7 @@ public class BattleApiController : APIBehaviour {
 
         stateMachine.AddHandler(State.Running, () => {
             new tpd.Wait(this, 3, () => {
+                Debug.Log("Connecting to websocket " + ws.Url);
                 ws.ConnectAsync();
             });
         });
