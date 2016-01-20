@@ -12,7 +12,7 @@ public class MapManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
        // This is a proxy for getting the map JSON from somewhere.
-	   Invoke("RenderMap", 1f);
+	//    Invoke("RenderMap", 1f);
 	}
 	
 	// Update is called once per frame
@@ -25,7 +25,7 @@ public class MapManager : MonoBehaviour {
         SceneManager.LoadScene(BattleSceneName);
     }
     
-    void RenderMap () {
+    public void RenderMap (WWW response) {
         PlacePiece(new Vector3(1, 0, 1));
         PlacePiece(new Vector3(1, 0, 2));
         PlacePiece(new Vector3(2, 0, 2));

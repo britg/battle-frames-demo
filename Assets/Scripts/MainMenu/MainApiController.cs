@@ -14,7 +14,15 @@ public class MainApiController : APIBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        TestAuth(HandleTestAuth);
+        //TestAuth(HandleTestAuth);
+        TestUser((successResponse) => {    
+            gameCanvas.SetActive(true);
+            loginCanvas.SetActive(false);
+            loggedInAsText.text = "Logged in as: " + PlayerPrefs.GetString("handle");
+        }, (errorResponse) => {
+            gameCanvas.SetActive(false);
+            loginCanvas.SetActive(true);
+        });
 	}
 	
 	// Update is called once per frame
@@ -22,32 +30,25 @@ public class MainApiController : APIBehaviour {
 	
 	}
     
-    void HandleTestAuth (WWW response) {
-        var status = response.responseHeaders["STATUS"];
-        
-        if (!status.Contains("200")) {
-            gameCanvas.SetActive(false);
-            loginCanvas.SetActive(true);                   
-        } else {
-            gameCanvas.SetActive(true);
-            loginCanvas.SetActive(false);
-            
-            var json = JSON.Parse(response.text);
-            SetIdentity(json);
-        }
-    }
     
-    void SetIdentity (JSONNode json) {
-        var handle = json["data"].AsObject["nickname"].Value;
-        PlayerPrefs.SetString("handle", handle);
-        loggedInAsText.text = "Logged in as: " + PlayerPrefs.GetString("handle");
-    }
     
     public void LogIn (string email, string password, APIResponseHandler handler) {
         var path = "/auth/sign_in";
         var body = new Dictionary<string, string>() {
             { "email", email },
             { "password", password }
+        };
+        Debug.Log("Posting email: " + email + " and password: " + password);
+        Post(path, body, handler);   
+    }
+    
+    public void SignUp (string email, string handle, string password, APIResponseHandler handler) {
+        var path = "/auth.json";
+        var body = new Dictionary<string, string>() {
+            { "nickname", handle },
+            { "email", email },
+            { "password", password },
+            { "password_confirmation", password }
         };
         Debug.Log("Posting email: " + email + " and password: " + password);
         Post(path, body, handler);   

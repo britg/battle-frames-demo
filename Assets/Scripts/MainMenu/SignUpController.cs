@@ -2,27 +2,29 @@
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using System.Collections.Generic;
 using SimpleJSON;
 
-public class LogInController : MonoBehaviour {
+public class SignUpController : MonoBehaviour {
     
-    public InputField emailField;
+    public GameObject logInPanel;
+
+    public InputField nameField;
+	public InputField emailField;
     public InputField passField;
     
     public MainApiController mainApiController;
     
-    public GameObject signUpPanel;
 
-	public void AttemptLogIn () {
-        mainApiController.LogIn(
+	public void AttemptSignUp () {
+        mainApiController.SignUp(
             emailField.text,
+            nameField.text,
             passField.text,
-            HandleLogIn    
+            HandleSignUp    
         );
     }
     
-    void HandleLogIn (WWW response) {
+    void HandleSignUp (WWW response) {
         var json = JSON.Parse(response.text);
         if (json["errors"] != null) {
             Debug.Log("Errors! " + response.text);
@@ -42,8 +44,8 @@ public class LogInController : MonoBehaviour {
         SceneManager.LoadScene(0);
     }
     
-    public void ShowSignUp () {
-        signUpPanel.SetActive(true);
+    public void ShowLogIn () {
+        logInPanel.SetActive(true);
         gameObject.SetActive(false);
     }
 }

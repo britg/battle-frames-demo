@@ -46,22 +46,50 @@ public abstract class APIBehaviour : MonoBehaviour {
     }
     
     protected void TestAuthWithReturnToMain () {
-        TestAuth(HandleTestAuthWithReturnToMain);
+        TestAuth((WWW www) => {
+            Debug.Log("Handle Test Auth: " + www.error);
+            var status = www.responseHeaders["STATUS"];
+            
+            if (!status.Contains("200")) {
+                SceneManager.LoadScene(0);
+            }    
+        });
     }
     
-    void HandleTestAuthWithReturnToMain (WWW www) {
-        Debug.Log("Handle Test Auth: " + www.error);
-        var status = www.responseHeaders["STATUS"];
-        
-        if (!status.Contains("200")) {
+    public void TestUser (APIResponseHandler successHandler, APIResponseHandler errorHandler) {
+        var path = string.Format("/api/user");
+        Get(path, (response) => {
+            var status = response.responseHeaders["STATUS"];
+            if (status.Contains("200")) {
+                WriteUserInfo(JSON.Parse(response.text));
+                successHandler.Invoke(response);
+            } else {
+                errorHandler.Invoke(response);
+            }
+        });
+    }
+    
+    protected void TestUserWithReturnToMain () {
+        TestUser((successResponse) => {
+            Debug.Log("success: " + successResponse.text);
+        }, (errorResponse) => {
             SceneManager.LoadScene(0);
-        }
+        });
+    }
+    
+    protected void WriteUserInfo (JSONNode userInfo) {
+        PlayerPrefs.SetString("currentTileJSON", userInfo["current_tile"].AsObject.ToString());
         
-        // if(www.responseHeaders.Count > 0) {
-        //     foreach(KeyValuePair<string, string> entry in www.responseHeaders) {
-        //         Debug.Log(entry.Value + "=" + entry.Key);
-        //     }
-        // }     
+        var handle = userInfo["nickname"].Value;
+        PlayerPrefs.SetString("handle", handle);
+    }
+    
+    Dictionary<string, string> Headers () {
+        Dictionary<string, string> headers = new Dictionary<string, string>();
+        headers["client"] = PlayerPrefs.GetString("client");
+        headers["access-token"] = PlayerPrefs.GetString("access-token");
+        headers["uid"] = PlayerPrefs.GetString("uid");
+        return headers;
     }
     
     protected void Get (string path, APIResponseHandler handler) {
@@ -70,8 +98,9 @@ public abstract class APIBehaviour : MonoBehaviour {
     
     protected IEnumerator GetRequest (string path, APIResponseHandler handler) {
         var url = string.Format("{0}{1}", RootUrl, path);
+        Debug.Log(string.Format("Headers: client={0}, access-token={1}, uid={2}", PlayerPrefs.GetString("client"), PlayerPrefs.GetString("access-token"), PlayerPrefs.GetString("uid")));
         Debug.Log("GET " + url);
-        var www = new WWW(url);
+        var www = new WWW(url, null, Headers());
         
         yield return www;
         handler(www);
