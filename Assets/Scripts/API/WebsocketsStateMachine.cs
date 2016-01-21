@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum State { NotRunning, Running, Connected, Ping, Pong, Done }
+public enum State { NotRunning, Running, Connected, Subscribe, Done }
 
 public delegate void Handler();
 

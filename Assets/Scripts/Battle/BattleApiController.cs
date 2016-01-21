@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using WebSocketSharp;
+using WebSocketSharp.Net;
 
 public class BattleApiController : APIBehaviour {
     
@@ -12,6 +13,10 @@ public class BattleApiController : APIBehaviour {
 	// Use this for initialization
 	void Start() {
         ws = new WebSocket(websocketURL);
+        var cookie = new Cookie();
+        cookie.Name = "access";
+        cookie.Value = PlayerPrefs.GetString("uid");
+        ws.SetCookie(cookie);
 
         ws.OnOpen += OnOpenHandler;
         ws.OnMessage += OnMessageHandler;
@@ -25,20 +30,19 @@ public class BattleApiController : APIBehaviour {
         });
 
         stateMachine.AddHandler(State.Connected, () => {
-            stateMachine.Transition(State.Ping);
+            stateMachine.Transition(State.Subscribe);
         });
 
-        stateMachine.AddHandler(State.Ping, () => {
-            new tpd.Wait(this, 3, () => {
-               ws.SendAsync("This WebSockets stuff is a breeze!", OnSendComplete);
-            });
+        stateMachine.AddHandler(State.Subscribe, () => {
+            // ws.SendAsync("{\"command\": \"subscribe\", \"identifier\": {\"channel\": \"Battle\"}}", OnSendComplete);
+            ws.SendAsync("{\"command\": \"subscribe\", \"identifier\": \"{\\\"channel\\\": \\\"BattleChannel\\\"}\"}", OnSendComplete);
         });
 
-        stateMachine.AddHandler(State.Pong, () => {
-            new tpd.Wait(this, 3, () => {
-                ws.CloseAsync();
-            });
-        });
+        // stateMachine.AddHandler(State.Pong, () => {
+        //     new tpd.Wait(this, 3, () => {
+        //         ws.CloseAsync();
+        //     });
+        // });
 
         stateMachine.Run();
     }
@@ -50,7 +54,6 @@ public class BattleApiController : APIBehaviour {
 
     private void OnMessageHandler(object sender, MessageEventArgs e) {
         Debug.Log("WebSocket server said: " + e.Data);
-        stateMachine.Transition(State.Pong);
     }
 
     private void OnCloseHandler(object sender, CloseEventArgs e) {
@@ -60,5 +63,10 @@ public class BattleApiController : APIBehaviour {
 
     private void OnSendComplete(bool success) {
         Debug.Log("Message sent successfully? " + success);
+    }
+    
+    void OnDestroy () {
+        Debug.Log("closing ws");
+        ws.CloseAsync();
     }
 }
