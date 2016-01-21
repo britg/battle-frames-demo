@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Linq;
+using SimpleJSON;
 
 public class MapManager : MonoBehaviour {
     
@@ -25,18 +27,16 @@ public class MapManager : MonoBehaviour {
         SceneManager.LoadScene(BattleSceneName);
     }
     
-    public void RenderMap (WWW response) {
-        PlacePiece(new Vector3(1, 0, 1));
-        PlacePiece(new Vector3(1, 0, 2));
-        PlacePiece(new Vector3(2, 0, 2));
-        PlacePiece(new Vector3(2, 0, 3));
-        PlacePiece(new Vector3(2, 0, 4));
-        PlacePiece(new Vector3(2, 0, 5));
-        PlacePiece(new Vector3(1, 0, 5));
-        PlacePiece(new Vector3(0, 0, 5));
-        PlacePiece(new Vector3(-1, 0, 5));
-        PlacePiece(new Vector3(-2, 0, 5));
-        PlacePiece(new Vector3(-1, 0, 6));
+    public void AddTiles (JSONNode tilesJSON) {
+        var tilesArr = tilesJSON.AsArray;
+        foreach (JSONNode node in tilesArr) {
+            var tileObj = node.AsObject;
+            var x = tileObj["x"].AsFloat;
+            var y = tileObj["y"].AsFloat;
+            var z = tileObj["z"].AsFloat;
+            var pos = new Vector3(x, y, z);
+            PlacePiece(pos);
+        }
     }
     
     void PlacePiece (Vector3 coords) {
