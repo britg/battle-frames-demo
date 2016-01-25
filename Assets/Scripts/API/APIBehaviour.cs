@@ -117,7 +117,7 @@ public abstract class APIBehaviour : MonoBehaviour {
         foreach (KeyValuePair<string, string> kv in body) {
             form.AddField(kv.Key, kv.Value);
         }
-        var www = new WWW(url, form);
+        var www = new WWW(url, form.data, Headers());
         
         
         yield return www;

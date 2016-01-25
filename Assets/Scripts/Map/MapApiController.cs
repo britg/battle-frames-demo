@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 using SimpleJSON;
 
 public class MapApiController : APIBehaviour {
@@ -23,6 +24,7 @@ public class MapApiController : APIBehaviour {
             RequestMap();            
         }, (errorResponse) => {
             Debug.Log("Error loading map " + errorResponse.error);
+            SceneManager.LoadScene(0); 
         });
     }
     
@@ -38,5 +40,16 @@ public class MapApiController : APIBehaviour {
             var tilesJSON = JSON.Parse(tilesResponse.text);
             mapManager.AddTiles(tilesJSON);
         });
+    }
+    
+    public void RequestTile (string id, APIResponseHandler handler) {
+        var path = string.Format("/api/tiles/{0}", id);
+        Get(path, handler);
+        
+    }
+    
+    public void RequestBattle (string tileId, APIResponseHandler handler) {
+        var path = string.Format("/api/battles");
+        Post(path, new Dictionary<string, string>(){ {"tile_id", tileId }}, handler);
     }
 }

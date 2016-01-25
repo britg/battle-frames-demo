@@ -6,7 +6,7 @@ using SimpleJSON;
 
 public class MapManager : MonoBehaviour {
     
-    public string BattleSceneName = "Battle";
+    public string BattleSceneName = "MultiplayerBattle";
     public GameObject mapTilePrefab;
     
     public MapInfoPanelController mapInfoPanelController;
@@ -28,20 +28,23 @@ public class MapManager : MonoBehaviour {
     }
     
     public void AddTiles (JSONNode tilesJSON) {
-        var tilesArr = tilesJSON.AsArray;
+        var tilesArr = tilesJSON["tiles"].AsArray;
         foreach (JSONNode node in tilesArr) {
             var tileObj = node.AsObject;
+            var id = tileObj["id"].Value;
             var x = tileObj["x"].AsFloat;
             var y = tileObj["y"].AsFloat;
             var z = tileObj["z"].AsFloat;
             var pos = new Vector3(x, y, z);
-            PlacePiece(pos);
+            PlaceTile(id, pos);
         }
     }
     
-    void PlacePiece (Vector3 coords) {
-        var piece = (GameObject)Instantiate(mapTilePrefab, coords, Quaternion.identity);
-        piece.GetComponent<MapTileController>().coords = coords;
+    void PlaceTile (string id, Vector3 coords) {
+        var tile = (GameObject)Instantiate(mapTilePrefab, coords, Quaternion.identity);
+        var mapTileController = tile.GetComponent<MapTileController>(); 
+        mapTileController.coords = coords;
+        mapTileController.tileId = id;
     }
      
     public void MapTileSelected (MapTileController mapTileController) {

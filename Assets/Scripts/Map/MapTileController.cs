@@ -4,6 +4,7 @@ using System.Collections;
 public class MapTileController : MapBehaviour {
     
     public Vector3 coords;
+    public string tileId;
 
 	// Use this for initialization
 	void Start () {
