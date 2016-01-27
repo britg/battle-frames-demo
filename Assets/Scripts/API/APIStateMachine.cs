@@ -1,29 +1,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum State { NotRunning, Running, Connected, Subscribe, Done }
+public enum APIState { NotRunning, 
+                    Running, 
+                    Connected, 
+                    Subscribing,
+                    Subscribed,
+                    Done 
+                }
 
 public delegate void Handler();
 
-public class WebsocketsStateMachine : MonoBehaviour {
+public class APIStateMachine : MonoBehaviour {
     private readonly object syncLock = new object();
-    private readonly Queue<State> pendingTransitions = new Queue<State>();
-    private readonly Dictionary<State, Handler> handlers
-        = new Dictionary<State, Handler>();
+    private readonly Queue<APIState> pendingTransitions = new Queue<APIState>();
+    private readonly Dictionary<APIState, Handler> handlers
+        = new Dictionary<APIState, Handler>();
 
     [SerializeField]
-    private State currentState = State.NotRunning;
+    private APIState currentState = APIState.NotRunning;
 
     public void Run() {
-        Transition(State.Running);
+        Transition(APIState.Running);
     }
 
-    public void AddHandler(State state, Handler handler) {
+    public void AddHandler(APIState state, Handler handler) {
         handlers.Add(state, handler);
     }
 
-    public void Transition(State state) {
-        State cur;
+    public void Transition(APIState state) {
+        APIState cur;
         lock(syncLock) {
             cur = currentState;
             pendingTransitions.Enqueue(state);

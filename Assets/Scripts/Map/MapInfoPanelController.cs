@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
-
+using SimpleJSON;
 
 public class MapInfoPanelController : MonoBehaviour {
     
@@ -30,7 +30,10 @@ public class MapInfoPanelController : MonoBehaviour {
     public void RequestBattle () {
         mapApiController.RequestBattle(currentTileController.tileId, (response) => {
            Debug.Log("Response is " + response.text);
-           
+           var parsed = JSON.Parse(response.text);
+           var battleId = parsed["battle"].AsObject["id"].Value;
+           PlayerPrefs.SetString("battleId", battleId);
+           Debug.Log("Battle id is " + battleId);
            SceneManager.LoadScene("MultiplayerBattle");
         });
     }
