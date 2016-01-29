@@ -9,7 +9,7 @@ public class BattleApiController : APIBehaviour {
     
     System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
 
-    public ServerCommandHandler actionHandler;    
+    public ServerCommandHandler commandHandler;    
     public APIStateMachine stateMachine;
     public string websocketURL = "ws://127.0.0.1:28080";
     public float pingInterval = 10f;
@@ -103,7 +103,6 @@ public class BattleApiController : APIBehaviour {
         APIMessage(msg);
     }
     
-    
     void RequestReady () {
         var node = messageNode();
         
@@ -112,6 +111,10 @@ public class BattleApiController : APIBehaviour {
         node.Add("data", data.AsObject.ToString());
         var msg = node.ToString();
         APIMessage(msg); 
+    }
+    
+    public void MakeClientRequest (string msg, ClientRequestHandler.Callback callback) {
+        
     }
     
     void APIMessage (string msg) {
@@ -165,7 +168,7 @@ public class BattleApiController : APIBehaviour {
         }
         
         var serverCommands = message["commands"].AsArray;
-        actionHandler.ParseAndQueueServerCommands(serverCommands);
+        commandHandler.ParseAndQueueServerCommands(serverCommands);
         
         // Debug.Log("Message is " + msgObj["message"].Value + " " + (msgObj["message"].AsObject == null));
         // if () {
