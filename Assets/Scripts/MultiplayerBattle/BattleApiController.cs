@@ -68,10 +68,10 @@ public class BattleApiController : APIBehaviour {
         
     void StartBattle () {
         RequestReady();
-        StartPing();    
+        // StartPing();    
     }
     
-    JSONNode messageNode () {
+    public static JSONNode requestNode () {
         var node = JSON.Parse("{}");
         node.Add("command", "message");
         var channel = JSON.Parse("{}");
@@ -94,7 +94,7 @@ public class BattleApiController : APIBehaviour {
     }
     
     void Ping () {
-        var node = messageNode();
+        var node = requestNode();
         var data = JSON.Parse("{}");
         data.Add("request", "ping");
         node.Add("data", data.AsObject.ToString());
@@ -104,7 +104,7 @@ public class BattleApiController : APIBehaviour {
     }
     
     void RequestReady () {
-        var node = messageNode();
+        var node = requestNode();
         
         var data = JSON.Parse("{}");
         data.Add("request", ClientRequest.ClientReady);
@@ -113,8 +113,8 @@ public class BattleApiController : APIBehaviour {
         APIMessage(msg); 
     }
     
-    public void MakeClientRequest (string msg, ClientRequestHandler.Callback callback) {
-        
+    public void SendClientRequest (ClientRequest clientRequest) {
+        APIMessage(clientRequest.ForApi());
     }
     
     void APIMessage (string msg) {

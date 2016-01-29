@@ -7,6 +7,8 @@ public class ServerCommandHandler : MonoBehaviour {
     
     public delegate void Callback();
     public SpawnCharacterProcessor spawnCharacterProcessor;
+    public ClientRequestHandler clientRequestHandler;
+    public BattleStateSyncer battleStateSyncer;
     
     Queue<ServerCommand> serverCommandQueue = new Queue<ServerCommand>();
     ServerCommand currentWorkingCommand;
@@ -43,6 +45,15 @@ public class ServerCommandHandler : MonoBehaviour {
         switch (currentWorkingCommand.commandName) {
             case ServerCommand.SpawnCharacter:
                 spawnCharacterProcessor.Process(currentWorkingCommand, OnCommandDone);
+            break;
+            case ServerCommand.EnableClientActions:
+                clientRequestHandler.EnableClientRequests(OnCommandDone);
+            break;
+            case ServerCommand.ClientRequestOutcome:
+                clientRequestHandler.FinishRequest(currentWorkingCommand, OnCommandDone);                
+            break;
+            case ServerCommand.SyncBattleState:
+                battleStateSyncer.Sync(currentWorkingCommand, OnCommandDone);    
             break;
         }
         
