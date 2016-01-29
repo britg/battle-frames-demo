@@ -7,6 +7,9 @@ using SimpleJSON;
 
 public class BattleApiController : APIBehaviour {
     
+    System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
+
+    public ServerCommandHandler actionHandler;    
     public APIStateMachine stateMachine;
     public string websocketURL = "ws://127.0.0.1:28080";
     public float pingInterval = 10f;
@@ -21,7 +24,7 @@ public class BattleApiController : APIBehaviour {
     }
     
     void Update () {
-        ProcessQueue();
+        ProcessResponseQueue();
     }
     
     void Connect () {
@@ -51,8 +54,9 @@ public class BattleApiController : APIBehaviour {
         });
         
         stateMachine.AddHandler(APIState.Subscribed, () => {
-            RequestBattleState();
-            StartPing();
+            new tpd.Wait(this, 1, () => {
+                StartBattle();
+            });
         });
         
         stateMachine.Run();
@@ -60,22 +64,21 @@ public class BattleApiController : APIBehaviour {
     
     void StartPing () {
         InvokeRepeating("Ping", 0f, pingInterval);
+    }    
+        
+    void StartBattle () {
+        RequestReady();
+        StartPing();    
     }
     
-    void Ping () {
-        
+    JSONNode messageNode () {
         var node = JSON.Parse("{}");
         node.Add("command", "message");
         var channel = JSON.Parse("{}");
         channel.Add("channel", "BattleChannel");
         channel.Add("battle_id", PlayerPrefs.GetString("battleId"));
         node.Add("identifier", channel.AsObject.ToString());
-        var data = JSON.Parse("{}");
-        data.Add("command", "ping");
-        node.Add("data", data.AsObject.ToString());
-        var msg = node.ToString();
-        
-        APIMessage(msg);
+        return node;
     }
     
     void Subscribe () {
@@ -90,12 +93,29 @@ public class BattleApiController : APIBehaviour {
         APIMessage(msg);
     }
     
-    void RequestBattleState () {
-        var node = JSON.Parse("{}");
-        node.Add("command", "message");
+    void Ping () {
+        var node = messageNode();
+        var data = JSON.Parse("{}");
+        data.Add("request", "ping");
+        node.Add("data", data.AsObject.ToString());
+        var msg = node.ToString();
+        
+        APIMessage(msg);
+    }
+    
+    
+    void RequestReady () {
+        var node = messageNode();
+        
+        var data = JSON.Parse("{}");
+        data.Add("request", ClientRequest.ClientReady);
+        node.Add("data", data.AsObject.ToString());
+        var msg = node.ToString();
+        APIMessage(msg); 
     }
     
     void APIMessage (string msg) {
+        sw.Start();
         Debug.Log("[API Message] " + msg);
         ws.SendAsync(msg, OnSendComplete);
     }
@@ -106,7 +126,10 @@ public class BattleApiController : APIBehaviour {
     }
 
     private void OnMessageHandler(object sender, MessageEventArgs e) {
-        Debug.Log("WebSocket server said: " + e.Data);
+        sw.Stop();
+        
+        // Debug.Log("WebSocket server said: " + e.Data + " (" + sw.ElapsedMilliseconds + ")");
+        sw.Reset();
         receivedMessages.Enqueue(e.Data);
     }
 
@@ -119,22 +142,43 @@ public class BattleApiController : APIBehaviour {
         // Debug.Log("Message sent successfully? " + success);
     }
     
-    void ProcessQueue () {
+    void ProcessResponseQueue () {
         if (receivedMessages.Count < 1) {
             return;
         }
         
         var msg = receivedMessages.Dequeue();
         var msgObj = JSON.Parse(msg);
+        
+        if (msgObj["identifier"].Value == "_ping") {
+            return;
+        }
+        
         if (msgObj["type"].Value == "confirm_subscription") {
             stateMachine.Transition(APIState.Subscribed);
-        } else {
-            iTween.MoveBy(Camera.main.gameObject, Vector3.left, 1f);
         }
+        
+        var message = msgObj["message"].AsObject;
+        if (message == null || message["commands"] == null) {
+            Debug.Log("Did not know how to handle message " + message);
+            return;
+        }
+        
+        var serverCommands = message["commands"].AsArray;
+        actionHandler.ParseAndQueueServerCommands(serverCommands);
+        
+        // Debug.Log("Message is " + msgObj["message"].Value + " " + (msgObj["message"].AsObject == null));
+        // if () {
+        //     var battleNode = msgObj["message"].AsObject["battle"];
+        //     if (battleNode != null) {
+        //         UpdateBattleState(battleNode);
+        //     }    
+        // }
     }
     
     void OnDestroy () {
         Debug.Log("closing ws");
         ws.CloseAsync();
     }
+    
 }
