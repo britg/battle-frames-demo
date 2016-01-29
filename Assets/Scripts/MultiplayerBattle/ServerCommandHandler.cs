@@ -49,6 +49,9 @@ public class ServerCommandHandler : MonoBehaviour {
             case ServerCommand.EnableClientActions:
                 clientRequestHandler.EnableClientRequests(OnCommandDone);
             break;
+            case ServerCommand.DisableClientActions:
+                clientRequestHandler.DisableClientRequests(OnCommandDone);
+            break;
             case ServerCommand.ClientRequestOutcome:
                 clientRequestHandler.FinishRequest(currentWorkingCommand, OnCommandDone);                
             break;

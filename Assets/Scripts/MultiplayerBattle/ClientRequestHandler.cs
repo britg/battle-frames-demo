@@ -24,11 +24,19 @@ public class ClientRequestHandler : MonoBehaviour {
     }
     
     public void EnableClientRequests () {
+        Debug.Log("Enabling client requests");
         clientRequestsEnabled = true;        
     }
     
+    public void DisableClientRequests (ServerCommandHandler.Callback callback) {
+        DisableClientRequests();
+        callback.Invoke();
+    }
+    
     public void DisableClientRequests () {
+        Debug.Log("Disabling client requests and clearing the queue");
         clientRequestsEnabled = false;
+        clientRequestQueue.Clear();
     }
     
     public void RequestEndTurn () {
@@ -65,7 +73,7 @@ public class ClientRequestHandler : MonoBehaviour {
     }
     
     public void FinishRequest (ServerCommand serverCommand, ServerCommandHandler.Callback callback) {
-        var clientRequestId = ""; //TODO: extract the client request id from the server command
+        var clientRequestId = serverCommand.clientRequestId; //TODO: extract the client request id from the server command
         if (clientRequestId != currentWorkingRequest.id) {
             Debug.Log("Error: the server told us to finish a request the wasn't the current one!");
             throw new System.ApplicationException();

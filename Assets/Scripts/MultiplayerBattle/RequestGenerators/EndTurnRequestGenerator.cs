@@ -5,15 +5,10 @@ using SimpleJSON;
 public class EndTurnRequestGenerator {
 
 	public static ClientRequest Generate () {
-        var clientRequest = new ClientRequest();
+        var clientRequest = new ClientRequest(ClientRequest.EndTurn);
         
-        var node = BattleApiController.requestNode();
-        
-        var data = JSON.Parse("{}");
-        data.Add("request", ClientRequest.EndTurn);
-        node.Add("data", data.AsObject.ToString());
-        
-        clientRequest.forApi = node.ToString();
+        var data = clientRequest.dataNode();
+        clientRequest.SetData(data);
         
         return clientRequest;
     }
