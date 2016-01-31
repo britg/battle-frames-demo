@@ -8,7 +8,8 @@ public class ServerCommandHandler : MonoBehaviour {
     public delegate void Callback();
     public SpawnCharacterProcessor spawnCharacterProcessor;
     public ClientRequestHandler clientRequestHandler;
-    public BattleStateSyncer battleStateSyncer;
+    public BattleStateController battleStateController;
+    public NotifyTurnProcessor notifyTurnProcessor;
     
     Queue<ServerCommand> serverCommandQueue = new Queue<ServerCommand>();
     ServerCommand currentWorkingCommand;
@@ -41,22 +42,32 @@ public class ServerCommandHandler : MonoBehaviour {
         
         currentWorkingCommand = serverCommandQueue.Dequeue();
         Debug.Log("Popping and performing command " + currentWorkingCommand);
+        currentWorkingCommand.onProcessedCallback = OnCommandDone;
         
         switch (currentWorkingCommand.commandName) {
+            
             case ServerCommand.SpawnCharacter:
-                spawnCharacterProcessor.Process(currentWorkingCommand, OnCommandDone);
+                spawnCharacterProcessor.Process(currentWorkingCommand);
             break;
+            
             case ServerCommand.EnableClientActions:
-                clientRequestHandler.EnableClientRequests(OnCommandDone);
+                clientRequestHandler.EnableClientRequests(currentWorkingCommand);
             break;
+            
             case ServerCommand.DisableClientActions:
-                clientRequestHandler.DisableClientRequests(OnCommandDone);
+                clientRequestHandler.DisableClientRequests(currentWorkingCommand);
             break;
+            
             case ServerCommand.ClientRequestOutcome:
-                clientRequestHandler.FinishRequest(currentWorkingCommand, OnCommandDone);                
+                clientRequestHandler.FinishRequest(currentWorkingCommand);                
             break;
+            
             case ServerCommand.SyncBattleState:
-                battleStateSyncer.Sync(currentWorkingCommand, OnCommandDone);    
+                battleStateController.Sync(currentWorkingCommand);    
+            break;
+            
+            case ServerCommand.NotfyTurn:
+                notifyTurnProcessor.Process(currentWorkingCommand);
             break;
         }
         

@@ -22,6 +22,10 @@ public class MapManager : MonoBehaviour {
 	
 	}
     
+    public void OnBackButtonPressed () {
+        SceneManager.LoadScene("SuperMassive");
+    }
+    
     public void OnDemoButtonPressed (string scenarioKey) {
         Simulation.scenarioKey = scenarioKey;
         SceneManager.LoadScene(BattleSceneName);

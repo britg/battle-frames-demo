@@ -11,16 +11,16 @@ public class ClientRequestHandler : MonoBehaviour {
     Queue<ClientRequest> clientRequestQueue = new Queue<ClientRequest>();
     ClientRequest currentWorkingRequest;
     
-    bool clientRequestsEnabled = false;
+    bool clientRequestsEnabled = true;
 
 	// Use this for initialization
 	void Start () {
 	
 	}
     
-    public void EnableClientRequests (ServerCommandHandler.Callback callback) {
+    public void EnableClientRequests (ServerCommand command) {
         EnableClientRequests();
-        callback.Invoke();
+        command.onProcessedCallback.Invoke();
     }
     
     public void EnableClientRequests () {
@@ -28,9 +28,9 @@ public class ClientRequestHandler : MonoBehaviour {
         clientRequestsEnabled = true;        
     }
     
-    public void DisableClientRequests (ServerCommandHandler.Callback callback) {
+    public void DisableClientRequests (ServerCommand command) {
         DisableClientRequests();
-        callback.Invoke();
+        command.onProcessedCallback.Invoke();
     }
     
     public void DisableClientRequests () {
@@ -46,6 +46,11 @@ public class ClientRequestHandler : MonoBehaviour {
         }
 
         var request = EndTurnRequestGenerator.Generate();
+        QueueRequest(request);
+    }
+    
+    public void QueueRequest (ClientRequest request) {
+        Debug.Log("Queuing request "+ request);
         clientRequestQueue.Enqueue(request);
     }
 	
@@ -72,18 +77,23 @@ public class ClientRequestHandler : MonoBehaviour {
         battleApiController.SendClientRequest(currentWorkingRequest);
     }
     
-    public void FinishRequest (ServerCommand serverCommand, ServerCommandHandler.Callback callback) {
-        var clientRequestId = serverCommand.clientRequestId; //TODO: extract the client request id from the server command
+    public void FinishRequest (ServerCommand serverCommand) {
+        var clientRequestId = serverCommand.clientRequestId;
         if (clientRequestId != currentWorkingRequest.id) {
-            Debug.Log("Error: the server told us to finish a request the wasn't the current one!");
+            Debug.Log(string.Format("Error: the server told us to finish a request the wasn't the current one! {0}, {1}", clientRequestId, currentWorkingRequest));
             throw new System.ApplicationException();
+        }
+        
+        // TODO: Validate that the command was successful
+        // then display some sort of error and play an
+        // error sound
+        if (!serverCommand.requestSuccessful) {
+            Debug.Log("Warning: Request was unsuccessful " + currentWorkingRequest);
         }
         
         Debug.Log("Finishing client request " + currentWorkingRequest);
         currentWorkingRequest = null;
         
-        new tpd.Wait(this, 3, () => {
-            callback.Invoke();    
-        });
+        serverCommand.onProcessedCallback.Invoke();    
     }
 }

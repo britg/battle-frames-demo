@@ -2,6 +2,8 @@ using SimpleJSON;
 using UnityEngine;
 
 public class ClientRequest {
+    
+    
     public const string EndTurn = "end_turn";
     public const string ClientReady = "client_ready";
     public const string CurrentState = "current_state";
@@ -56,6 +58,6 @@ public class ClientRequest {
     }
     
     public override string ToString () {
-        return requestName;
+        return string.Format("{0} {1}", requestName, id);
     }
 }

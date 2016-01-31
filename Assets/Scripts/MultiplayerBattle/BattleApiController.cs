@@ -7,6 +7,8 @@ using SimpleJSON;
 
 public class BattleApiController : APIBehaviour {
     
+    public delegate void ConnectCallback ();
+    
     System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
 
     public ServerCommandHandler commandHandler;    
@@ -20,14 +22,14 @@ public class BattleApiController : APIBehaviour {
 
 	// Use this for initialization
 	void Start() {
-        Connect();
+        // Connect();
     }
     
     void Update () {
         ProcessResponseQueue();
     }
     
-    void Connect () {
+    public void Connect (ConnectCallback callback) {
         ws = new WebSocket(websocketURL);
         var cookie = new Cookie();
         cookie.Name = "access";
@@ -39,10 +41,7 @@ public class BattleApiController : APIBehaviour {
         ws.OnClose += OnCloseHandler;
 
         stateMachine.AddHandler(APIState.Running, () => {
-            new tpd.Wait(this, 3, () => {
-                Debug.Log("Connecting to websocket " + ws.Url);
-                ws.ConnectAsync();
-            });
+            ws.ConnectAsync();
         });
 
         stateMachine.AddHandler(APIState.Connected, () => {
@@ -54,31 +53,10 @@ public class BattleApiController : APIBehaviour {
         });
         
         stateMachine.AddHandler(APIState.Subscribed, () => {
-            new tpd.Wait(this, 1, () => {
-                StartBattle();
-            });
+            callback.Invoke();
         });
         
         stateMachine.Run();
-    }
-    
-    void StartPing () {
-        InvokeRepeating("Ping", 0f, pingInterval);
-    }    
-        
-    void StartBattle () {
-        RequestReady();
-        // StartPing();    
-    }
-    
-    public static JSONNode requestNode () {
-        var node = JSON.Parse("{}");
-        node.Add("command", "message");
-        var channel = JSON.Parse("{}");
-        channel.Add("channel", "BattleChannel");
-        channel.Add("battle_id", PlayerPrefs.GetString("battleId"));
-        node.Add("identifier", channel.AsObject.ToString());
-        return node;
     }
     
     void Subscribe () {
@@ -91,26 +69,6 @@ public class BattleApiController : APIBehaviour {
         var msg = node.AsObject.ToString();
         
         APIMessage(msg);
-    }
-    
-    void Ping () {
-        var node = requestNode();
-        var data = JSON.Parse("{}");
-        data.Add("request", "ping");
-        node.Add("data", data.AsObject.ToString());
-        var msg = node.ToString();
-        
-        APIMessage(msg);
-    }
-    
-    void RequestReady () {
-        var node = requestNode();
-        
-        var data = JSON.Parse("{}");
-        data.Add("request", ClientRequest.ClientReady);
-        node.Add("data", data.AsObject.ToString());
-        var msg = node.ToString();
-        APIMessage(msg); 
     }
     
     public void SendClientRequest (ClientRequest clientRequest) {
