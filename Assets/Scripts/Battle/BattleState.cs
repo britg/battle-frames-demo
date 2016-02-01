@@ -23,7 +23,7 @@ public class BattleState {
     
     public bool isClientTurn {
         get {
-            Debug.Log(string.Format("{0} {1} {2}", currentTurnSide, mySide, currentTurnSide == mySide));
+            // Debug.Log(string.Format("{0} {1} {2}", currentTurnSide, mySide, currentTurnSide == mySide));
             return currentTurnSide == mySide;
         }
     }

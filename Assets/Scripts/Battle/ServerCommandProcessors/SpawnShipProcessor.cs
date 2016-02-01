@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SpawnCharacterProcessor : MonoBehaviour, IServerCommandProcessor {
+public class SpawnShipProcessor : MonoBehaviour, IServerCommandProcessor {
     
-    public GameObject character;
+    public GameObject shipPrefab;
 
 	// Use this for initialization
 	void Start () {
@@ -16,8 +16,11 @@ public class SpawnCharacterProcessor : MonoBehaviour, IServerCommandProcessor {
 	}
     
     public void Process (ServerCommand command) {
-        Debug.Log("Spawn character processor is processing command " + command);
-        Instantiate(character);
+        var characterObj = Instantiate(shipPrefab) as GameObject;
+        var character = characterObj.GetComponent<Ship>();
+        
+        
+        
         command.onProcessedCallback.Invoke();
     }
 }

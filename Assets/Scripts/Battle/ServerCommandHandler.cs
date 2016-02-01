@@ -6,7 +6,7 @@ using SimpleJSON;
 public class ServerCommandHandler : MonoBehaviour {
     
     public delegate void Callback();
-    public SpawnCharacterProcessor spawnCharacterProcessor;
+    public SpawnShipProcessor spawnShipProcessor;
     public ClientRequestHandler clientRequestHandler;
     public BattleStateController battleStateController;
     public NotifyTurnProcessor notifyTurnProcessor;
@@ -46,8 +46,8 @@ public class ServerCommandHandler : MonoBehaviour {
         
         switch (currentWorkingCommand.commandName) {
             
-            case ServerCommand.SpawnCharacter:
-                spawnCharacterProcessor.Process(currentWorkingCommand);
+            case ServerCommand.SpawnShip:
+                spawnShipProcessor.Process(currentWorkingCommand);
             break;
             
             case ServerCommand.EnableClientActions:

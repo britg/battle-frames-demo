@@ -2,7 +2,7 @@ using SimpleJSON;
 
 public class ServerCommand {
     
-    public const string SpawnCharacter = "spawn_character";
+    public const string SpawnShip = "spawn_ship";
     public const string EnableClientActions = "enable_client_actions";
     public const string DisableClientActions = "disable_client_actions";
     public const string ClientRequestOutcome = "client_request_outcome";
