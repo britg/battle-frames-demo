@@ -26,11 +26,6 @@ public class MapManager : MonoBehaviour {
         SceneManager.LoadScene("SuperMassive");
     }
     
-    public void OnDemoButtonPressed (string scenarioKey) {
-        Simulation.scenarioKey = scenarioKey;
-        SceneManager.LoadScene(BattleSceneName);
-    }
-    
     public void AddTiles (JSONNode tilesJSON) {
         var tilesArr = tilesJSON["tiles"].AsArray;
         foreach (JSONNode node in tilesArr) {

@@ -94,6 +94,6 @@ public class ClientRequestHandler : MonoBehaviour {
         Debug.Log("Finishing client request " + currentWorkingRequest);
         currentWorkingRequest = null;
         
-        serverCommand.onProcessedCallback.Invoke();    
+        serverCommand.onProcessedCallback.Invoke();
     }
 }
